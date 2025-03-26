@@ -17,6 +17,8 @@ dist
 .idea
 *.swp
 
+.history
+
 # Other
 .DS_Store
 wandb

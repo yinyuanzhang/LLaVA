@@ -41,7 +41,10 @@ class LlavaLlamaModel(LlavaMetaModel, LlamaModel):
 class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
     config_class = LlavaConfig
 
-    def __init__(self, config):
+    def __init__(self, config, *model_args):
+        if len(model_args) > 0:
+            self.image_cache = model_args[0].image_cache
+        config.image_cache = model_args[0].image_cache
         super(LlamaForCausalLM, self).__init__(config)
         self.model = LlavaLlamaModel(config)
         self.pretraining_tp = config.pretraining_tp

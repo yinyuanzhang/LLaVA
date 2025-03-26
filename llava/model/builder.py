@@ -23,7 +23,7 @@ from llava.model import *
 from llava.constants import DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 
 
-def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, load_4bit=False, device_map="auto", device="cuda", use_flash_attn=False, **kwargs):
+def load_pretrained_model(model_path, model_base, model_name, model_args = None, load_8bit=False, load_4bit=False, device_map="auto", device="cuda", use_flash_attn=False, **kwargs):
     kwargs = {"device_map": device_map, **kwargs}
 
     if device != "cuda":
@@ -113,9 +113,11 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
                     **kwargs
                 )
             else:
+                model_path = "/root/autodl-tmp/cache/hub/models--imagecache--llava-v1.5-7b"
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
                 model = LlavaLlamaForCausalLM.from_pretrained(
                     model_path,
+                    model_args,
                     low_cpu_mem_usage=True,
                     **kwargs
                 )
@@ -152,7 +154,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             tokenizer.add_tokens([DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN], special_tokens=True)
         model.resize_token_embeddings(len(tokenizer))
 
-        vision_tower = model.get_vision_tower()
+        vision_tower = model.get_vision_tower()      # 这里才开始进行 vision_tower的模型定义和加载，模型的其他部分都已经加载
         if not vision_tower.is_loaded:
             vision_tower.load_model(device_map=device_map)
         if device_map != 'auto':

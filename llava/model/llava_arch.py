@@ -23,13 +23,15 @@ from .multimodal_projector.builder import build_vision_projector
 
 from llava.constants import IGNORE_INDEX, IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 
+from transformers.models.llama.modeling_llama import LlamaDecoderLayer
 from llava.mm_utils import get_anyres_image_grid_shape
-
+import copy
 
 class LlavaMetaModel:
 
     def __init__(self, config):
         super(LlavaMetaModel, self).__init__(config)
+        self.image_cache = config.image_cache
 
         if hasattr(config, "mm_vision_tower"):
             self.vision_tower = build_vision_tower(config, delay_load=True)
@@ -39,6 +41,34 @@ class LlavaMetaModel:
                 self.image_newline = nn.Parameter(
                     torch.empty(config.hidden_size, dtype=self.dtype)
                 )
+        
+        self.init_build_prefusion=False
+        self.load_prefusion_layers=False
+        if self.image_cache:
+            self.build_prefusion(config)
+            self.init_build_prefusion=True
+
+
+    def build_prefusion(self,config):
+        self.prefusion_layer_num= getattr(config,'prefusion_layer_num', 4)
+
+        self.prefusion_layers=nn.ModuleList([LlamaDecoderLayer(self.base_model.config,layer_idx=i) for i in range(self.prefusion_layer_num)])
+        if self.base_model.device.type != 'meta':
+            self.prefusion_layers.to(self.base_model.device).to(self.base_model.dtype)
+            
+
+
+    def load_prefusion(self):
+        for i in range(self.prefusion_layer_num):
+            # 获取原模型对应层的权重
+            src_layer = self.base_model.layers[i]
+            # 加载到新层
+            self.prefusion_layers[i].load_state_dict(src_layer.state_dict())
+
+        for p in self.prefusion_layers.parameters():
+            p.requires_grad = True
+
+        self.load_prefusion_layers=True    
 
     def get_vision_tower(self):
         vision_tower = getattr(self, 'vision_tower', None)
@@ -46,6 +76,16 @@ class LlavaMetaModel:
             vision_tower = vision_tower[0]
         return vision_tower
 
+    # def get_background_object_vision_tower(self):
+    #     background_object_vision_tower = getattr(self, 'background_object_vision_tower', None)
+    #     if background_object_vision_tower is None and self.config.image_cache:
+    #         self.config.mm_vision_select_layer = -2
+    #         background_object_vision_tower = build_vision_tower(self.config)            
+    #         self.background_object_vision_tower = background_object_vision_tower
+    #     if type(background_object_vision_tower) is list:
+    #         background_object_vision_tower = background_object_vision_tower[0]
+    #     return background_object_vision_tower
+        
     def initialize_vision_modules(self, model_args, fsdp=None):
         vision_tower = model_args.vision_tower
         mm_vision_select_layer = model_args.mm_vision_select_layer
@@ -68,6 +108,10 @@ class LlavaMetaModel:
             else:
                 vision_tower = self.vision_tower
             vision_tower.load_model()
+
+        # if model_args.image_cache and self.get_background_object_vision_tower() is None:
+        #     background_object_vision_tower = build_vision_tower(model_args)            
+        #     self.background_object_vision_tower = background_object_vision_tower
 
         self.config.use_mm_proj = True
         self.config.mm_projector_type = getattr(model_args, 'mm_projector_type', 'linear')
@@ -95,6 +139,15 @@ class LlavaMetaModel:
                 return {k.split(keyword + '.')[1]: v for k, v in weights.items() if keyword in k}
 
             self.mm_projector.load_state_dict(get_w(mm_projector_weights, 'mm_projector'))
+
+        if not self.load_prefusion_layers and model_args.image_cache:
+            if getattr(model_args, 'pretrain_prefusion', None):
+                model_weights = torch.load(model_args.pretrain_prefusion, map_location='cpu')
+                for name, module in self.prefusion_layers.named_parameters():
+                    module.data=model_weights[f"{name}"].data.type_as(module.data)
+                    module.requires_grad = True
+                print(f"load pretrain_prefusion from {model_args.pretrain_prefusion}")
+                self.load_prefusion_layers=True
 
 
 def unpad_image(tensor, original_size):
@@ -142,6 +195,85 @@ class LlavaMetaForCausalLM(ABC):
         image_features = self.get_model().mm_projector(image_features)
         return image_features
 
+    # def get_background_object_vision_tower(self):
+    #     return self.get_model().get_background_object_vision_tower()
+    
+       
+    # 统一在此处进行封装，即均是调用 get_vision_tower
+    def encode_background_and_object_images(self, images):
+        """
+        编码背景&目标图像。
+        """        
+        background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
+        background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images)
+        
+        background_features = self.get_model().mm_projector(background_features)
+        object_features = self.get_model().mm_projector(object_features)
+
+        batch_size, _, embedding_dim = background_features.shape
+        device = background_features.device
+
+        # --- 验证有效token数 ---
+        valid_background_mask = background_attention_mask.bool().unsqueeze(-1)
+        valid_object_mask = object_attention_mask.bool().unsqueeze(-1)
+        background_valid = valid_background_mask.squeeze(-1).sum(dim=1)
+        object_valid = valid_object_mask.squeeze(-1).sum(dim=1)
+        assert torch.all(background_valid + object_valid == 576), "总有效token数应为576"
+
+        # --- 向量化提取有效token ---
+        # 展平背景和目标特征
+        bg_flat = background_features[valid_background_mask.repeat(1, 1, embedding_dim)]  # [total_bg_tokens, 4096]
+        obj_flat = object_features[valid_object_mask.repeat(1, 1, embedding_dim)]        # [total_obj_tokens, 4096]
+
+        # 按样本分割
+        bg_splits = torch.split(bg_flat, (background_valid * embedding_dim).tolist())
+        obj_splits = torch.split(obj_flat, (object_valid * embedding_dim).tolist())
+
+        # 拼接并重塑形状
+        concatenated_features = [
+            torch.cat([bg.reshape(-1, embedding_dim), obj.reshape(-1, embedding_dim)], dim=0)
+            for bg, obj in zip(bg_splits, obj_splits)
+        ]
+        concatenated_features = torch.stack(concatenated_features, dim=0)  # [batch_size, 576, 4096]
+
+        # --- 生成掩码和位置ID ---
+        concatenated_attention_mask = torch.ones((batch_size, 576), dtype=torch.bool, device=device)
+
+        attention_mask = concatenated_attention_mask.int()
+
+        position_ids = attention_mask.long().cumsum(-1) - 1
+
+        # attention_mask = concatenated_attention_mask.unsqueeze(1).unsqueeze(3) 
+        # attention_mask = attention_mask.expand(-1, -1, -1, 576).bool()
+
+        # position_ids = torch.arange(concatenated_attention_mask.shape[1], device=device).expand(batch_size, -1)  # [batch_size, 576]
+
+        # model 初始化
+        if not self.get_model().load_prefusion_layers:
+            self.get_model().load_prefusion()
+        
+        orig_concatenated_features = concatenated_features.clone()
+
+        # 模态预融合
+        for layer in self.get_model().prefusion_layers:
+            concatenated_features = layer(concatenated_features, attention_mask=attention_mask, position_ids=position_ids)[0]
+
+        # 提取经过融合处理的目标特征部分
+        final_features_list = []
+        for i in range(batch_size):
+            start_idx = background_valid[i].item()
+            end_idx = start_idx + object_valid[i].item()
+            fused_object_features = concatenated_features[i, start_idx:end_idx]
+            original_background_features = orig_concatenated_features[i, 0:start_idx]
+            final_feature = torch.cat([original_background_features, fused_object_features], dim=0)  # [576, 4096]
+            final_features_list.append(final_feature)
+
+        final_features = torch.stack(final_features_list, dim=0)  # [batch_size, 576, 4096]
+        assert all(final_features.shape[1] == 576 for _ in range(batch_size)), "特征数量不匹配"
+
+        return final_features
+
+    
     def prepare_inputs_labels_for_multimodal(
         self, input_ids, position_ids, attention_mask, past_key_values, labels,
         images, image_sizes=None
@@ -199,7 +331,11 @@ class LlavaMetaForCausalLM(ABC):
             else:
                 raise ValueError(f"Unexpected mm_patch_merge_type: {self.config.mm_patch_merge_type}")
         else:
-            image_features = self.encode_images(images)
+            if self.image_cache:
+                image_features = self.encode_background_and_object_images(images)
+            else:
+                image_features = self.encode_images(images)
+
 
         # TODO: image start / end is not implemented here to support pretraining.
         if getattr(self.config, 'tune_mm_mlp_adapter', False) and getattr(self.config, 'mm_use_im_start_end', False):

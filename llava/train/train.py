@@ -64,6 +64,7 @@ class ModelArguments:
     mm_use_im_patch_token: bool = field(default=True)
     mm_patch_merge_type: Optional[str] = field(default='flat')
     mm_vision_select_feature: Optional[str] = field(default="patch")
+    image_cache: bool = field(default=False)
 
 
 @dataclass
@@ -662,7 +663,7 @@ class LazySupervisedDataset(Dataset):
                  tokenizer: transformers.PreTrainedTokenizer,
                  data_args: DataArguments):
         super(LazySupervisedDataset, self).__init__()
-        list_data_dict = json.load(open(data_path, "r"))
+        list_data_dict = json.load(open(data_path, "r"))[0:4000]
 
         rank0_print("Formatting inputs...Skip in lazy mode")
         self.tokenizer = tokenizer
@@ -826,6 +827,7 @@ def train(attn_implementation=None):
         else:
             model = LlavaLlamaForCausalLM.from_pretrained(
                 model_args.model_name_or_path,
+                model_args,
                 cache_dir=training_args.cache_dir,
                 attn_implementation=attn_implementation,
                 torch_dtype=(torch.bfloat16 if training_args.bf16 else None),
@@ -958,6 +960,48 @@ def train(attn_implementation=None):
 
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                               data_args=data_args)
+    
+    
+    # train_dataset中 getitem输出格式为(3,H,W)
+    # data_collator _call_输出格式为(B,3,H,W)
+
+    # print("Model structure:")
+    # print(model)
+    
+    # from torchinfo import summary
+    # # 使用 torchinfo 打印模型摘要
+    # batch_size = 16
+    # sequence_length = 2048
+    # input_shape = (batch_size, sequence_length)
+    # summary(model, input_size=input_shape)
+    
+    # # 打印 training_args
+    # print("\nTraining arguments:")
+    # training_args_dict = training_args.to_dict()
+    # for key, value in training_args_dict.items():
+    #     print(f"{key}: {value}")
+
+    # # 打印 data_module
+    # print("\nData module:")
+    # print(data_module)
+
+    # # 打印数据集样本
+    # train_dataset = data_module.get("train_dataset")
+    # if train_dataset is not None:
+    #     sample = train_dataset[0]
+    #     print("\nSample from train_dataset:")
+    #     print(sample)
+
+    # batch_size = 50
+    # count = 0
+    # for name, param in model.named_parameters():
+    #     print(f"{name}: requires_grad={param.requires_grad}")
+    #     count += 1
+
+    #     if count % batch_size == 0:
+    #         print("-" * 40)  # 打印分隔线以示区分
+
+    
     trainer = LLaVATrainer(model=model,
                     tokenizer=tokenizer,
                     args=training_args,
