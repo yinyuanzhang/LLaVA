@@ -18,6 +18,7 @@ dist
 *.swp
 
 .history
+yolo*
 
 # Other
 .DS_Store
