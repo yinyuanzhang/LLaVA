@@ -11,13 +11,17 @@ import numpy as np
 
 from transformers.models.clip.modeling_clip import CLIPVisionTransformer, CLIPEncoder, BaseModelOutputWithPooling
 from typing import Any, Optional, Tuple, Union
+from torch.nn.utils.rnn import pad_sequence
 
 class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
     def __init__(self, config: CLIPVisionConfig, args):
         super().__init__(config)  
 
         # 替换现有的 embeddings [目标检测、 mask标记]
-        self.embeddings = MyCLIPVisionEmbeddings(config, args)
+        # self.embeddings = MyCLIPVisionEmbeddings(config, args)
+        self.config = config
+
+        self.embeddings = CLIPVisionEmbeddings(config)
 
         # 添加两个独立的 Transformer 编码器
         self.background_object_encoder = CLIPEncoder(config)
@@ -25,6 +29,7 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
     def forward(
         self,
         pixel_values: Optional[torch.FloatTensor] = None,
+        masks: Optional[torch.FloatTensor] = None,
         output_attentions: Optional[bool] = None,
         output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
@@ -47,15 +52,30 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         # 1. embedding 2. 根据index进行重组 -> list 3. 根据list，进行最大padding，同时记录mask 
 
         # 获取嵌入表示
-        embedding_result = self.embeddings(pixel_values)
-        hidden_states = embedding_result["embeddings"]
+        hidden_states = self.embeddings(pixel_values)
         hidden_states = self.pre_layrnorm(hidden_states)
 
-        # 分离背景和目标的 token
-        background_indices_list = embedding_result["background_indices"]
-        target_indices_list = embedding_result["object_indices"]
+        masks = masks[:, 0, :, :].float()
+        mask_4d = masks.unsqueeze(1)
+        pool = torch.nn.MaxPool2d(kernel_size=self.config.patch_size, stride=self.config.patch_size)
+        patch_mask = pool(mask_4d)
+        patch_mask = (patch_mask.squeeze(1) > 0).int()
 
+
+        # 分离背景和目标的索引
         batch_size, seq_len, embed_dim = hidden_states.shape
+        background_indices_list = []
+        target_indices_list = []
+
+        for i in range(batch_size):
+            cur_mask = patch_mask[i].flatten()  # 当前样本的 mask，展平为 (num_patches,)
+            # assert torch.all((cur_mask == 0) | (cur_mask == 1)), "Mask values must be either 0 or 1"
+            background_indices = torch.where(cur_mask == 0)[0]  # 背景 token 索引
+            target_indices = torch.where(cur_mask == 1)[0]      # 目标 token 索引
+
+            background_indices_list.append(background_indices + 1)   # 这里的 +1 是因为存在分类embedding
+            target_indices_list.append(target_indices + 1) 
+
         background_embeddings = []
         object_embeddings = []
 
@@ -63,8 +83,6 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
             background_embeddings.append(hidden_states[i, background_indices_list[i]])
             object_embeddings.append(hidden_states[i, target_indices_list[i]])
 
-        # 填充背景和目标的 token 到相同长度
-        from torch.nn.utils.rnn import pad_sequence
 
         max_background_len = max(len(x) for x in background_embeddings)
         max_object_len = max(len(x) for x in object_embeddings)
@@ -78,17 +96,21 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
 
         # 生成背景和目标的掩码
         background_attention_mask = (torch.arange(max_background_len).unsqueeze(0) < torch.tensor([len(x) for x in background_embeddings]).unsqueeze(1)).to(torch.int32).to(pixel_values.device)
+        vit_background_attention_mask = background_attention_mask.unsqueeze(1).unsqueeze(2).expand(-1, -1, max_background_len, -1)
         object_attention_mask = (torch.arange(max_object_len).unsqueeze(0) < torch.tensor([len(x) for x in object_embeddings]).unsqueeze(1)).to(torch.int32).to(pixel_values.device)
+        vit_object_attention_mask = object_attention_mask.unsqueeze(1).unsqueeze(2).expand(-1, -1, max_object_len, -1)
 
         # 分别通过背景和目标的编码器
         background_outputs = self.background_object_encoder(
             inputs_embeds=background_embeddings_padded,
+            attention_mask=vit_background_attention_mask,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
         )
         object_outputs = self.background_object_encoder(
             inputs_embeds=object_embeddings_padded,
+            attention_mask=vit_object_attention_mask,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
@@ -244,8 +266,8 @@ class MyCLIPVisionEmbeddings(CLIPVisionEmbeddings):
     def __init__(self, config: CLIPVisionConfig, args):
         super().__init__(config)
 
-        # 初始化 YOLO 推理工具
-        self.yolo_inference = YOLOInference(model_path="yolov8n-seg.pt")
+        # # 初始化 YOLO 推理工具
+        # self.yolo_inference = YOLOInference(model_path="yolov8n-seg.pt")
 
 
         
@@ -261,11 +283,11 @@ class MyCLIPVisionEmbeddings(CLIPVisionEmbeddings):
         # num_patches_w = width // patch_width
 
 
-        # 动态迁移 yolo_inference 到输入张量的设备
         device = pixel_values.device
-        self.yolo_inference.to(device)
+        if self.yolo_inference.model.device != device:
+            self.yolo_inference.to(device)
 
-        pixel_values = torch.clamp(pixel_values, min=0, max=1)
+        pixel_values = torch.clamp(pixel_values, max=1)
 
         # 直接对整个 batch 进行推理
         with torch.no_grad():
@@ -274,15 +296,18 @@ class MyCLIPVisionEmbeddings(CLIPVisionEmbeddings):
         # 处理每个样本的检测结果
         masks = []
         for i in range(batch_size):
-            detections = results[i].masks  # 获取第 i 个样本的分割掩码
-
-            # 下采样到 patch 级别
+            # todo:给出原本的图片
+            detections = results[i].masks  
+            
+            # todo:给出整体的图像mask的结果
             mask = torch.tensor(detections, dtype=torch.float32, device=device).unsqueeze(0)
             mask = F.avg_pool2d(mask, kernel_size=self.patch_size, stride=self.patch_size)
             mask = (mask > 0.1).squeeze(0).squeeze(0)  # 形状为 (num_patches_h, num_patches_w)
+            
+            # todo:给出整体的图像下采样后mask的结果
+
             masks.append(mask.flatten())
-
-
+            
             # todo: 这里给出一次验证(一次就行)，验证1.image 2. detections 3. mask 主要是需要在图片上观察上述的mask是否有效。
 
         # 堆叠所有样本的掩码
@@ -300,14 +325,12 @@ class MyCLIPVisionEmbeddings(CLIPVisionEmbeddings):
         """
         batch_size = pixel_values.shape[0]
         target_dtype = self.patch_embedding.weight.dtype
-
-        # 使用卷积生成所有 patches 的 embeddings
-        all_patch_embeds = self.patch_embedding(pixel_values.to(dtype=target_dtype))  # 形状为 (batch_size, embed_dim, grid_h, grid_w)
-        all_patch_embeds = all_patch_embeds.flatten(2).transpose(1, 2)  # 形状为 (batch_size, num_patches, embed_dim)
+        patch_embeds = self.patch_embedding(pixel_values.to(dtype=target_dtype))  # shape = [*, width, grid, grid]
+        patch_embeds = patch_embeds.flatten(2).transpose(1, 2)
 
         class_embeds = self.class_embedding.expand(batch_size, 1, -1)
-        embeddings = torch.cat([class_embeds, all_patch_embeds], dim=1)
-        final_embeddings = embeddings + self.position_embedding(self.position_ids)
+        embeddings = torch.cat([class_embeds, patch_embeds], dim=1)
+        embeddings = embeddings + self.position_embedding(self.position_ids)
 
         # 动态生成 mask
         mask = self.generate_patch_mask(pixel_values)  # 形状为 (batch_size, height, width)
@@ -322,18 +345,66 @@ class MyCLIPVisionEmbeddings(CLIPVisionEmbeddings):
             background_indices = torch.where(cur_mask == 0)[0]  # 背景 token 索引
             target_indices = torch.where(cur_mask == 1)[0]      # 目标 token 索引
 
-            background_indices_list.append(background_indices + 1)
-            target_indices_list.append(target_indices + 1)
+            background_indices_list.append(background_indices + 1)   # 这里的 +1 是因为存在分类embedding
+            target_indices_list.append(target_indices + 1) 
 
 
         # 返回结果
         return {
-            "embeddings": final_embeddings,
+            "embeddings": embeddings,
             "background_indices": background_indices_list,
             "object_indices": target_indices_list
         }
         
 
+class MyCLIPVisionModel(CLIPVisionModel):
+
+    @classmethod
+    def from_pretrained(cls, pretrained_model_name_or_path, *args, **kwargs):
+        # 使用父类的方法加载预训练权重
+        model = super().from_pretrained(pretrained_model_name_or_path, *args, **kwargs)
+        return model
+    
+    def forward(
+        self,
+        pixel_values: Optional[torch.FloatTensor] = None,
+        masks: Optional[torch.FloatTensor] = None,
+        output_attentions: Optional[bool] = None,
+        output_hidden_states: Optional[bool] = None,
+        return_dict: Optional[bool] = None,
+    ) -> Union[Tuple, BaseModelOutputWithPooling]:
+        r"""
+        Returns:
+
+        Examples:
+
+        ```python
+        >>> from PIL import Image
+        >>> import requests
+        >>> from transformers import AutoProcessor, CLIPVisionModel
+
+        >>> model = CLIPVisionModel.from_pretrained("openai/clip-vit-base-patch32")
+        >>> processor = AutoProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+        >>> url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+        >>> image = Image.open(requests.get(url, stream=True).raw)
+
+        >>> inputs = processor(images=image, return_tensors="pt")
+
+        >>> outputs = model(**inputs)
+        >>> last_hidden_state = outputs.last_hidden_state
+        >>> pooled_output = outputs.pooler_output  # pooled CLS states
+        ```"""
+        return_dict = return_dict if return_dict is not None else self.config.use_return_dict
+
+        return self.vision_model(
+            pixel_values=pixel_values,
+            masks=masks,
+            output_attentions=output_attentions,
+            output_hidden_states=output_hidden_states,
+            return_dict=return_dict,
+        )
+    
 
 class CLIPVisionTower(nn.Module):
     def __init__(self, vision_tower, args, delay_load=False):
@@ -387,7 +458,7 @@ class CLIPVisionTower(nn.Module):
             return
 
         self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
-        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+        self.vision_tower = MyCLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
         
         vision_tower_output_path = './checkpoints/clip-vit-large-patch14-336.pth'
 
@@ -462,9 +533,9 @@ class CLIPVisionTower(nn.Module):
         return image_features
     
     @torch.no_grad()
-    def forward(self, images):
+    def forward(self, images, masks):
         if self.args.image_cache:
-            image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), output_hidden_states=True)
+            image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), masks = masks.to(device=self.device), output_hidden_states=True)
             background_features = self.my_feature_select(image_forward_outs[0]).to(images.dtype)
             background_attention_mask = image_forward_outs[0][-1].to(images.dtype)
             object_features = self.my_feature_select(image_forward_outs[1]).to(images.dtype)

@@ -33,10 +33,12 @@ from llava.train.llava_trainer import LLaVATrainer
 
 from llava import conversation as conversation_lib
 from llava.model import *
-from llava.mm_utils import tokenizer_image_token
+from llava.mm_utils import tokenizer_image_token, process_mask_images
 
 from PIL import Image
-
+from ultralytics import YOLO
+import cv2
+import numpy as np
 
 local_rank = None
 
@@ -661,14 +663,17 @@ class LazySupervisedDataset(Dataset):
 
     def __init__(self, data_path: str,
                  tokenizer: transformers.PreTrainedTokenizer,
-                 data_args: DataArguments):
+                 data_args: DataArguments,
+                 yolo_model: YOLO):
         super(LazySupervisedDataset, self).__init__()
-        list_data_dict = json.load(open(data_path, "r"))[0:4000]
+        list_data_dict = json.load(open(data_path, "r"))
 
         rank0_print("Formatting inputs...Skip in lazy mode")
         self.tokenizer = tokenizer
         self.list_data_dict = list_data_dict
         self.data_args = data_args
+
+        self.yolo_model = yolo_model
 
     def __len__(self):
         return len(self.list_data_dict)
@@ -715,6 +720,27 @@ class LazySupervisedDataset(Dataset):
                         return result
                 image = expand2square(image, tuple(int(x*255) for x in processor.image_mean))
                 image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
+
+                # 添加的mask逻辑
+                result = self.yolo_model(os.path.join(image_folder, image_file))
+
+                # 计算缩放比例   
+                orig_h, orig_w = result[0].orig_shape  # 原始尺寸（480,640）
+                combined_mask = np.zeros((orig_h, orig_w), dtype=np.uint8)
+
+                if result[0].masks is not None:
+                    masks = result[0].masks.data.cpu().numpy().astype(np.uint8)   # masks尺寸（n, 480,640）
+                    
+                    for mask in masks:
+                        mask_resized = cv2.resize(mask, (orig_w, orig_h), interpolation=cv2.INTER_LINEAR)
+                        combined_mask = np.bitwise_or(combined_mask, mask_resized)
+                mask_pil = Image.fromarray(combined_mask)
+
+                mask = expand2square(mask_pil, tuple(int(x*255) for x in [0]))
+                mask_tensor = processor.preprocess(mask, return_tensors='pt', do_rescale = False, do_normalize = False)['pixel_values'][0]
+
+    
+
             else:
                 image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
             sources = preprocess_multimodal(
@@ -737,6 +763,8 @@ class LazySupervisedDataset(Dataset):
             # image does not exist in the data, but the model is multimodal
             crop_size = self.data_args.image_processor.crop_size
             data_dict['image'] = torch.zeros(3, crop_size['height'], crop_size['width'])
+
+        data_dict['masks'] = mask_tensor    
         return data_dict
 
 
@@ -766,20 +794,25 @@ class DataCollatorForSupervisedDataset(object):
 
         if 'image' in instances[0]:
             images = [instance['image'] for instance in instances]
+            masks = [instance['masks'] for instance in instances]
             if all(x is not None and x.shape == images[0].shape for x in images):
                 batch['images'] = torch.stack(images)
+                batch['masks'] = torch.stack(masks)
             else:
                 batch['images'] = images
+                batch['masks'] = masks
 
         return batch
 
 
 def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
-                                data_args) -> Dict:
+                                data_args,
+                                yolo_model: YOLO) -> Dict:
     """Make dataset and collator for supervised fine-tuning."""
     train_dataset = LazySupervisedDataset(tokenizer=tokenizer,
                                 data_path=data_args.data_path,
-                                data_args=data_args)
+                                data_args=data_args,
+                                yolo_model=yolo_model)
     data_collator = DataCollatorForSupervisedDataset(tokenizer=tokenizer)
     return dict(train_dataset=train_dataset,
                 eval_dataset=None,
@@ -958,8 +991,12 @@ def train(attn_implementation=None):
                     if training_args.bf16 and module.weight.dtype == torch.float32:
                         module = module.to(torch.bfloat16)
 
+
+    yolo_model = YOLO('yolov8n-seg.pt').to(training_args.device).eval()
+
     data_module = make_supervised_data_module(tokenizer=tokenizer,
-                                              data_args=data_args)
+                                              data_args=data_args,
+                                              yolo_model=yolo_model)
     
     
     # train_dataset中 getitem输出格式为(3,H,W)

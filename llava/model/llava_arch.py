@@ -200,12 +200,12 @@ class LlavaMetaForCausalLM(ABC):
     
        
     # 统一在此处进行封装，即均是调用 get_vision_tower
-    def encode_background_and_object_images(self, images):
+    def encode_background_and_object_images(self, images, masks):
         """
         编码背景&目标图像。
         """        
         background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
-        background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images)
+        background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
         
         background_features = self.get_model().mm_projector(background_features)
         object_features = self.get_model().mm_projector(object_features)
@@ -230,26 +230,27 @@ class LlavaMetaForCausalLM(ABC):
         obj_splits = torch.split(obj_flat, (object_valid * embedding_dim).tolist())
 
         # 拼接并重塑形状
+        flag_token = torch.zeros(1, embedding_dim).to(background_features.device).to(background_features.dtype)
         concatenated_features = [
-            torch.cat([bg.reshape(-1, embedding_dim), obj.reshape(-1, embedding_dim)], dim=0)
+            torch.cat([bg.reshape(-1, embedding_dim), flag_token, obj.reshape(-1, embedding_dim)], dim=0)
             for bg, obj in zip(bg_splits, obj_splits)
         ]
         concatenated_features = torch.stack(concatenated_features, dim=0)  # [batch_size, 576, 4096]
 
         # --- 生成掩码和位置ID ---
-        concatenated_attention_mask = torch.ones((batch_size, 576), dtype=torch.bool, device=device)
+        concatenated_attention_mask = torch.ones((batch_size, 577), dtype=torch.bool, device=device)
 
         attention_mask = concatenated_attention_mask.int()
 
         position_ids = attention_mask.long().cumsum(-1) - 1
 
         # attention_mask = concatenated_attention_mask.unsqueeze(1).unsqueeze(3) 
-        # attention_mask = attention_mask.expand(-1, -1, -1, 576).bool()
+        # attention_mask = attention_mask.expand(-1, -1, -1, 577).bool()
 
         # position_ids = torch.arange(concatenated_attention_mask.shape[1], device=device).expand(batch_size, -1)  # [batch_size, 576]
 
-        # model 初始化
-        if not self.get_model().load_prefusion_layers:
+        # model 初始化    【这里增加条件判断】
+        if not self.get_model().load_prefusion_layers:  # and model未load
             self.get_model().load_prefusion()
         
         orig_concatenated_features = concatenated_features.clone()
@@ -263,7 +264,7 @@ class LlavaMetaForCausalLM(ABC):
         for i in range(batch_size):
             start_idx = background_valid[i].item()
             end_idx = start_idx + object_valid[i].item()
-            fused_object_features = concatenated_features[i, start_idx:end_idx]
+            fused_object_features = concatenated_features[i, start_idx + 1:end_idx + 1]
             original_background_features = orig_concatenated_features[i, 0:start_idx]
             final_feature = torch.cat([original_background_features, fused_object_features], dim=0)  # [576, 4096]
             final_features_list.append(final_feature)
@@ -276,7 +277,7 @@ class LlavaMetaForCausalLM(ABC):
     
     def prepare_inputs_labels_for_multimodal(
         self, input_ids, position_ids, attention_mask, past_key_values, labels,
-        images, image_sizes=None
+        images, masks, image_sizes=None
     ):
         vision_tower = self.get_vision_tower()
         if vision_tower is None or images is None or input_ids.shape[1] == 1:
@@ -332,7 +333,7 @@ class LlavaMetaForCausalLM(ABC):
                 raise ValueError(f"Unexpected mm_patch_merge_type: {self.config.mm_patch_merge_type}")
         else:
             if self.image_cache:
-                image_features = self.encode_background_and_object_images(images)
+                image_features = self.encode_background_and_object_images(images, masks)
             else:
                 image_features = self.encode_images(images)
 

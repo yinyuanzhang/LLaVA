@@ -25,6 +25,7 @@ for IDX in range(CHUNKS):
     cmd = [
         "python", "-m", "llava.eval.model_vqa_loader",
         "--model-path", "imagecache/llava-v1.5-7b",
+        # "--model-path", "liuhaotian/llava-v1.5-7b",
         "--question-file", f"../autodl-tmp/playground/data/eval/vqav2/{SPLIT}.jsonl",
         "--image-folder", "../autodl-tmp/playground/data/eval/vqav2/test2015",
         "--answers-file", str(answers_file),
