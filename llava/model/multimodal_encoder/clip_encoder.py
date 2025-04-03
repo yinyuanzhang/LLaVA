@@ -459,16 +459,17 @@ class CLIPVisionTower(nn.Module):
             return
 
         self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
-        self.vision_tower = MyCLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
-        
+        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+
+
         vision_tower_output_path = './checkpoints/clip-vit-large-patch14-336.pth'
-
-
         # 保存模型的状态字典(先保存，再加载)
         if not os.path.exists(vision_tower_output_path):
             state_dict = self.vision_tower.vision_model.state_dict()
             torch.save(state_dict, vision_tower_output_path)
 
+        self.vision_tower = MyCLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+        
 
         if self.args.image_cache:
             config = self.vision_tower.config
