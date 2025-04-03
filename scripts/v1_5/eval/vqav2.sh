@@ -10,7 +10,7 @@ SPLIT="llava_vqav2_mscoco_test-dev2015"
 
 for IDX in $(seq 0 $((CHUNKS-1))); do
     CUDA_VISIBLE_DEVICES=${GPULIST[$IDX]} python -m llava.eval.model_vqa_loader \
-        --model-path imagecache/llava-v1.5-7b \
+        --model-path imagecache/llava-v1.5-7b-lora \
         --question-file ~/autodl-tmp/playground/data/eval/vqav2/$SPLIT.jsonl \
         --image-folder ~/autodl-tmp/playground/data/eval/vqav2/test2015 \
         --answers-file ~/autodl-tmp/playground/data/eval/vqav2/answers/$SPLIT/$CKPT/${CHUNKS}_${IDX}.jsonl \

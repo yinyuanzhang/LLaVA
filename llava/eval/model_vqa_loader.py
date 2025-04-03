@@ -110,20 +110,20 @@ class CustomDataset(Dataset):
         if corrected_mask.shape[-1] == 1:
             corrected_mask = np.squeeze(corrected_mask, axis=-1)
 
-        if True:
-            plt.figure(figsize=(10,5))
-            plt.subplot(121)
-            plt.imshow(image)
-            plt.title('原始图像')
+        # if True:
+        #     plt.figure(figsize=(10,5))
+        #     plt.subplot(121)
+        #     plt.imshow(image)
+        #     plt.title('原始图像')
 
-            plt.subplot(122)
-            if len(corrected_mask.shape) == 3:
-                plt.imshow(corrected_mask)
-            else: 
-                plt.imshow(corrected_mask, cmap='gray')  # 灰度显示
-            plt.title('修正掩码')
-            # plt.show()
-            plt.savefig(dest_image_path)
+        #     plt.subplot(122)
+        #     if len(corrected_mask.shape) == 3:
+        #         plt.imshow(corrected_mask)
+        #     else: 
+        #         plt.imshow(corrected_mask, cmap='gray')  # 灰度显示
+        #     plt.title('修正掩码')
+        #     # plt.show()
+        #     plt.savefig(dest_image_path)
 
 
         input_ids = tokenizer_image_token(prompt, self.tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt')

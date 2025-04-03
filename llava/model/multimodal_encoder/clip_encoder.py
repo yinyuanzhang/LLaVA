@@ -12,6 +12,7 @@ import numpy as np
 from transformers.models.clip.modeling_clip import CLIPVisionTransformer, CLIPEncoder, BaseModelOutputWithPooling
 from typing import Any, Optional, Tuple, Union
 from torch.nn.utils.rnn import pad_sequence
+import os
 
 class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
     def __init__(self, config: CLIPVisionConfig, args):
@@ -462,9 +463,11 @@ class CLIPVisionTower(nn.Module):
         
         vision_tower_output_path = './checkpoints/clip-vit-large-patch14-336.pth'
 
+
         # 保存模型的状态字典(先保存，再加载)
-        # state_dict = self.vision_tower.vision_model.state_dict()
-        # torch.save(state_dict, vision_tower_output_path)
+        if not os.path.exists(vision_tower_output_path):
+            state_dict = self.vision_tower.vision_model.state_dict()
+            torch.save(state_dict, vision_tower_output_path)
 
 
         if self.args.image_cache:
