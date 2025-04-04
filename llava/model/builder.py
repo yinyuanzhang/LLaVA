@@ -113,7 +113,7 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
                     **kwargs
                 )
             else:
-                model_path = "/root/autodl-tmp/cache/hub/models--imagecache--llava-v1.5-7b"
+                model_path = "/data02/gta/.cache/huggingface/hub/models--imagecache--llava-v1.5-7b"
                 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
                 model = LlavaLlamaForCausalLM.from_pretrained(
                     model_path,
