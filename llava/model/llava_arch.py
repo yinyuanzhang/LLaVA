@@ -244,10 +244,10 @@ class LlavaMetaForCausalLM(ABC):
 
         position_ids = attention_mask.long().cumsum(-1) - 1
 
-        # attention_mask = concatenated_attention_mask.unsqueeze(1).unsqueeze(3) 
-        # attention_mask = attention_mask.expand(-1, -1, -1, 577).bool()
+        attention_mask = concatenated_attention_mask.unsqueeze(1).unsqueeze(3) 
+        attention_mask = attention_mask.expand(-1, -1, -1, 577).bool()
 
-        # position_ids = torch.arange(concatenated_attention_mask.shape[1], device=device).expand(batch_size, -1)  # [batch_size, 576]
+        position_ids = torch.arange(concatenated_attention_mask.shape[1], device=device).expand(batch_size, -1)  # [batch_size, 576]
 
         # model 初始化    【这里增加条件判断】
         if not self.get_model().load_prefusion_layers:  # and model未load
