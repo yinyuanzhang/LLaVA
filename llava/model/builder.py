@@ -59,6 +59,13 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
             if model.lm_head.weight.shape[0] != token_num:
                 model.lm_head.weight = torch.nn.Parameter(torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
                 model.model.embed_tokens.weight = torch.nn.Parameter(torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
+            
+            for i in range(4):
+                # 获取原模型对应层的权重
+                src_layer = model.model.layers[i]
+                # 加载到新层
+                model.model.prefusion_layers[i].load_state_dict(src_layer.state_dict())
+
 
             print('Loading additional LLaVA weights...')
             if os.path.exists(os.path.join(model_path, 'non_lora_trainables.bin')):
