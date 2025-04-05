@@ -47,6 +47,7 @@ class LlavaMetaModel:
         if self.image_cache:
             self.build_prefusion(config)
             self.init_build_prefusion=True
+            self.load_prefusion()
 
 
     def build_prefusion(self,config):
