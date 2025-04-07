@@ -42,11 +42,11 @@ class LlavaMetaModel:
                     torch.empty(config.hidden_size, dtype=self.dtype)
                 )
         
-        # self.init_build_prefusion=False
-        # self.load_prefusion_layers=False
-        # if self.image_cache:
-        #     self.build_prefusion(config)
-        #     self.init_build_prefusion=True
+        self.init_build_prefusion=False
+        self.load_prefusion_layers=False
+        if self.image_cache:
+            self.build_prefusion(config)
+            self.init_build_prefusion=True
             # self.load_prefusion()
 
 
@@ -238,15 +238,15 @@ class LlavaMetaForCausalLM(ABC):
         ]
         concatenated_features = torch.stack(concatenated_features, dim=0)  # [batch_size, 576, 4096]
 
-        return concatenated_features
+        # return concatenated_features
 
         
         # --- 生成掩码和位置ID ---
-        # concatenated_attention_mask = torch.ones((batch_size, 577), dtype=torch.bool, device=device)
+        concatenated_attention_mask = torch.ones((batch_size, 577), dtype=torch.bool, device=device)
 
-        # attention_mask = concatenated_attention_mask.int()
+        attention_mask = concatenated_attention_mask.int()
 
-        # position_ids = attention_mask.long().cumsum(-1) - 1
+        position_ids = attention_mask.long().cumsum(-1) - 1
 
         attention_mask = concatenated_attention_mask.unsqueeze(1).unsqueeze(3) 
         attention_mask = attention_mask.expand(-1, -1, -1, 577).bool()
@@ -257,26 +257,26 @@ class LlavaMetaForCausalLM(ABC):
         # if not self.get_model().load_prefusion_layers:  # and model未load
         #     self.get_model().load_prefusion()
         
-        # orig_concatenated_features = concatenated_features.clone()
+        orig_concatenated_features = concatenated_features.clone()
 
-        # # 模态预融合
-        # for layer in self.get_model().prefusion_layers:
-        #     concatenated_features = layer(concatenated_features, attention_mask=attention_mask, position_ids=position_ids)[0]
+        # 模态预融合
+        for layer in self.get_model().prefusion_layers:
+            concatenated_features = layer(concatenated_features, attention_mask=attention_mask, position_ids=position_ids)[0]
 
         # 提取经过融合处理的目标特征部分
-        # final_features_list = []
-        # for i in range(batch_size):
-        #     start_idx = background_valid[i].item()
-        #     end_idx = start_idx + object_valid[i].item()
-        #     fused_object_features = concatenated_features[i, start_idx + 1:end_idx + 1]
-        #     original_background_features = orig_concatenated_features[i, 0:start_idx]
-        #     final_feature = torch.cat([original_background_features, fused_object_features], dim=0)  # [576, 4096]
-        #     final_features_list.append(final_feature)
+        final_features_list = []
+        for i in range(batch_size):
+            start_idx = background_valid[i].item()
+            end_idx = start_idx + object_valid[i].item()
+            fused_object_features = concatenated_features[i, start_idx + 1:end_idx + 1]
+            original_background_features = orig_concatenated_features[i, 0:start_idx]
+            final_feature = torch.cat([original_background_features, fused_object_features], dim=0)  # [576, 4096]
+            final_features_list.append(final_feature)
 
-        # final_features = torch.stack(final_features_list, dim=0)  # [batch_size, 576, 4096]
-        # assert all(final_features.shape[1] == 576 for _ in range(batch_size)), "特征数量不匹配"
+        final_features = torch.stack(final_features_list, dim=0)  # [batch_size, 576, 4096]
+        assert all(final_features.shape[1] == 576 for _ in range(batch_size)), "特征数量不匹配"
 
-        # return final_features
+        return final_features
 
     
     def prepare_inputs_labels_for_multimodal(
