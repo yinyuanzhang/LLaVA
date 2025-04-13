@@ -489,7 +489,9 @@ class CLIPVisionTower(nn.Module):
             config = self.vision_tower.config
             bak_obj_vision_model = CLIPVisionTransformerWithBackgroundObject(config, self.args).to(self.vision_tower.vision_model.embeddings.class_embedding.device)
         
-            bak_obj_vision_model.load_state_dict(self.vision_tower.vision_model.state_dict(), strict=True)
+            bak_obj_vision_model.load_state_dict(torch.load(vision_tower_output_path), strict=True)
+
+            # bak_obj_vision_model.load_state_dict(self.vision_tower.vision_model.state_dict(), strict=True)
 
             # 这里逻辑是先加载全部参数，再进行deepspeed分配。 考虑将上面改为 device_map = 'auto',应该就没这个问题了。
             # todo: 这里应该添加 加载模型的操作 [vision_tower的每一层模型参数如何load]
