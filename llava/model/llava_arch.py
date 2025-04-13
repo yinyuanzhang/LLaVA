@@ -21,7 +21,8 @@ import torch.nn as nn
 from .multimodal_encoder.builder import build_vision_tower
 from .multimodal_projector.builder import build_vision_projector
 
-from llava.constants import IGNORE_INDEX, IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
+from llava.constants import IGNORE_INDEX, IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, DEFAULT_BACKGROUND_OBJECT_TOKEN
+
 
 from transformers.models.llama.modeling_llama import LlamaDecoderLayer
 from llava.mm_utils import get_anyres_image_grid_shape
@@ -207,12 +208,16 @@ class LlavaMetaForCausalLM(ABC):
         """        
         background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
         background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
+
+
+        # 补充两者的模态之间的融合
         
+
+
         background_features = self.get_model().mm_projector(background_features)
         object_features = self.get_model().mm_projector(object_features)
 
         batch_size, _, embedding_dim = background_features.shape
-        device = background_features.device
 
         # --- 验证有效token数 ---
         valid_background_mask = background_attention_mask.bool().unsqueeze(-1)
@@ -231,7 +236,11 @@ class LlavaMetaForCausalLM(ABC):
         obj_splits = torch.split(obj_flat, (object_valid * embedding_dim).tolist())
 
         # 拼接并重塑形状
-        flag_token = torch.zeros(1, embedding_dim).to(background_features.device).to(background_features.dtype)
+        
+
+        # flag_token = torch.zeros(1, embedding_dim).to(background_features.device).to(background_features.dtype)
+        DEFAULT_BACKGROUND_OBJECT_TOKEN_ID = 32000 
+        flag_token = self.get_model().get_input_embeddings()(torch.tensor([DEFAULT_BACKGROUND_OBJECT_TOKEN_ID], device=background_features.device))
         concatenated_features = [
             torch.cat([bg.reshape(-1, embedding_dim), flag_token, obj.reshape(-1, embedding_dim)], dim=0)
             for bg, obj in zip(bg_splits, obj_splits)
@@ -465,6 +474,10 @@ class LlavaMetaForCausalLM(ABC):
         return None, position_ids, attention_mask, past_key_values, new_input_embeds, new_labels
 
     def initialize_vision_tokenizer(self, model_args, tokenizer):
+        # 训练时添加 DEFAULT_BACKGROUND_OBJECT_TOKEN
+        tokenizer.add_tokens([DEFAULT_BACKGROUND_OBJECT_TOKEN], special_tokens=True)
+        self.resize_token_embeddings(len(tokenizer))
+
         if model_args.mm_use_im_patch_token:
             tokenizer.add_tokens([DEFAULT_IMAGE_PATCH_TOKEN], special_tokens=True)
             self.resize_token_embeddings(len(tokenizer))
