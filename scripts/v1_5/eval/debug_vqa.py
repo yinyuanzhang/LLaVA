@@ -10,8 +10,10 @@ CHUNKS = len(GPULIST)  # GPU 数量
 CKPT = "llava-v1.5-7b-lora-noprefusion"
 SPLIT = "llava_vqav2_mscoco_test-dev2015"
 
+AUTO_DL_TMP = "/users/zyy/autodl-tmp"
+
 # 定义输出目录
-output_dir = Path(f"../autodl-tmp/playground/data/eval/vqav2/answers/{SPLIT}/{CKPT}").expanduser()
+output_dir = Path(f"{AUTO_DL_TMP}/playground/data/eval/vqav2/answers/{SPLIT}/{CKPT}").expanduser()
 output_dir.mkdir(parents=True, exist_ok=True)
 
 # 存储子进程
@@ -24,11 +26,11 @@ for IDX in range(CHUNKS):
 
     cmd = [
         "python", "-m", "llava.eval.model_vqa_loader",
-        "--model-path", "../autodl-tmp/cache/hub/models--imagecache--llava-v1.5-7b-lora-noprefusion",
+        "--model-path", f"{AUTO_DL_TMP}/cache/hub/models--imagecache--llava-v1.5-7b-lora-noprefusion",
         "--model-base", "lmsys/vicuna-7b-v1.5",
         # "--model-path", "liuhaotian/llava-v1.5-7b",
-        "--question-file", f"../autodl-tmp/playground/data/eval/vqav2/{SPLIT}.jsonl",
-        "--image-folder", "../autodl-tmp/playground/data/eval/vqav2/test2015",
+        "--question-file", f"{AUTO_DL_TMP}/playground/data/eval/vqav2/{SPLIT}.jsonl",
+        "--image-folder", f"{AUTO_DL_TMP}/playground/data/eval/vqav2/test2015",
         "--answers-file", str(answers_file),
         "--num-chunks", str(CHUNKS),
         "--chunk-idx", str(IDX),
