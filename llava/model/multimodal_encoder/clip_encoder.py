@@ -27,6 +27,10 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         # 添加两个独立的 Transformer 编码器
         self.background_object_encoder = CLIPEncoder(config)
 
+        self.encoder = None
+
+        self.post_layernorm = None
+
     def forward(
         self,
         pixel_values: Optional[torch.FloatTensor] = None,

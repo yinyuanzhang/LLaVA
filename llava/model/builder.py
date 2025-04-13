@@ -20,7 +20,7 @@ import shutil
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, BitsAndBytesConfig
 import torch
 from llava.model import *
-from llava.constants import DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
+from llava.constants import DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, DEFAULT_BACKGROUND_OBJECT_TOKEN
 
 
 def load_pretrained_model(model_path, model_base, model_name, model_args = None, load_8bit=False, load_4bit=False, device_map="auto", device="cuda", use_flash_attn=False, **kwargs):
@@ -153,6 +153,11 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
     image_processor = None
 
     if 'llava' in model_name.lower():
+        # 推理时添加 DEFAULT_BACKGROUND_OBJECT_TOKEN
+        tokenizer.add_tokens([DEFAULT_BACKGROUND_OBJECT_TOKEN], special_tokens=True)
+        model.resize_token_embeddings(len(tokenizer))
+        DEFAULT_BACKGROUND_OBJECT_TOKEN_ID = tokenizer.convert_tokens_to_ids(DEFAULT_BACKGROUND_OBJECT_TOKEN)
+
         mm_use_im_start_end = getattr(model.config, "mm_use_im_start_end", False)
         mm_use_im_patch_token = getattr(model.config, "mm_use_im_patch_token", True)
         if mm_use_im_patch_token:

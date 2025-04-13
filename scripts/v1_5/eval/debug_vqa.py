@@ -7,7 +7,7 @@ gpu_list = os.getenv("CUDA_VISIBLE_DEVICES", "0")  # 获取 GPU 列表
 GPULIST = gpu_list.split(",")  # 按逗号分割 GPU 列表
 CHUNKS = len(GPULIST)  # GPU 数量
 
-CKPT = "llava-v1.5-7b-lora"
+CKPT = "llava-v1.5-7b-lora-noprefusion"
 SPLIT = "llava_vqav2_mscoco_test-dev2015"
 
 # 定义输出目录
@@ -24,7 +24,7 @@ for IDX in range(CHUNKS):
 
     cmd = [
         "python", "-m", "llava.eval.model_vqa_loader",
-        "--model-path", "../autodl-tmp/cache/hub/models--imagecache--llava-v1.5-7b-lora",
+        "--model-path", "../autodl-tmp/cache/hub/models--imagecache--llava-v1.5-7b-lora-noprefusion",
         "--model-base", "lmsys/vicuna-7b-v1.5",
         # "--model-path", "liuhaotian/llava-v1.5-7b",
         "--question-file", f"../autodl-tmp/playground/data/eval/vqav2/{SPLIT}.jsonl",
