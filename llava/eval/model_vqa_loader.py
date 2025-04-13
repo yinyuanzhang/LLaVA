@@ -51,7 +51,7 @@ class CustomDataset(Dataset):
         self.model_config = model_config
 
         # self.yolo_inference = YOLOInference(model_path="yolov8n-seg.pt")
-        self.yolo_model = YOLO('yolov8n-seg.pt').to('cpu')
+        self.yolo_model = YOLO('yolov8l-seg.pt').to('cpu')
         # self.yolo_model = torch.hub.load("ultralytics/yolov5", "yolov5s").to('cpu')
 
     def __getitem__(self, index):
@@ -68,7 +68,6 @@ class CustomDataset(Dataset):
         conv.append_message(conv.roles[1], None)
         prompt = conv.get_prompt()
 
-        # os.path.join(self.image_folder, image_file) -> 复制到 os.path.join(temp_image_folder, image_file)
         temp_image_folder = './image_folder'
         image_subfolder = os.path.join(temp_image_folder, os.path.splitext(image_file)[0])
         if not os.path.exists(image_subfolder):
@@ -76,8 +75,8 @@ class CustomDataset(Dataset):
 
         src_image_path = os.path.join(self.image_folder, image_file)
         dest_image_path = os.path.join(image_subfolder, image_file)
-        if not os.path.exists(dest_image_path):
-            shutil.copy(src_image_path, dest_image_path)
+        # if not os.path.exists(dest_image_path):
+        #     shutil.copy(src_image_path, dest_image_path)
 
         image = Image.open(os.path.join(self.image_folder, image_file)).convert('RGB')
         image_tensor = process_images([image], self.image_processor, self.model_config)[0]

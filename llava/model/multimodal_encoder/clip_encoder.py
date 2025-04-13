@@ -18,18 +18,19 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
     def __init__(self, config: CLIPVisionConfig, args):
         super().__init__(config)  
 
+        print(f"Your are using image-catch-pattern, Using CLIPVisionTransformerWithBackgroundObject.")
         # 替换现有的 embeddings [目标检测、 mask标记]
         # self.embeddings = MyCLIPVisionEmbeddings(config, args)
         self.config = config
 
-        self.embeddings = CLIPVisionEmbeddings(config)
+        # self.embeddings = CLIPVisionEmbeddings(config)
 
-        # 添加两个独立的 Transformer 编码器
-        self.background_object_encoder = CLIPEncoder(config)
+        # # 添加两个独立的 Transformer 编码器
+        # self.background_object_encoder = CLIPEncoder(config)
 
-        self.encoder = None
+        # self.encoder = None
 
-        self.post_layernorm = None
+        # self.post_layernorm = None
 
     def forward(
         self,
@@ -65,57 +66,65 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         pool = torch.nn.MaxPool2d(kernel_size=self.config.patch_size, stride=self.config.patch_size)
         patch_mask = pool(mask_4d)
         patch_mask = (patch_mask.squeeze(1) > 0).int()
-
+        # 这里可以被迁移到 process处 进行图片的mask效果验证【或许可以增加 mask的边界】
 
         # 分离背景和目标的索引
         batch_size, seq_len, embed_dim = hidden_states.shape
-        background_indices_list = []
-        target_indices_list = []
 
-        for i in range(batch_size):
-            cur_mask = patch_mask[i].flatten()  # 当前样本的 mask，展平为 (num_patches,)
-            # assert torch.all((cur_mask == 0) | (cur_mask == 1)), "Mask values must be either 0 or 1"
-            background_indices = torch.where(cur_mask == 0)[0]  # 背景 token 索引
-            target_indices = torch.where(cur_mask == 1)[0]      # 目标 token 索引
+        # 展平 patch_mask 并检查 mask 值是否为 0 或 1
+        patch_mask = patch_mask.view(batch_size, -1)
+        assert torch.all((patch_mask == 0) | (patch_mask == 1)), "Mask values must be either 0 or 1"
 
-            background_indices_list.append(background_indices + 1)   # 这里的 +1 是因为存在分类embedding
-            target_indices_list.append(target_indices + 1) 
+        # 找到背景和目标索引
+        background_indices = [torch.where(patch_mask[i] == 0)[0] + 1 for i in range(batch_size)]
+        target_indices = [torch.where(patch_mask[i] == 1)[0] + 1 for i in range(batch_size)]
 
-        background_embeddings = []
-        object_embeddings = []
+        # 提取背景和目标嵌入
+        background_embeddings = [
+            hidden_states[i, background_indices[i]] for i in range(batch_size)
+        ]
+        object_embeddings = [
+            hidden_states[i, target_indices[i]] for i in range(batch_size)
+        ]
 
-        for i in range(batch_size):
-            background_embeddings.append(hidden_states[i, background_indices_list[i]])
-            object_embeddings.append(hidden_states[i, target_indices_list[i]])
+        background_embeddings_padded = pad_sequence(background_embeddings, batch_first=True)
+        object_embeddings_padded = pad_sequence(object_embeddings, batch_first=True)
 
-
-        max_background_len = max(len(x) for x in background_embeddings)
-        max_object_len = max(len(x) for x in object_embeddings)
-
-        background_embeddings_padded = pad_sequence(
-            [x for x in background_embeddings], batch_first=True, padding_value=0
-        )
-        object_embeddings_padded = pad_sequence(
-            [x for x in object_embeddings], batch_first=True, padding_value=0
-        )
+        # 获取最大长度
+        max_background_len = background_embeddings_padded.size(1)
+        max_object_len = object_embeddings_padded.size(1)
 
         # 生成背景和目标的掩码
-        background_attention_mask = (torch.arange(max_background_len).unsqueeze(0) < torch.tensor([len(x) for x in background_embeddings]).unsqueeze(1)).to(torch.int32).to(pixel_values.device)
-        vit_background_attention_mask = background_attention_mask.unsqueeze(1).unsqueeze(2).expand(-1, -1, max_background_len, -1)
-        object_attention_mask = (torch.arange(max_object_len).unsqueeze(0) < torch.tensor([len(x) for x in object_embeddings]).unsqueeze(1)).to(torch.int32).to(pixel_values.device)
-        vit_object_attention_mask = object_attention_mask.unsqueeze(1).unsqueeze(2).expand(-1, -1, max_object_len, -1)
+        background_lengths = torch.tensor([len(x) for x in background_embeddings], device=pixel_values.device)
+        object_lengths = torch.tensor([len(x) for x in object_embeddings], device=pixel_values.device)
+
+        background_attention_mask = (
+            torch.arange(max_background_len, device=pixel_values.device).unsqueeze(0) < background_lengths.unsqueeze(1)
+        ).to(torch.bool)
+
+        object_attention_mask = (
+            torch.arange(max_object_len, device=pixel_values.device).unsqueeze(0) < object_lengths.unsqueeze(1)
+        ).to(torch.bool)
+
+        num_heads = self.encoder.layers[0].self_attn.num_heads
+        background_attention_mask_2d = background_attention_mask.unsqueeze(2) & background_attention_mask.unsqueeze(1)
+        object_attention_mask_2d = object_attention_mask.unsqueeze(2) & object_attention_mask.unsqueeze(1)
+        
+        background_attention_mask_4d = background_attention_mask_2d.unsqueeze(1)
+        object_attention_mask_4d = object_attention_mask_2d.unsqueeze(1)  
+
 
         # 分别通过背景和目标的编码器
-        background_outputs = self.background_object_encoder(
+        background_outputs = self.encoder(
             inputs_embeds=background_embeddings_padded,
-            attention_mask=vit_background_attention_mask,
+            attention_mask=background_attention_mask_4d,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
         )
-        object_outputs = self.background_object_encoder(
+        object_outputs = self.encoder(
             inputs_embeds=object_embeddings_padded,
-            attention_mask=vit_object_attention_mask,
+            attention_mask=object_attention_mask_4d,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
@@ -463,12 +472,13 @@ class CLIPVisionTower(nn.Module):
             return
 
         self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
-        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
 
 
         vision_tower_output_path = './checkpoints/clip-vit-large-patch14-336.pth'
         # 保存模型的状态字典(先保存，再加载)
         if not os.path.exists(vision_tower_output_path):
+            self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+
             state_dict = self.vision_tower.vision_model.state_dict()
             torch.save(state_dict, vision_tower_output_path)
 
@@ -479,9 +489,11 @@ class CLIPVisionTower(nn.Module):
             config = self.vision_tower.config
             bak_obj_vision_model = CLIPVisionTransformerWithBackgroundObject(config, self.args).to(self.vision_tower.vision_model.embeddings.class_embedding.device)
         
+            bak_obj_vision_model.load_state_dict(self.vision_tower.vision_model.state_dict(), strict=True)
+
             # 这里逻辑是先加载全部参数，再进行deepspeed分配。 考虑将上面改为 device_map = 'auto',应该就没这个问题了。
             # todo: 这里应该添加 加载模型的操作 [vision_tower的每一层模型参数如何load]
-            if True:        
+            if False:        
                 # original_state_dict = self.vision_tower.state_dict()
                 # self.load_state_dict(original_state_dict, strict=False)
                 original_state_dict = torch.load(vision_tower_output_path)
