@@ -51,7 +51,7 @@ class CustomDataset(Dataset):
         self.model_config = model_config
 
         # self.yolo_inference = YOLOInference(model_path="yolov8n-seg.pt")
-        self.yolo_model = YOLO('yolov8l-seg.pt').to('cpu')
+        self.yolo_model = YOLO('./checkpoints/yolov/yolov8l-seg.pt').to('cpu')
         # self.yolo_model = torch.hub.load("ultralytics/yolov5", "yolov5s").to('cpu')
 
     def __getitem__(self, index):

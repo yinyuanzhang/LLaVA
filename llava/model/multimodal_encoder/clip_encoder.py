@@ -489,7 +489,9 @@ class CLIPVisionTower(nn.Module):
             config = self.vision_tower.config
             bak_obj_vision_model = CLIPVisionTransformerWithBackgroundObject(config, self.args).to(self.vision_tower.vision_model.embeddings.class_embedding.device)
         
+            torch.cuda.empty_cache()
             bak_obj_vision_model.load_state_dict(torch.load(vision_tower_output_path), strict=True)
+
 
             # bak_obj_vision_model.load_state_dict(self.vision_tower.vision_model.state_dict(), strict=True)
 

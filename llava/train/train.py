@@ -993,7 +993,8 @@ def train(attn_implementation=None):
                         module = module.to(torch.bfloat16)
 
 
-    yolo_model = YOLO('yolov8n-seg.pt').to('cpu').eval()
+    yolo_model = YOLO('./checkpoints/yolov/yolov8l-seg.pt').to('cpu').eval()
+    # yolo_model = YOLO('./checkpoints/yolov/yolov8l-seg.pt').to(training_args.device).eval()
 
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                               data_args=data_args,
