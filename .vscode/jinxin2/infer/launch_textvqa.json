@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Debug LLAVA",
+            "type": "python",
+            "request": "launch",
+            "module": "llava.eval.model_vqa_loader",
+            "args": [
+                "--model-path", "~/.cache/huggingface/hub/models--imagecache--llava-v1.5-7b-task-lora",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "/users/zyy/playground/data/eval/textvqa/llava_textvqa_val_v051_ocr.jsonl",
+                "--image-folder", "/users/zyy/playground/data/eval/textvqa/train_images",
+                "--answers-file", "/users/zyy/playground/data/eval/textvqa/answers/llava-v1.5-7b-task-lora.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1"
+            ],
+            "env": {
+                "AUTO_DL_TMP": "/users/zyy"
+            }
+        }
+    ]
+}

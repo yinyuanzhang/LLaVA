@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug LLaVA Eval ScienceQA Script",
+            "type": "python",
+            "request": "launch",
+            "program": "-m",
+            "args": [
+                "llava.eval.model_vqa_science",
+                "--model-path", "~/.cache/huggingface/hub/models--imagecache--llava-v1.5-7b-lora-noprefusion",
+                "--model-base", "lmsys/vicuna-7b-v1.5",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/scienceqa/llava_test_CQM-A.json",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/scienceqa/images/test",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/scienceqa/answers/llava-v1.5-7b-lora-noprefusion.jsonl",
+                "--single-pred-prompt",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1"
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            }
+        },
+        {
+            "name": "Debug Eval ScienceQA Script",
+            "type": "python",
+            "request": "launch",
+            "program": "llava/eval/eval_science_qa.py",
+            "args": [
+                "--base-dir", "${env:HOME}/autodl-tmp/playground/data/eval/scienceqa",
+                "--result-file", "${env:HOME}/autodl-tmp/playground/data/eval/scienceqa/answers/llava-v1.5-7b-lora-noprefusion.jsonl",
+                "--output-file", "${env:HOME}/autodl-tmp/playground/data/eval/scienceqa/answers/llava-v1.5-7b-lora-noprefusion_output.jsonl",
+                "--output-result", "${env:HOME}/autodl-tmp/playground/data/eval/scienceqa/answers/llava-v1.5-7b-lora-noprefusion_result.json"
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            }
+        }
+    ]
+}
