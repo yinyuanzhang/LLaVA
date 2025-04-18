@@ -9,11 +9,13 @@ from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_S
 from llava.conversation import conv_templates, SeparatorStyle
 from llava.model.builder import load_pretrained_model
 from llava.utils import disable_torch_init
-from llava.mm_utils import tokenizer_image_token, process_images, get_model_name_from_path
+from llava.mm_utils import tokenizer_image_token, process_images, get_model_name_from_path, process_mask_images
 
 from PIL import Image
 import math
-
+from ultralytics import YOLO
+import cv2
+import numpy as np
 
 def split_list(lst, n):
     """Split a list into n (roughly) equal-sized chunks"""
@@ -31,7 +33,9 @@ def eval_model(args):
     disable_torch_init()
     model_path = os.path.expanduser(args.model_path)
     model_name = get_model_name_from_path(model_path)
-    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, args.model_base, model_name)
+    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, args.model_base, model_name, model_args = args)
+
+    yolo_model = YOLO('yolov8l-seg.pt')
 
     questions = json.load(open(os.path.expanduser(args.question_file), "r"))
     questions = get_chunk(questions, args.num_chunks, args.chunk_idx)
@@ -50,6 +54,23 @@ def eval_model(args):
             image_tensor = process_images([image], image_processor, model.config)[0]
             images = image_tensor.unsqueeze(0).half().cuda()
             image_sizes = [image.size]
+
+            # 添加对mask的处理
+            result = yolo_model(os.path.join(args.image_folder, image_file))
+
+            orig_h, orig_w = result[0].orig_shape  # 原始尺寸（480,640）
+            combined_mask = np.zeros((orig_h, orig_w), dtype=np.uint8)
+
+            if result[0].masks is not None:
+                masks = result[0].masks.data.cpu().numpy().astype(np.uint8)   # masks尺寸（n, 480,640）
+                
+                for mask in masks:
+                    mask_resized = cv2.resize(mask, (orig_w, orig_h), interpolation=cv2.INTER_LINEAR)
+                    combined_mask = np.bitwise_or(combined_mask, mask_resized)
+            mask_pil = Image.fromarray(combined_mask)
+            mask_tensor = process_mask_images([mask_pil], image_processor, model.config)[0]
+            mask_tensor = mask_tensor.unsqueeze(0).half().cuda()
+
             if getattr(model.config, 'mm_use_im_start_end', False):
                 qs = DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN + '\n' + qs
             else:
@@ -58,6 +79,7 @@ def eval_model(args):
         else:
             images = None
             image_sizes = None
+            mask_tensor = None
 
         if args.single_pred_prompt:
             qs = qs + '\n' + "Answer with the option's letter from the given choices directly."
@@ -74,6 +96,7 @@ def eval_model(args):
             output_ids = model.generate(
                 input_ids,
                 images=images,
+                masks=mask_tensor,
                 image_sizes=image_sizes,
                 do_sample=True if args.temperature > 0 else False,
                 temperature=args.temperature,
@@ -106,6 +129,6 @@ if __name__ == "__main__":
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--answer-prompter", action="store_true")
     parser.add_argument("--single-pred-prompt", action="store_true")
+    parser.add_argument("--image-cache", type=bool, default=True)
     args = parser.parse_args()
-
     eval_model(args)

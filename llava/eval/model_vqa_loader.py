@@ -70,8 +70,8 @@ class CustomDataset(Dataset):
 
         temp_image_folder = './image_folder'
         image_subfolder = os.path.join(temp_image_folder, os.path.splitext(image_file)[0])
-        if not os.path.exists(image_subfolder):
-            os.makedirs(image_subfolder)
+        # if not os.path.exists(image_subfolder):
+        #     os.makedirs(image_subfolder)
 
         src_image_path = os.path.join(self.image_folder, image_file)
         dest_image_path = os.path.join(image_subfolder, image_file)
@@ -217,5 +217,4 @@ if __name__ == "__main__":
     parser.add_argument("--max_new_tokens", type=int, default=128)
     parser.add_argument("--image-cache", type=bool, default=True)
     args = parser.parse_args()
-
     eval_model(args)
