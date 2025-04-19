@@ -55,10 +55,14 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
             tokenizer = AutoTokenizer.from_pretrained(model_base, use_fast=False)
             print('Loading LLaVA from base model...')
             model = LlavaLlamaForCausalLM.from_pretrained(model_base, model_args, low_cpu_mem_usage=True, config=lora_cfg_pretrained, **kwargs)
+
+            # from accelerate import load_checkpoint_and_dispatch
+            # model = load_checkpoint_and_dispatch(model, checkpoint=model_base, device_map="auto")
+
             token_num, tokem_dim = model.lm_head.out_features, model.lm_head.in_features
-            if model.lm_head.weight.shape[0] != token_num:
-                model.lm_head.weight = torch.nn.Parameter(torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
-                model.model.embed_tokens.weight = torch.nn.Parameter(torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
+            # if model.lm_head.weight.shape[0] != token_num:
+            #     model.lm_head.weight = torch.nn.Parameter(torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
+            #     model.model.embed_tokens.weight = torch.nn.Parameter(torch.empty(token_num, tokem_dim, device=model.device, dtype=model.dtype))
             
             # for i in range(4):
             #     # 获取原模型对应层的权重
@@ -91,6 +95,34 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
             print('Merging LoRA weights...')
             model = model.merge_and_unload()
             print('Model is loaded...')
+
+
+
+
+            # 添加断言
+            # 获取模型权重
+            model_weight = model.model.mm_projector.state_dict()['0.weight'][0]
+
+            # 获取参考权重
+            reference_weight = non_lora_trainables['model.mm_projector.0.weight'][0]
+
+            # 确保数据类型一致
+            model_weight = model_weight.to(torch.bfloat16)  # 将模型权重转换为 bfloat16
+            reference_weight = reference_weight.to(torch.bfloat16)  # 确保参考权重也是 bfloat16
+
+            # 确保设备一致
+            model_weight = model_weight.cpu()  # 将模型权重移动到 CPU
+            reference_weight = reference_weight.cpu()  # 确保参考权重也在 CPU
+
+            # 添加断言
+            assert torch.allclose(
+                model_weight, reference_weight, atol=1e-3
+            ), "Mismatch in '0.weight'[0]"
+
+            print("'0.weight'[0] 参数一致！")
+
+
+
         elif model_base is not None:
             # this may be mm projector only
             print('Loading LLaVA from base model...')
