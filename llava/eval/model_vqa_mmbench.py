@@ -10,10 +10,13 @@ from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_S
 from llava.conversation import conv_templates, SeparatorStyle
 from llava.model.builder import load_pretrained_model
 from llava.utils import disable_torch_init
-from llava.mm_utils import tokenizer_image_token, process_images, load_image_from_base64, get_model_name_from_path
+from llava.mm_utils import tokenizer_image_token, process_images, load_image_from_base64, get_model_name_from_path, process_mask_images
 
 from PIL import Image
 import math
+from ultralytics import YOLO
+import cv2
+import numpy as np
 
 
 all_options = ['A', 'B', 'C', 'D']
@@ -56,7 +59,9 @@ def eval_model(args):
     disable_torch_init()
     model_path = os.path.expanduser(args.model_path)
     model_name = get_model_name_from_path(model_path)
-    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, args.model_base, model_name)
+    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, args.model_base, model_name, model_args = args)
+
+    yolo_model = YOLO('./checkpoints/yolov/yolov8l-seg.pt')
 
     questions = pd.read_table(os.path.expanduser(args.question_file))
     questions = get_chunk(questions, args.num_chunks, args.chunk_idx)
@@ -107,10 +112,33 @@ def eval_model(args):
 
             image_tensor = process_images([image], image_processor, model.config)[0]
 
+
+            # 添加对mask的处理
+            from io import BytesIO
+            import base64
+            print(f"image path: {BytesIO(base64.b64decode(row['image']))}")
+            result = yolo_model(BytesIO(base64.b64decode(row['image'])))
+
+            orig_h, orig_w = result[0].orig_shape  # 原始尺寸（480,640）
+            combined_mask = np.zeros((orig_h, orig_w), dtype=np.uint8)
+
+            if result[0].masks is not None:
+                masks = result[0].masks.data.cpu().numpy().astype(np.uint8)   # masks尺寸（n, 480,640）
+                
+                for mask in masks:
+                    mask_resized = cv2.resize(mask, (orig_w, orig_h), interpolation=cv2.INTER_LINEAR)
+                    combined_mask = np.bitwise_or(combined_mask, mask_resized)
+            mask_pil = Image.fromarray(combined_mask)
+            mask_tensor = process_mask_images([mask_pil], image_processor, model.config)[0]
+            mask_tensor = mask_tensor.unsqueeze(0).half().cuda()
+            
+
+
             with torch.inference_mode():
                 output_ids = model.generate(
                     input_ids,
                     images=image_tensor.unsqueeze(0).half().cuda(),
+                    masks=mask_tensor,
                     image_sizes=[image.size],
                     do_sample=True if args.temperature > 0 else False,
                     temperature=args.temperature,
@@ -155,6 +183,7 @@ if __name__ == "__main__":
     parser.add_argument("--all-rounds", action="store_true")
     parser.add_argument("--single-pred-prompt", action="store_true")
     parser.add_argument("--lang", type=str, default="en")
+    parser.add_argument("--image-cache", type=bool, default=True)
     args = parser.parse_args()
 
     eval_model(args)
