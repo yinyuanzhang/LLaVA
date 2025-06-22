@@ -29,14 +29,12 @@ from llava.mm_utils import get_anyres_image_grid_shape
 import copy
 from transformers import AutoTokenizer
 from .ImageGenerator import BackgroundFeatureCache
-from .CacheStatisticsCollector import CacheStatisticsCollector
 
 class LlavaMetaModel:
 
     def __init__(self, config):
         super(LlavaMetaModel, self).__init__(config)
         self.image_cache = config.image_cache
-        self.cache_load_way = config.cache_load_way
 
         if hasattr(config, "mm_vision_tower"):
             self.vision_tower = build_vision_tower(config, delay_load=True)
@@ -55,18 +53,12 @@ class LlavaMetaModel:
             # self.load_prefusion()
 
 
+
         if hasattr(config, "cache_load_way") and config.cache_load_way != None:
             try:
                 import faiss
-                import os
-                dataset_name = getattr(config, 'dataset', 'default_dataset')
-                print(f"Final dataset_name: {dataset_name}") 
-                cache_dir = os.path.join(
-                    config.background_cache_dir if hasattr(config, 'background_cache_dir') else "~/background_feature_cache",
-                    dataset_name
-                )
                 self.background_cache = BackgroundFeatureCache(
-                    cache_dir=cache_dir,
+                    cache_dir=config.background_cache_dir if hasattr(config, 'background_cache_dir') else "~/background_feature_cache",
                     device=self.device # 缓存加载时指定设备
                 )
                 print("Background caching system initialized.")
@@ -74,11 +66,9 @@ class LlavaMetaModel:
                 print("Faiss not installed. Background caching will be disabled.")
                 self.background_cache = None
 
-            # --- Initialize statistics collector if in read-only mode ---
-            self.stats_collector = None
-            if self.cache_load_way == "read-only":
-                self.stats_collector = CacheStatisticsCollector()
-                print("Cache statistics collector initialized for read-only mode.")
+
+
+
 
 
 
@@ -228,23 +218,6 @@ class LlavaMetaForCausalLM(ABC):
         image_features = self.get_model().mm_projector(image_features)
         return image_features
 
-    # def _pad_or_truncate_tokens(self, tokens, target_len, embedding_dim):
-    #         """
-    #         Helper function to pad or truncate tokens to a target length.
-    #         Assumes tokens are [batch_size, current_len, embedding_dim]
-    #         """
-    #         batch_size, current_len, _ = tokens.shape
-    #         if current_len == target_len:
-    #             return tokens
-    #         elif current_len < target_len:
-    #             padding_needed = target_len - current_len
-    #             # Pad with zeros
-    #             padding = torch.zeros(batch_size, padding_needed, embedding_dim, device=tokens.device, dtype=tokens.dtype)
-    #             return torch.cat([tokens, padding], dim=1)
-    #         else: # current_len > target_len
-    #             # Truncate
-    #             return tokens[:, :target_len, :]
-
     # Helper function to pad/truncate tokens
     def _pad_or_truncate_tokens(self, tokens: torch.Tensor, target_length: int, embedding_dim: int):
         current_length = tokens.shape[1]
@@ -257,139 +230,160 @@ class LlavaMetaForCausalLM(ABC):
         else:
             # Truncate
             return tokens[:, :target_length, :]
-                    
+        
+    # def get_background_object_vision_tower(self):
+    #     return self.get_model().get_background_object_vision_tower()
+    
+    # 统一在此处进行封装，即均是调用 get_vision_tower
     def encode_background_and_object_images_back_cache(self, images, masks):
         """
-        编码背景&目标图像，并优化缓存逻辑。
-        此方法将统计**分离后的**背景和目标有效token数量，并交给统计类处理。
-        同时，它会记录缓存的命中/未命中情况。
+        编码背景&目标图像。
         """        
-        self.cache_load_way = getattr(self.get_model(), "cache_load_way", None)
-        
         background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
         background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
+
+
+        # 补充两者的模态之间的融合
+        
         background_features = self.get_model().mm_projector(background_features).to(images.device)
-        object_features = self.get_model().mm_projector(object_features).to(object_features.device)
+        object_features = self.get_model().mm_projector(object_features).to(images.device)
 
         batch_size, _, embedding_dim = background_features.shape
 
+        # --- 验证有效token数 ---
         valid_background_mask = background_attention_mask.bool().unsqueeze(-1).to(images.device)
         valid_object_mask = object_attention_mask.bool().unsqueeze(-1).to(images.device)
-        
-        current_bg_valid_count = valid_background_mask.squeeze(-1).sum(dim=1).item()
-        current_obj_valid_count = valid_object_mask.squeeze(-1).sum(dim=1).item()
-
-        assert (current_bg_valid_count + current_obj_valid_count == 576), "总有效token数应为576"
+        background_valid = valid_background_mask.squeeze(-1).sum(dim=1)
+        object_valid = valid_object_mask.squeeze(-1).sum(dim=1)
+        assert torch.all(background_valid + object_valid == 576), "总有效token数应为576"
 
 
-        # --- Pass these counts to the statistics collector if it exists and is read-only ---
-        if self.cache_load_way == "read-only":
-            self.get_model().stats_collector.collect_stats(current_bg_valid_count, current_obj_valid_count)
 
 
         # --- 缓存逻辑开始 ---
-        reused_background_features_final = None 
-        
+
+        # (新) 提取当前图像计算出的 “有效” 背景特征（即你希望缓存的 Value）
+        # 形状：[batch_size, num_actual_valid_bg_tokens, embedding_dim]
+        # 注意：这里 bg_flat_calculated 的 token 数量是可变的，取决于 mask
         bg_flat_calculated = background_features[
             valid_background_mask.repeat(1, 1, embedding_dim)
         ].reshape(batch_size, -1, embedding_dim)
 
-        # ----------------------------------------------------
-        # 缓存逻辑优化核心：根据 self.cache_load_way 进行控制
-        # ----------------------------------------------------
-        is_cache_search_attempted = False # Flag to track if a search was performed
-        cache_hit_status = False          # Flag to track if the search resulted in a hit
+        # 步骤 1: 生成 Faiss Key (基于 bg_flat_calculated 进行填充和池化)
+        with torch.no_grad():
+            # 填充/截断这些有效背景 token 到固定的 Key 长度 (576)
+            bg_padded_for_key = self._pad_or_truncate_tokens(
+                bg_flat_calculated,
+                576, # 576
+                embedding_dim
+            ) # 形状：[batch_size, 576, embedding_dim]
 
-        if self.cache_load_way is None:
-            pass # No caching, no print
-            
-        elif self.cache_load_way != "write-only" and bg_flat_calculated.shape[1] == 0:
-            print("背景有效token数为0，跳过背景缓存处理。")
-            
-        elif self.cache_load_way == "write-only":
-            print("缓存模式为 write-only，将计算的背景特征写入缓存。")
-            with torch.no_grad():
-                bg_padded_for_key = self._pad_or_truncate_tokens(
-                    bg_flat_calculated,
-                    576,
-                    embedding_dim
-                ) 
-                faiss_key_feature = torch.max(bg_padded_for_key, dim=2)
-                assert batch_size == 1, "Faiss cache logic assumes batch_size == 1"
-                query_key_for_search = faiss_key_feature.squeeze(0).unsqueeze(0)
-                
-                if self.get_model().background_cache:
-                    self.get_model().background_cache.add_feature(query_key_for_search, bg_flat_calculated.clone().detach())
-                    # Note: write-only doesn't count as a "search attempt" for hit rate
-                else:
-                    print("警告: 缓存系统未初始化，无法写入。")
+            # 对每个 token 的 embedding_dim 进行平均池化，得到 Faiss Key
+            faiss_key_feature = torch.mean(bg_padded_for_key, dim=2) # 形状：[batch_size, 576]
+
+            assert batch_size == 1, "Faiss cache logic assumes batch_size == 1"
+            query_key_for_search = faiss_key_feature.squeeze(0).unsqueeze(0) # Ensure [1, 576] for search
+
+
+        # 步骤 2: 尝试从缓存中搜索背景特征 (Value)
+        reused_background_features_final = None # 最终复用或新计算的背景特征 (已是 bg_flat 形式)
+        load_background_cache = True
+
+
+        # if hasattr(self.config, "cache_load_way") and self.config.cache_load_way != None:
+        #     a = 2
+
+
         
-        elif self.cache_load_way == "read-only":
-            is_cache_search_attempted = True # Mark that a search is being attempted
-            with torch.no_grad():
-                bg_padded_for_key = self._pad_or_truncate_tokens(
-                    bg_flat_calculated,
-                    576,
-                    embedding_dim
-                )
-                faiss_key_feature = torch.max(bg_padded_for_key, dim=2)
-                assert batch_size == 1, "Faiss cache logic assumes batch_size == 1"
-                query_key_for_search = faiss_key_feature.squeeze(0).unsqueeze(0)
-                
-                if self.get_model().background_cache:
-                    reused_background_features_final, _ = self.get_model().background_cache.search_feature( # Capture hit status
-                        query_key_for_search,
-                        distance_threshold=0.1 # Use the stored threshold
-                    )
-                    if reused_background_features_final is not None:
-                        cache_hit_status = True 
-                    else:
-                        cache_hit_status = False     
-                else:
-                    print("警告: 缓存系统未初始化，无法搜索。")
-                    reused_background_features_final = None
-                    cache_hit_status = False # No cache, so no hit
-                
-            if reused_background_features_final is not None:
-                print("使用缓存的背景特征。")
-            else:
-                print("缓存未命中，使用新计算的背景特征，不写入缓存。")
-        else:
-            print(f"警告：未知的缓存模式 '{self.cache_load_way}'。将不进行任何缓存操作。")
-
-        # --- Record cache outcome if a search was attempted ---
-        if is_cache_search_attempted:
-            self.get_model().stats_collector.record_cache_outcome(cache_hit_status)
+        # if self.config.cache_load_way == "auto":
+        #     load_background_cache = True
 
 
-        # --- 根据是否复用背景特征，决定最终使用的特征 ---
+        if load_background_cache:
+            reused_background_features_final, _ = self.get_model().background_cache.search_feature(
+                query_key_for_search,
+                distance_threshold= 0.1
+            )
+
+        # 步骤 3: 根据是否复用背景特征，决定最终使用的特征和更新缓存
         if reused_background_features_final is not None:
+            print("使用缓存的背景特征。")
+            # 缓存的背景特征已经是 bg_flat 形式，可以直接作为 final
+            # 它的 mask 概念在存储时已经去除，所以其所有 token 都是有效的。
+            # 因此，background_valid_final 将直接是 reused_background_features_final.shape[1]
             background_features_to_use_in_concat = reused_background_features_final.to(images.device)
-            background_valid_final = torch.tensor([background_features_to_use_in_concat.shape[1]], device=self.device)
+
+            # 对象特征及其掩码保持不变 (使用新计算的)
+            object_features_to_use_in_concat = object_features
+            object_attention_mask_to_use_in_concat = object_attention_mask
+
         else:
+            print("计算新的背景特征并添加到缓存。")
+            # 使用新计算的背景特征作为最终使用的背景特征
+            # 此时的 bg_flat_calculated 就是我们需要的 bg_flat 形式
             background_features_to_use_in_concat = bg_flat_calculated
-            background_valid_final = torch.tensor([current_bg_valid_count], device=self.device)
 
-        bg_flat_final = background_features_to_use_in_concat 
+            # 对象特征及其掩码保持不变
+            object_features_to_use_in_concat = object_features
+            object_attention_mask_to_use_in_concat = object_attention_mask
 
-        object_features_to_use_in_concat = object_features
-        object_attention_mask_to_use_in_concat = object_attention_mask
+            # # 如果缓存可用，则添加新计算的背景特征
+            # if not load_background_cache:
+            #     # Value to store: bg_flat_calculated (已剥离无效 token 的背景特征)
+            #     value_to_store = bg_flat_calculated.clone().detach()
+            #     self.get_model().background_cache.add_feature(query_key_for_search, value_to_store)  # key:[576,1] value:[400,4096]
+            #     print("新的背景特征已添加到缓存。")
 
+        # --- 缓存逻辑结束 ---
+
+
+        # --- 准备用于拼接的最终特征和有效token数 ---
+        # 对于背景，我们现在直接使用 background_features_to_use_in_concat，它已经是 bg_flat 形式
+        # 所以它的有效 token 数就是其第二个维度的大小
+        bg_flat_final = background_features_to_use_in_concat
+        background_valid_final = torch.tensor([bg_flat_final.shape[1]], device=self.device) # Shape: [1]
+
+        # 对于对象，依然需要根据其 mask 提取有效 token
         valid_object_mask_final = object_attention_mask_to_use_in_concat.bool().unsqueeze(-1).to(images.device)
-        obj_flat_final = object_features_to_use_in_concat[valid_object_mask_final.squeeze(-1)].reshape(batch_size, -1, embedding_dim)
-        object_valid_final = torch.tensor([current_obj_valid_count], device=self.device)
-
-        total_valid_tokens = (background_valid_final + object_valid_final).item()
-        if total_valid_tokens != 576:
-            print(f"警告：总有效 token 数应为576，但实际得到 {total_valid_tokens}。")
-
-        concatenated_features = torch.cat(
-            (bg_flat_final.squeeze(0), obj_flat_final.squeeze(0)), 
-            dim=0 
-        ).unsqueeze(0) 
         
+        # --- FIX: Correctly extract and reshape object features ---
+        # object_features_to_use_in_concat is likely [batch_size, total_possible_tokens, embedding_dim]
+        # valid_object_mask_final is [batch_size, total_possible_tokens, 1]
+        obj_flat_final = object_features_to_use_in_concat[valid_object_mask_final.squeeze(-1)].reshape(batch_size, -1, embedding_dim)
+        # ^ This will flatten all valid tokens across the batch, then reshape back to [batch_size, num_valid_tokens_per_batch, embedding_dim]
+        # Since batch_size is 1, it will be [1, num_valid_tokens, embedding_dim]
+
+        object_valid_final = valid_object_mask_final.squeeze(-1).sum(dim=1)
+
+
+        # 再次断言总有效token数，确保缓存复用或新计算后，总数依然满足要求
+        # 这个断言现在更严格，它要求 `cached_bg_flat_feature.shape[1]` + `object_valid_final` 仍然等于 576
+        # Use .item() to get scalar value for printing in f-string
+        total_valid_tokens = (background_valid_final + object_valid_final).item()
+
+        print(f"警告：总有效 token 数应为576，但实际得到 {total_valid_tokens}。")
+
+        # --- 按样本分割和拼接 ---
+        # Since batch_size is 1, bg_flat_final and obj_flat_final are already effectively "per sample".
+        # We don't need torch.split if we're only processing a single sample at a time.
+        # Directly concatenate the features for the single sample.
+
+        # Corrected concatenation for batch_size=1
+        concatenated_features = torch.cat(
+            (bg_flat_final.squeeze(0), obj_flat_final.squeeze(0)), # Squeeze batch dim before cat
+            dim=0 # Concatenate along the token dimension
+        ).unsqueeze(0) # Add batch dim back if needed for subsequent layers
+
+        # Your original code was trying to do this:
+        # concatenated_features = [
+        #     torch.cat([bg.reshape(-1, embedding_dim), obj.reshape(-1, embedding_dim)], dim=0)
+        #     for bg, obj in zip(bg_splits, obj_splits)
+        # ]
+        # concatenated_features = torch.stack(concatenated_features, dim=0)
+
+        # This simplified version achieves the same for batch_size=1
         return concatenated_features
-    
+        
 
     # # 统一在此处进行封装，即均是调用 get_vision_tower
     # def encode_background_and_object_images(self, images, masks=None, inference_mode="both"):

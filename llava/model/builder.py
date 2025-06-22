@@ -97,7 +97,7 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
             print('Model is loaded...')
 
 
-
+            model.load_state_dict(non_lora_trainables, strict=False)
 
             # 添加断言
             # 获取模型权重

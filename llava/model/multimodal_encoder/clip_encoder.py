@@ -57,15 +57,36 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
 
         # 1. embedding 2. 根据index进行重组 -> list 3. 根据list，进行最大padding，同时记录mask 
 
+
+        # 获取嵌入表示
+        hidden_states = self.embeddings(pixel_values)
+        hidden_states = self.pre_layrnorm(hidden_states)
+
+        # masks = masks[:, 0, :, :].float()
+        # mask_4d = masks.unsqueeze(1)
+        # pool = torch.nn.MaxPool2d(kernel_size=self.config.patch_size, stride=self.config.patch_size)
+        # patch_mask = pool(mask_4d)
+        # patch_mask = (patch_mask.squeeze(1) > 0).int()
+
+
+        # set window_size  336/14 = 24;   336/168 = 2;  336/112 = 3; 336/84 = 4; 
+        window_size = 84
+
         # 获取嵌入表示
         hidden_states = self.embeddings(pixel_values)
         hidden_states = self.pre_layrnorm(hidden_states)
 
         masks = masks[:, 0, :, :].float()
         mask_4d = masks.unsqueeze(1)
-        pool = torch.nn.MaxPool2d(kernel_size=self.config.patch_size, stride=self.config.patch_size)
-        patch_mask = pool(mask_4d)
-        patch_mask = (patch_mask.squeeze(1) > 0).int()
+        pool = torch.nn.MaxPool2d(kernel_size=window_size, stride=window_size)
+        window_mask = pool(mask_4d)
+        window_mask = (window_mask.squeeze(1) > 0).int()
+        
+        num_patches_per_window = window_size // self.config.patch_size  # 每个窗口包含的小 patch 数量
+        patch_mask = window_mask.repeat_interleave(num_patches_per_window, dim=1).repeat_interleave(num_patches_per_window, dim=2)
+                
+        
+        
         # 这里可以被迁移到 process处 进行图片的mask效果验证【或许可以增加 mask的边界】
 
         # 分离背景和目标的索引

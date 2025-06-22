@@ -110,17 +110,36 @@ class CustomDataset(Dataset):
             corrected_mask = np.squeeze(corrected_mask, axis=-1)
 
         # if True:
+        #     # set window_size  336/14 = 24;   336/168 = 2;  336/112 = 3; 336/84 = 4; 
+        #     window_size = 84
+
+        #     masks = mask_tensor.float()
+        #     mask_4d = masks.unsqueeze(1)
+        #     pool = torch.nn.MaxPool2d(kernel_size=window_size, stride=window_size)
+        #     window_mask = pool(mask_4d)
+        #     window_mask = (window_mask.squeeze(1) > 0).int()
+            
+        #     num_patches_per_window = window_size // 1  # 每个窗口包含的小 patch 数量
+        #     patch_mask = window_mask.repeat_interleave(num_patches_per_window, dim=1).repeat_interleave(num_patches_per_window, dim=2)[0, :, :]
+         
+
+
         #     plt.figure(figsize=(10,5))
-        #     plt.subplot(121)
+        #     plt.subplot(131)
         #     plt.imshow(image)
         #     plt.title('原始图像')
 
-        #     plt.subplot(122)
+        #     plt.subplot(132)
         #     if len(corrected_mask.shape) == 3:
         #         plt.imshow(corrected_mask)
         #     else: 
         #         plt.imshow(corrected_mask, cmap='gray')  # 灰度显示
         #     plt.title('修正掩码')
+
+        #     plt.subplot(133)  # 1 行 3 列，第 3 张
+        #     plt.imshow(patch_mask)
+        #     plt.title('第三张图片')
+
         #     # plt.show()
         #     plt.savefig(dest_image_path)
 
@@ -168,9 +187,32 @@ def eval_model(args):
         args.conv_mode = args.conv_mode + '_mmtag'
         print(f'It seems that this is a plain model, but it is not using a mmtag prompt, auto switching to {args.conv_mode}.')
 
-    data_loader = create_data_loader(questions, args.image_folder, tokenizer, image_processor, model.config)
 
-    for (input_ids, image_tensor, image_sizes, mask_tensor), line in tqdm(zip(data_loader, questions), total=len(questions)):
+    processed_images = set()
+    questions_to_process = []
+    print("Filtering questions before data loader creation...")
+    for line in tqdm(questions, desc="Pre-filtering questions"):
+        current_image_filename = line['image']
+
+        if args.cache_load_way == "write-only" or args.cache_load_way == "read-only":        
+            # 首先检查图片是否已经处理过，或者类别是否不是 'random'
+            if current_image_filename in processed_images:
+                continue # 如果图片已处理，则不将其添加到待处理列表中       
+            processed_images.add(current_image_filename)
+        
+        # if args.cache_load_way == "read-only":     
+        #     if line['category'] != 'random':
+        #         continue # 如果类别不是 'random'，则不添加到待处理列表中
+
+        # 如果图片未处理且类别是 'random'，则将其添加到待处理列表
+        questions_to_process.append(line)
+
+    print(f"Original questions count: {len(questions)}")
+    print(f"Questions to process after pre-filtering: {len(questions_to_process)}")
+
+    data_loader = create_data_loader(questions_to_process, args.image_folder, tokenizer, image_processor, model.config)
+
+    for (input_ids, image_tensor, image_sizes, mask_tensor), line in tqdm(zip(data_loader, questions_to_process), total=len(questions_to_process)):
         idx = line["question_id"]
         cur_prompt = line["text"]
 
@@ -199,6 +241,11 @@ def eval_model(args):
                                    "model_id": model_name,
                                    "metadata": {}}) + "\n")
         # ans_file.flush()
+    
+    if args.cache_load_way == "write-only":
+        model.get_model().background_cache.close()
+    if args.cache_load_way == "read-only":  
+        model.get_model().stats_collector.report_stats(args.dataset)
     ans_file.close()
 
 if __name__ == "__main__":
@@ -216,5 +263,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_beams", type=int, default=1)
     parser.add_argument("--max_new_tokens", type=int, default=128)
     parser.add_argument("--image-cache", type=bool, default=True)
+    parser.add_argument("--cache-load-way", type=str, default="read-only")   # no write-only read-only 
+    parser.add_argument("--dataset", type=str, default="default_dataset")   # no write-only read-only 
     args = parser.parse_args()
     eval_model(args)

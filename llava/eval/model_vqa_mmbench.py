@@ -116,8 +116,7 @@ def eval_model(args):
             # 添加对mask的处理
             from io import BytesIO
             import base64
-            print(f"image path: {BytesIO(base64.b64decode(row['image']))}")
-            result = yolo_model(BytesIO(base64.b64decode(row['image'])))
+            result = yolo_model(image)
 
             orig_h, orig_w = result[0].orig_shape  # 原始尺寸（480,640）
             combined_mask = np.zeros((orig_h, orig_w), dtype=np.uint8)

@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Debug LLAVA Model VQA",
+            "type": "python",
+            "request": "launch",
+            "module": "llava.eval.model_vqa_mmbench",
+            "args": [
+                "--model-path", "~/.cache/huggingface/hub/models--imagecache--llava-v1.5-7b-lora-noprefusion",
+                "--model-base", "lmsys/vicuna-7b-v1.5",
+                "--question-file", "~/autodl-tmp/playground/data/eval/mmbench/mmbench_dev_20230712.tsv",
+                "--answers-file", "~/autodl-tmp/playground/data/eval/mmbench/answers/mmbench_dev_20230712/llava-v1.5-7b-lora-noprefusion.jsonl",
+                "--single-pred-prompt",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1"
+            ],
+            "env": {
+                "AUTO_DL_TMP": "~/autodl-tmp",
+                "SPLIT": "mmbench_dev_20230712",
+                "CUDA_VISIBLE_DEVICES": "0" 
+            }
+        }
+    ]
+}

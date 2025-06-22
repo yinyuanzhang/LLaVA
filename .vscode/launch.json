@@ -2,17 +2,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug VQA Script",
+            "name": "Python: Debug LLaVA VQA Loader",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/scripts/v1_5/eval/debug_vqa.py",
-            "args": [],
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py", // 假设 model_vqa_loader.py 在此路径
+            "console": "integratedTerminal", // 在 VS Code 集成终端中运行
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/llava-v1.5-7b-task-lora-window-16-5500.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--cache-load-way", "read-only"
+            ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "0",  
-                "PYTHONPATH": "${workspaceFolder}"
+                // 如果你的脚本依赖于环境变量，例如 CUDA_VISIBLE_DEVICES
+                "CUDA_VISIBLE_DEVICES": "5",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp" // 定义 AUTO_DL_TMP 环境变量
             },
-            "console": "integratedTerminal",
-            "justMyCode": false
+            "cwd": "${workspaceFolder}" // 设置工作目录为项目根目录
         }
     ]
 }
