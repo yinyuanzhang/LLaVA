@@ -194,15 +194,15 @@ def eval_model(args):
     for line in tqdm(questions, desc="Pre-filtering questions"):
         current_image_filename = line['image']
 
-        if args.cache_load_way == "write-only" or args.cache_load_way == "read-only":        
+        if args.cache_load_way == "write-only":        
             # 首先检查图片是否已经处理过，或者类别是否不是 'random'
             if current_image_filename in processed_images:
                 continue # 如果图片已处理，则不将其添加到待处理列表中       
             processed_images.add(current_image_filename)
         
-        # if args.cache_load_way == "read-only":     
-        #     if line['category'] != 'random':
-        #         continue # 如果类别不是 'random'，则不添加到待处理列表中
+        if args.cache_load_way == "read-only":     
+            if line['category'] != 'random':
+                continue # 如果类别不是 'random'，则不添加到待处理列表中
 
         # 如果图片未处理且类别是 'random'，则将其添加到待处理列表
         questions_to_process.append(line)

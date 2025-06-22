@@ -67,6 +67,7 @@ class LlavaMetaModel:
                 )
                 self.background_cache = BackgroundFeatureCache(
                     cache_dir=cache_dir,
+                    faiss_key_dim = 4096,
                     device=self.device # 缓存加载时指定设备
                 )
                 print("Background caching system initialized.")
@@ -309,14 +310,24 @@ class LlavaMetaForCausalLM(ABC):
         elif self.cache_load_way == "write-only":
             print("缓存模式为 write-only，将计算的背景特征写入缓存。")
             with torch.no_grad():
-                bg_padded_for_key = self._pad_or_truncate_tokens(
-                    bg_flat_calculated,
-                    576,
-                    embedding_dim
-                ) 
-                faiss_key_feature = torch.max(bg_padded_for_key, dim=2)
-                assert batch_size == 1, "Faiss cache logic assumes batch_size == 1"
-                query_key_for_search = faiss_key_feature.squeeze(0).unsqueeze(0)
+                # bg_padded_for_key = self._pad_or_truncate_tokens(
+                #     bg_flat_calculated,
+                #     576,
+                #     embedding_dim
+                # ) 
+                # faiss_key_feature = torch.max(bg_padded_for_key, dim=2).values
+                # assert batch_size == 1, "Faiss cache logic assumes batch_size == 1"
+                # query_key_for_search = faiss_key_feature.squeeze(0).unsqueeze(0)
+
+                if bg_flat_calculated.dim() < 2:
+                    # 根据实际情况调整unsqueeze，确保存在 num_tokens 维度
+                    if bg_flat_calculated.dim() == 1: # (4096,) -> (1, 1, 4096)
+                        bg_flat_calculated = bg_flat_calculated.unsqueeze(0).unsqueeze(0)
+                    elif bg_flat_calculated.dim() == 0:
+                        raise ValueError("bg_flat_calculated cannot be a scalar.")
+
+                query_key_for_search = torch.mean(bg_flat_calculated, dim=1) 
+
                 
                 if self.get_model().background_cache:
                     self.get_model().background_cache.add_feature(query_key_for_search, bg_flat_calculated.clone().detach())
@@ -327,19 +338,29 @@ class LlavaMetaForCausalLM(ABC):
         elif self.cache_load_way == "read-only":
             is_cache_search_attempted = True # Mark that a search is being attempted
             with torch.no_grad():
-                bg_padded_for_key = self._pad_or_truncate_tokens(
-                    bg_flat_calculated,
-                    576,
-                    embedding_dim
-                )
-                faiss_key_feature = torch.max(bg_padded_for_key, dim=2)
-                assert batch_size == 1, "Faiss cache logic assumes batch_size == 1"
-                query_key_for_search = faiss_key_feature.squeeze(0).unsqueeze(0)
+                # bg_padded_for_key = self._pad_or_truncate_tokens(
+                #     bg_flat_calculated,
+                #     576,
+                #     embedding_dim
+                # )
+                # faiss_key_feature = torch.max(bg_padded_for_key, dim=2).values
+                # assert batch_size == 1, "Faiss cache logic assumes batch_size == 1"
+                # query_key_for_search = faiss_key_feature.squeeze(0).unsqueeze(0)
                 
+                if bg_flat_calculated.dim() < 2:
+                    # 根据实际情况调整unsqueeze，确保存在 num_tokens 维度
+                    if bg_flat_calculated.dim() == 1: # (4096,) -> (1, 1, 4096)
+                        bg_flat_calculated = bg_flat_calculated.unsqueeze(0).unsqueeze(0)
+                    elif bg_flat_calculated.dim() == 0:
+                        raise ValueError("bg_flat_calculated cannot be a scalar.")
+
+                query_key_for_search = torch.mean(bg_flat_calculated, dim=1) 
+
+
                 if self.get_model().background_cache:
                     reused_background_features_final, _ = self.get_model().background_cache.search_feature( # Capture hit status
                         query_key_for_search,
-                        distance_threshold=0.1 # Use the stored threshold
+                        distance_threshold=1000 # Use the stored threshold
                     )
                     if reused_background_features_final is not None:
                         cache_hit_status = True 

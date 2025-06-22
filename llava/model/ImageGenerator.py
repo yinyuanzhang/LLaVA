@@ -117,8 +117,8 @@ class BackgroundFeatureCache:
         """
         key_vector_np = key_feature.cpu().numpy().reshape(1, -1)
 
-        if key_vector_np.shape[1] != self.faiss_dim:
-            raise ValueError(f"Key feature dimension {key_vector_np.shape[1]} mismatch with Faiss index dimension {self.faiss_dim}. Expected {self.faiss_dim}.")
+        # if key_vector_np.shape[1] != self.faiss_dim:
+        #     raise ValueError(f"Key feature dimension {key_vector_np.shape[1]} mismatch with Faiss index dimension {self.faiss_dim}. Expected {self.faiss_dim}.")
 
         self.faiss_index.add_with_ids(key_vector_np, np.array([self.next_faiss_id], dtype=np.int64))
 

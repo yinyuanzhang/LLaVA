@@ -9,8 +9,8 @@ python -m llava.eval.model_vqa_loader \
     --answers-file $AUTO_DL_TMP/playground/data/eval/pope/answers/llava-v1.5-7b-task-lora-window-16-5500.jsonl \
     --temperature 0 \
     --conv-mode vicuna_v1 \
-    --cache-load-way write-only \
-    --dataset default_dataset
+    --cache-load-way read-only \
+    --dataset pope
 
 python llava/eval/eval_pope.py \
     --annotation-dir $AUTO_DL_TMP/playground/data/eval/pope/coco \
