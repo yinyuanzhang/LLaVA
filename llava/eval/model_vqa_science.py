@@ -114,6 +114,12 @@ def eval_model(args):
                                    "model_id": model_name,
                                    "metadata": {}}) + "\n")
         ans_file.flush()
+
+
+    if args.cache_load_way == "write-only":
+        model.get_model().background_cache.close()
+    if args.cache_load_way == "read-only":  
+        model.get_model().stats_collector.report_stats(args.dataset)    
     ans_file.close()
 
 if __name__ == "__main__":
@@ -130,5 +136,7 @@ if __name__ == "__main__":
     parser.add_argument("--answer-prompter", action="store_true")
     parser.add_argument("--single-pred-prompt", action="store_true")
     parser.add_argument("--image-cache", type=bool, default=True)
+    parser.add_argument("--cache-load-way", type=str, default=None)   # no write-only read-only 
+    parser.add_argument("--dataset", type=str, default="default_dataset")   # no write-only read-only     
     args = parser.parse_args()
     eval_model(args)

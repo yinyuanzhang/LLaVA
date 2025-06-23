@@ -19,7 +19,7 @@
             ],
             "env": {
                 // 如果你的脚本依赖于环境变量，例如 CUDA_VISIBLE_DEVICES
-                "CUDA_VISIBLE_DEVICES": "5",
+                "CUDA_VISIBLE_DEVICES": "1",
                 "AUTO_DL_TMP": "${env:HOME}/autodl-tmp" // 定义 AUTO_DL_TMP 环境变量
             },
             "cwd": "${workspaceFolder}" // 设置工作目录为项目根目录

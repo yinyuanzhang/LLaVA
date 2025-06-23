@@ -30,6 +30,7 @@ import copy
 from transformers import AutoTokenizer
 from .ImageGenerator import BackgroundFeatureCache
 from .CacheStatisticsCollector import CacheStatisticsCollector
+import torch.nn.functional as F
 
 class LlavaMetaModel:
 
@@ -327,6 +328,7 @@ class LlavaMetaForCausalLM(ABC):
                         raise ValueError("bg_flat_calculated cannot be a scalar.")
 
                 query_key_for_search = torch.mean(bg_flat_calculated, dim=1) 
+                query_key_for_search = F.normalize(query_key_for_search, p=2, dim=1) # L2 normalization
 
                 
                 if self.get_model().background_cache:
@@ -355,7 +357,7 @@ class LlavaMetaForCausalLM(ABC):
                         raise ValueError("bg_flat_calculated cannot be a scalar.")
 
                 query_key_for_search = torch.mean(bg_flat_calculated, dim=1) 
-
+                query_key_for_search = F.normalize(query_key_for_search, p=2, dim=1) # L2 normalization
 
                 if self.get_model().background_cache:
                     reused_background_features_final, _ = self.get_model().background_cache.search_feature( # Capture hit status
