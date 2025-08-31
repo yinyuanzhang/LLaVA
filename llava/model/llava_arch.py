@@ -31,6 +31,7 @@ import copy
 from transformers import AutoTokenizer
 from .ImageGenerator import BackgroundFeatureCache
 from .CacheStatisticsCollector import CacheStatisticsCollector
+import torch.nn.functional as F
 
 class LlavaMetaModel:
 

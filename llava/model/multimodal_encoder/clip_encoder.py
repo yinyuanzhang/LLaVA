@@ -70,7 +70,7 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
 
 
         # set window_size  336/14 = 24;   336/168 = 2;  336/112 = 3; 336/84 = 4; 
-        window_size = 84
+        window_size = 56
 
         # 获取嵌入表示
         hidden_states = self.embeddings(pixel_values)
