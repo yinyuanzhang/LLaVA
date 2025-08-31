@@ -2,28 +2,179 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Debug LLaVA VQA Loader",
+            "name": "Native Method - Read Only",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py", // 假设 model_vqa_loader.py 在此路径
-            "console": "integratedTerminal", // 在 VS Code 集成终端中运行
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
                 "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
                 "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/llava-v1.5-7b-task-lora-window-16-5500.jsonl",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/native-read-only.jsonl",
                 "--temperature", "0",
                 "--conv-mode", "vicuna_v1",
-                "--cache-load-way", "read-only"
+                "--method-type", "native",
+                "--cache-mode", "read-only",
+                "--dataset", "pope"
             ],
             "env": {
-                // 如果你的脚本依赖于环境变量，例如 CUDA_VISIBLE_DEVICES
                 "CUDA_VISIBLE_DEVICES": "5",
                 "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp" // 定义 AUTO_DL_TMP 环境变量
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
             },
-            "cwd": "${workspaceFolder}" // 设置工作目录为项目根目录
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Segmentation-Cache - Write Only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014_bagle",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/segmentation-write-only.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "write-only",
+                "--dataset", "pope"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Segmentation-Cache - Read Only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/segmentation-read-only.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-only",
+                "--dataset", "pope"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Segmentation-Cache - Read Load",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/segmentation-read-load.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "pope"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Object-Only - Read Only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/object-only-read-only.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "object-only",
+                "--cache-mode", "read-only",
+                "--dataset", "pope"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Fuzzy-Cache - Write Only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-write-only.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "fuzzy-cache",
+                "--cache-mode", "write-only",
+                "--dataset", "po pe"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Fuzzy-Cache - Read Load",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-read-load.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "fuzzy-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "pope"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

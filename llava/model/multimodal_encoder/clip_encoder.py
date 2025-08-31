@@ -432,6 +432,7 @@ class MyCLIPVisionModel(CLIPVisionModel):
         ```"""
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
+        # MyCLIPVisionModel is only used in segmentation mode, so always pass masks
         return self.vision_model(
             pixel_values=pixel_values,
             masks=masks,
@@ -496,17 +497,19 @@ class CLIPVisionTower(nn.Module):
 
 
         vision_tower_output_path = './checkpoints/clip-vit-large-patch14-336.pth'
-        # 保存模型的状态字典(先保存，再加载)
-        if not os.path.exists(vision_tower_output_path):
-            self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
-
-            state_dict = self.vision_tower.vision_model.state_dict()
-            torch.save(state_dict, vision_tower_output_path)
-
-        self.vision_tower = MyCLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
         
-
-        if self.args.image_cache:
+        if hasattr(self.args, 'method_type') and self.args.method_type in ["segmentation-cache", "object-only"]:
+            # Segmentation/object-only mode: use MyCLIPVisionModel that supports masks
+            # 保存模型的状态字典(先保存，再加载)
+            if not os.path.exists(vision_tower_output_path):
+                temp_vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+                state_dict = temp_vision_tower.vision_model.state_dict()
+                torch.save(state_dict, vision_tower_output_path)
+                del temp_vision_tower
+                torch.cuda.empty_cache()
+            
+            self.vision_tower = MyCLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+            
             config = self.vision_tower.config
             bak_obj_vision_model = CLIPVisionTransformerWithBackgroundObject(config, self.args).to(self.vision_tower.vision_model.embeddings.class_embedding.device)
         
@@ -550,6 +553,12 @@ class CLIPVisionTower(nn.Module):
                     bak_obj_vision_model.pre_layrnorm.load_state_dict(pre_layrnorm_sd, strict=True)
 
             self.vision_tower.vision_model = bak_obj_vision_model
+        elif hasattr(self.args, 'method_type') and self.args.method_type == "fuzzy-cache":
+            # Fuzzy-cache mode: use standard CLIPVisionModel (like native) but with caching support
+            self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+        else:
+            # Native mode: use standard CLIPVisionModel (no masks support)
+            self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
 
         self.vision_tower.requires_grad_(False)
 
@@ -578,8 +587,9 @@ class CLIPVisionTower(nn.Module):
         return image_features
     
     @torch.no_grad()
-    def forward(self, images, masks):
-        if self.args.image_cache:
+    def forward(self, images, masks=None):
+        if hasattr(self.args, 'method_type') and self.args.method_type in ["segmentation-cache", "object-only"]:
+            # Segmentation/object-only mode: self.vision_tower is MyCLIPVisionModel, pass masks
             image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), masks = masks.to(device=self.device), output_hidden_states=True)
             background_features = self.my_feature_select(image_forward_outs[0]).to(images.dtype)
             background_attention_mask = image_forward_outs[0][-1].to(images.dtype)
@@ -587,18 +597,19 @@ class CLIPVisionTower(nn.Module):
             object_attention_mask = image_forward_outs[1][-1].to(images.dtype)
             
             return background_features, object_features, background_attention_mask, object_attention_mask
-
-        if type(images) is list:
-            image_features = []
-            for image in images:
-                image_forward_out = self.vision_tower(image.to(device=self.device, dtype=self.dtype).unsqueeze(0), output_hidden_states=True)
-                image_feature = self.feature_select(image_forward_out).to(image.dtype)
-                image_features.append(image_feature)
         else:
-            image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), output_hidden_states=True)
-            image_features = self.feature_select(image_forward_outs).to(images.dtype)
+            # Native/fuzzy-cache mode: self.vision_tower is CLIPVisionModel, don't pass masks
+            if type(images) is list:
+                image_features = []
+                for image in images:
+                    image_forward_out = self.vision_tower(image.to(device=self.device, dtype=self.dtype).unsqueeze(0), output_hidden_states=True)
+                    image_feature = self.feature_select(image_forward_out).to(image.dtype)
+                    image_features.append(image_feature)
+            else:
+                image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), output_hidden_states=True)
+                image_features = self.feature_select(image_forward_outs).to(images.dtype)
 
-        return image_features
+            return image_features
 
     @property
     def dummy_feature(self):

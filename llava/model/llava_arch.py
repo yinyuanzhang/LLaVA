@@ -17,6 +17,7 @@ from abc import ABC, abstractmethod
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 from .multimodal_encoder.builder import build_vision_tower
 from .multimodal_projector.builder import build_vision_projector
@@ -35,8 +36,8 @@ class LlavaMetaModel:
 
     def __init__(self, config):
         super(LlavaMetaModel, self).__init__(config)
-        self.image_cache = config.image_cache
-        self.cache_load_way = config.cache_load_way
+        self.method_type = getattr(config, 'method_type', 'native')
+        self.cache_mode = getattr(config, 'cache_mode', 'read-only')
 
         if hasattr(config, "mm_vision_tower"):
             self.vision_tower = build_vision_tower(config, delay_load=True)
@@ -55,31 +56,40 @@ class LlavaMetaModel:
             # self.load_prefusion()
 
 
-        if hasattr(config, "cache_load_way") and config.cache_load_way != None:
+        # 初始化缓存系统（如果支持缓存的模式）
+        if self.method_type in ["segmentation-cache", "fuzzy-cache"] and self.cache_mode in ["write-only", "read-load"]:
             try:
                 import faiss
                 import os
+                from llava.mm_utils import get_model_name_from_path
+                
                 dataset_name = getattr(config, 'dataset', 'default_dataset')
-                print(f"Final dataset_name: {dataset_name}") 
-                cache_dir = os.path.join(
-                    config.background_cache_dir if hasattr(config, 'background_cache_dir') else "~/background_feature_cache",
-                    dataset_name
-                )
+                model_path = getattr(config, 'model_path', 'unknown_model')
+                model_name = get_model_name_from_path(model_path)
+                print(f"Final dataset_name: {dataset_name}")
+                print(f"Model path: {model_path}")
+                print(f"Model name: {model_name}")
+                print(f"Method type: {self.method_type}")
+                print(f"Cache mode: {self.cache_mode}")
+                
+                base_cache_path = "faiss"
+                dynamic_cache_path = os.path.join(base_cache_path, self.method_type, model_name, dataset_name)
+                
                 self.background_cache = BackgroundFeatureCache(
-                    cache_dir=cache_dir,
+                    cache_dir=dynamic_cache_path,
                     faiss_key_dim = 4096,
                     device=self.device # 缓存加载时指定设备
                 )
-                print("Background caching system initialized.")
+                print(f"Background caching system initialized at: {dynamic_cache_path}")
             except ImportError:
                 print("Faiss not installed. Background caching will be disabled.")
                 self.background_cache = None
 
-            # --- Initialize statistics collector if in read-only mode ---
-            self.stats_collector = None
-            if self.cache_load_way == "read-only":
-                self.stats_collector = CacheStatisticsCollector()
-                print("Cache statistics collector initialized for read-only mode.")
+        # 初始化统计收集器（如果需要）
+        self.stats_collector = None
+        if self.method_type in ["segmentation-cache", "fuzzy-cache"] and self.cache_mode in ["read-only", "read-load"]:
+            self.stats_collector = CacheStatisticsCollector()
+            print(f"Cache statistics collector initialized for {self.cache_mode} mode.")
 
 
 
@@ -265,7 +275,7 @@ class LlavaMetaForCausalLM(ABC):
         此方法将统计**分离后的**背景和目标有效token数量，并交给统计类处理。
         同时，它会记录缓存的命中/未命中情况。
         """        
-        self.cache_load_way = getattr(self.get_model(), "cache_load_way", None)
+        self.cache_mode = getattr(self.get_model(), "cache_mode", "read-only")
         
         background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
         background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
@@ -283,8 +293,8 @@ class LlavaMetaForCausalLM(ABC):
         assert (current_bg_valid_count + current_obj_valid_count == 576), "总有效token数应为576"
 
 
-        # --- Pass these counts to the statistics collector if it exists and is read-only ---
-        if self.cache_load_way == "read-only":
+        # --- Pass these counts to the statistics collector if it exists and is read-only or read-load ---
+        if self.cache_mode in ["read-only", "read-load"]:
             self.get_model().stats_collector.collect_stats(current_bg_valid_count, current_obj_valid_count)
 
 
@@ -296,18 +306,18 @@ class LlavaMetaForCausalLM(ABC):
         ].reshape(batch_size, -1, embedding_dim)
 
         # ----------------------------------------------------
-        # 缓存逻辑优化核心：根据 self.cache_load_way 进行控制
+        # 缓存逻辑优化核心：根据 self.cache_mode 进行控制
         # ----------------------------------------------------
         is_cache_search_attempted = False # Flag to track if a search was performed
         cache_hit_status = False          # Flag to track if the search resulted in a hit
 
-        if self.cache_load_way is None:
+        if self.cache_mode == "read-only":
             pass # No caching, no print
             
-        elif self.cache_load_way != "write-only" and bg_flat_calculated.shape[1] == 0:
+        elif self.cache_mode != "write-only" and bg_flat_calculated.shape[1] == 0:
             print("背景有效token数为0，跳过背景缓存处理。")
             
-        elif self.cache_load_way == "write-only":
+        elif self.cache_mode == "write-only":
             print("缓存模式为 write-only，将计算的背景特征写入缓存。")
             with torch.no_grad():
                 # bg_padded_for_key = self._pad_or_truncate_tokens(
@@ -327,6 +337,7 @@ class LlavaMetaForCausalLM(ABC):
                         raise ValueError("bg_flat_calculated cannot be a scalar.")
 
                 query_key_for_search = torch.mean(bg_flat_calculated, dim=1) 
+                query_key_for_search = F.normalize(query_key_for_search, p=2, dim=1)  # L2归一化
 
                 
                 if self.get_model().background_cache:
@@ -335,7 +346,7 @@ class LlavaMetaForCausalLM(ABC):
                 else:
                     print("警告: 缓存系统未初始化，无法写入。")
         
-        elif self.cache_load_way == "read-only":
+        elif self.cache_mode == "read-load":
             is_cache_search_attempted = True # Mark that a search is being attempted
             with torch.no_grad():
                 # bg_padded_for_key = self._pad_or_truncate_tokens(
@@ -355,12 +366,13 @@ class LlavaMetaForCausalLM(ABC):
                         raise ValueError("bg_flat_calculated cannot be a scalar.")
 
                 query_key_for_search = torch.mean(bg_flat_calculated, dim=1) 
+                query_key_for_search = F.normalize(query_key_for_search, p=2, dim=1)  # L2归一化
 
 
                 if self.get_model().background_cache:
                     reused_background_features_final, _ = self.get_model().background_cache.search_feature( # Capture hit status
                         query_key_for_search,
-                        distance_threshold=1000 # Use the stored threshold
+                        distance_threshold=0.1 # 归一化后使用更小的阈值
                     )
                     if reused_background_features_final is not None:
                         cache_hit_status = True 
@@ -376,7 +388,7 @@ class LlavaMetaForCausalLM(ABC):
             else:
                 print("缓存未命中，使用新计算的背景特征，不写入缓存。")
         else:
-            print(f"警告：未知的缓存模式 '{self.cache_load_way}'。将不进行任何缓存操作。")
+            print(f"警告：未知的缓存模式 '{self.cache_mode}'。将不进行任何缓存操作。")
 
         # --- Record cache outcome if a search was attempted ---
         if is_cache_search_attempted:
@@ -410,6 +422,93 @@ class LlavaMetaForCausalLM(ABC):
         ).unsqueeze(0) 
         
         return concatenated_features
+    
+    def encode_object_only_images(self, images, masks):
+        """
+        编码目标图像，仅使用目标部分，舍弃背景。
+        基于 segmentation-cache 的逻辑，但只返回目标特征。
+        """
+        background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
+        background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
+        
+        # 只处理目标特征
+        object_features = self.get_model().mm_projector(object_features).to(object_features.device)
+        
+        batch_size, _, embedding_dim = object_features.shape
+        valid_object_mask = object_attention_mask.bool().unsqueeze(-1).to(images.device)
+        
+        # 提取有效的目标特征
+        obj_flat = object_features[valid_object_mask.repeat(1, 1, embedding_dim)].reshape(batch_size, -1, embedding_dim)
+        
+        return obj_flat
+    
+    def encode_fuzzy_cache_images(self, images, masks):
+        """
+        模糊缓存模式：使用完整图像编码，但支持缓存复用。
+        和 native 一样使用完整图片进行编码，但复用思路和 segmentation-cache 一样。
+        """
+        self.cache_mode = getattr(self.get_model(), "cache_mode", "read-only")
+        
+        # 使用原生方式编码完整图像
+        image_features = self.get_model().get_vision_tower()(images)
+        image_features = self.get_model().mm_projector(image_features)
+        
+        batch_size, num_tokens, embedding_dim = image_features.shape
+        
+        # 将完整的图像特征作为一个整体进行缓存处理
+        reused_features_final = None
+        
+        # 缓存逻辑（类似 segmentation-cache，但处理完整特征）
+        is_cache_search_attempted = False
+        cache_hit_status = False
+        
+        if self.cache_mode == "read-only":
+            pass # No caching
+            
+        elif self.cache_mode == "write-only":
+            print("缓存模式为 write-only，将完整图像特征写入缓存。")
+            with torch.no_grad():
+                # 对 token 维度进行平均池化，得到 [batch_size, embedding_dim] 的特征作为检索 key
+                query_key_for_search = torch.mean(image_features, dim=1)  # [1, 576, 4096] -> [1, 4096]
+                query_key_for_search = F.normalize(query_key_for_search, p=2, dim=1)  # L2归一化
+                
+                if self.get_model().background_cache:
+                    # 将完整的图像特征作为 value 存储
+                    image_features_flattened = image_features.view(batch_size, -1, embedding_dim)
+                    self.get_model().background_cache.add_feature(query_key_for_search, image_features_flattened.clone().detach())
+                else:
+                    print("警告: 缓存系统未初始化，无法写入。")
+        
+        elif self.cache_mode == "read-load":
+            is_cache_search_attempted = True
+            with torch.no_grad():
+                query_key_for_search = torch.mean(image_features, dim=1)  # [1, 576, 4096] -> [1, 4096]
+                query_key_for_search = F.normalize(query_key_for_search, p=2, dim=1)  # L2归一化
+                
+                if self.get_model().background_cache:
+                    reused_features_final, _ = self.get_model().background_cache.search_feature(
+                        query_key_for_search,
+                        distance_threshold=0.1  # 归一化后使用更小的阈值
+                    )
+                    if reused_features_final is not None:
+                        cache_hit_status = True
+                        print("使用缓存的完整图像特征。")
+                    else:
+                        cache_hit_status = False
+                        print("缓存未命中，使用新计算的完整图像特征。")
+                else:
+                    print("警告: 缓存系统未初始化，无法搜索。")
+                    cache_hit_status = False
+        
+        # 记录缓存结果
+        if is_cache_search_attempted:
+            self.get_model().stats_collector.record_cache_outcome(cache_hit_status)
+            
+        # 决定最终使用的特征
+        if reused_features_final is not None:
+            return reused_features_final.to(images.device)
+        else:
+            return image_features
     
 
     # # 统一在此处进行封装，即均是调用 get_vision_tower
@@ -699,11 +798,15 @@ class LlavaMetaForCausalLM(ABC):
             else:
                 raise ValueError(f"Unexpected mm_patch_merge_type: {self.config.mm_patch_merge_type}")
         else:
-            if self.image_cache:
+            if self.method_type == "segmentation-cache":
                 # image_features = self.encode_background_and_object_images(images, masks, inference_mode = 'object_only')
                 # image_features = self.encode_background_and_object_images_back(images, masks)
                 image_features = self.encode_background_and_object_images_back_cache(images, masks)
-            else:
+            elif self.method_type == "object-only":
+                image_features = self.encode_object_only_images(images, masks)
+            elif self.method_type == "fuzzy-cache":
+                image_features = self.encode_fuzzy_cache_images(images, masks)
+            else:  # native method - don't pass masks
                 image_features = self.encode_images(images)
 
 

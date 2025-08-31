@@ -110,7 +110,7 @@ class BackgroundFeatureCache:
         """
         将固定维度的Key特征添加到Faiss索引，并将可变维度的Value特征保存到本地。
         Args:
-            key_feature (torch.Tensor): [1, faiss_key_dim] 形状的固定维度特征向量。
+            key_feature (torch.Tensor): [1, faiss_key_dim] 形状的固定维度特征向量（已归一化）。
             value_feature (torch.Tensor): [1, N_actual_bg_tokens, embedding_dim] 形状的原始背景特征 (已剥离无效token)。
         Returns:
             int: 添加的特征在Faiss中的ID。
@@ -134,7 +134,7 @@ class BackgroundFeatureCache:
         """
         在Faiss索引中搜索最相似的Key特征，并返回对应的Value特征。
         Args:
-            query_key_feature (torch.Tensor): [1, faiss_key_dim] 形状的查询Key向量。
+            query_key_feature (torch.Tensor): [1, faiss_key_dim] 形状的查询Key向量（已归一化）。
             top_k (int): 返回最相似的K个结果 (通常是1)。
             distance_threshold (float): L2距离阈值。
         Returns:

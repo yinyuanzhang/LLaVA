@@ -42,13 +42,13 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
     config_class = LlavaConfig
 
     def __init__(self, config, *model_args):
-        if len(model_args) > 0:
-            self.image_cache = model_args[0].image_cache
-        config.image_cache = model_args[0].image_cache
-        if hasattr(model_args[0], "cache_load_way"):
-            config.cache_load_way = model_args[0].cache_load_way
+        if hasattr(model_args[0], "method_type"):
+            config.method_type = model_args[0].method_type    
+            self.method_type = model_args[0].method_type
+        if hasattr(model_args[0], "cache_mode"):
+            config.cache_mode = model_args[0].cache_mode
         if hasattr(model_args[0], "dataset"):
-                config.dataset = model_args[0].dataset
+            config.dataset = model_args[0].dataset
                 
         super(LlamaForCausalLM, self).__init__(config)
         self.model = LlavaLlamaModel(config)

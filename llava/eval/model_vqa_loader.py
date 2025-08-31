@@ -51,7 +51,7 @@ class CustomDataset(Dataset):
         self.model_config = model_config
 
         # self.yolo_inference = YOLOInference(model_path="yolov8n-seg.pt")
-        self.yolo_model = YOLO('./checkpoints/yolov/yolov8l-seg.pt').to('cpu')
+        self.yolo_model = YOLO('./checkpoints/yolov/yolov8n-seg.pt').to('cpu')
         # self.yolo_model = torch.hub.load("ultralytics/yolov5", "yolov5s").to('cpu')
 
     def __getitem__(self, index):
@@ -188,24 +188,26 @@ def eval_model(args):
         print(f'It seems that this is a plain model, but it is not using a mmtag prompt, auto switching to {args.conv_mode}.')
 
 
-    processed_images = set()
     questions_to_process = []
+    if args.cache_mode == "write-only":
+        processed_images = set()
+
     print("Filtering questions before data loader creation...")
     for line in tqdm(questions, desc="Pre-filtering questions"):
-        current_image_filename = line['image']
 
-        if args.cache_load_way == "write-only":        
+        if line.get('category') != 'random': # 使用 .get() 避免 KeyError，如果 'category' 不存在，则默认为 None
+            continue # 跳过当前循环的其余部分，处理下一条数据
+
+        if args.cache_mode == "write-only":
+            current_image_filename = line['image']
+    
             # 首先检查图片是否已经处理过，或者类别是否不是 'random'
             if current_image_filename in processed_images:
                 continue # 如果图片已处理，则不将其添加到待处理列表中       
             processed_images.add(current_image_filename)
-        
-        if args.cache_load_way == "read-only":     
-            if line['category'] != 'random':
-                continue # 如果类别不是 'random'，则不添加到待处理列表中
-
-        # 如果图片未处理且类别是 'random'，则将其添加到待处理列表
-        questions_to_process.append(line)
+            questions_to_process.append(line)
+        else:
+            questions_to_process.append(line)
 
     print(f"Original questions count: {len(questions)}")
     print(f"Questions to process after pre-filtering: {len(questions_to_process)}")
@@ -242,9 +244,9 @@ def eval_model(args):
                                    "metadata": {}}) + "\n")
         # ans_file.flush()
     
-    if args.cache_load_way == "write-only":
+    if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode == "write-only":
         model.get_model().background_cache.close()
-    if args.cache_load_way == "read-only":  
+    if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode in ["read-only", "read-load"]:  
         model.get_model().stats_collector.report_stats(args.dataset)
     ans_file.close()
 
@@ -262,8 +264,8 @@ if __name__ == "__main__":
     parser.add_argument("--top_p", type=float, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
     parser.add_argument("--max_new_tokens", type=int, default=128)
-    parser.add_argument("--image-cache", type=bool, default=True)
-    parser.add_argument("--cache-load-way", type=str, default="read-only")   # no write-only read-only 
-    parser.add_argument("--dataset", type=str, default="default_dataset")   # no write-only read-only 
+    parser.add_argument("--method-type", type=str, default="native", choices=["native", "segmentation-cache", "object-only", "fuzzy-cache"])
+    parser.add_argument("--cache-mode", type=str, default="read-only", choices=["read-only", "write-only", "read-load"])
+    parser.add_argument("--dataset", type=str, default="default_dataset") 
     args = parser.parse_args()
     eval_model(args)
