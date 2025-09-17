@@ -20,7 +20,7 @@
                 "--dataset", "pope"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "5",
+                "CUDA_VISIBLE_DEVICES": "4",
                 "LD_LIBRARY_PATH": "",
                 "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
             },
@@ -142,7 +142,7 @@
                 "--conv-mode", "vicuna_v1",
                 "--method-type", "fuzzy-cache",
                 "--cache-mode", "write-only",
-                "--dataset", "po pe"
+                "--dataset", "pope"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "5",
@@ -173,6 +173,286 @@
                 "CUDA_VISIBLE_DEVICES": "5",
                 "LD_LIBRARY_PATH": "",
                 "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android Control - Native",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
+                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
+                "--eval-type", "high",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/native-read-only.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-only",
+                "--method-type", "native",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android Control - Object-Only",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
+                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
+                "--eval-type", "high",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/object-only-read-only.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-only",
+                "--method-type", "object-only",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android Control - Segmentation-Cache (Write-Only)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images_bagle",
+                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
+                "--eval-type", "high",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/segmentation-write-only.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "write-only",
+                "--method-type", "segmentation-cache",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android Control - Segmentation-Cache (Read-Load)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
+                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
+                "--eval-type", "high",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/segmentation-read-load.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-load",
+                "--method-type", "segmentation-cache",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android Control - Fuzzy-Cache (Write-Only)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images_bagle",
+                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
+                "--eval-type", "high",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/fuzzy-cache-write-only.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "write-only",
+                "--method-type", "fuzzy-cache",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android Control - Fuzzy-Cache (Read-Load)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
+                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
+                "--eval-type", "high",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/fuzzy-cache-read-load.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-load",
+                "--method-type", "fuzzy-cache",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android SH Debug - Native",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images",
+                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
+                "--eval-type", "high",
+                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-native.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-only",
+                "--method-type", "native",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "4",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android SH Debug - Object-Only",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images",
+                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
+                "--eval-type", "high",
+                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-object-only.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-only",
+                "--method-type", "object-only",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "6",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android SH Debug - Segmentation-Cache",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images",
+                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
+                "--eval-type", "high",
+                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-segmentation-cache.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-only",
+                "--method-type", "segmentation-cache",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Android SH Debug - Fuzzy-Cache",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images",
+                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
+                "--eval-type", "high",
+                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-fuzzy-cache.jsonl",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "android_control",
+                "--cache-mode", "read-only",
+                "--method-type", "fuzzy-cache",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "8",
+                "LD_LIBRARY_PATH": ""
             },
             "cwd": "${workspaceFolder}"
         }
