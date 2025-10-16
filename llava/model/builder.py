@@ -122,6 +122,17 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
             print("'0.weight'[0] 参数一致！")
 
 
+            ################################################################################
+            ####### 新增代码块：在模型完全加载后，执行 CacheBlend 注入 #######
+            if getattr(model.config, 'method_type', None) == 'cacheblend':
+                if hasattr(model, 'enable_cacheblend_attention'):
+                    print("Attempting to inject CacheBlend attention...")
+                    model.enable_cacheblend_attention()
+                else:
+                    print("Warning: Model does not have 'enable_cacheblend_attention' method. Skipping injection.")
+            ####### 代码块结束 #######
+            ################################################################################
+            
 
         elif model_base is not None:
             # this may be mm projector only

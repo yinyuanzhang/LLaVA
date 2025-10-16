@@ -33,6 +33,14 @@ from .ImageGenerator import BackgroundFeatureCache
 from .CacheStatisticsCollector import CacheStatisticsCollector
 import torch.nn.functional as F
 
+################################################################################
+# 新增导入：导入您的KV控制器类。
+# 请确保此文件（例如来自您Qwen实现的kv_faiss_cache.py）位于Python可发现的路径中。
+from .kv_faiss_cache import CacheBlendKVController
+import os
+################################################################################
+
+
 class LlavaMetaModel:
 
     def __init__(self, config):
@@ -61,11 +69,10 @@ class LlavaMetaModel:
         if self.method_type in ["segmentation-cache", "fuzzy-cache"] and self.cache_mode in ["write-only", "read-load"]:
             try:
                 import faiss
-                import os
                 from llava.mm_utils import get_model_name_from_path
                 
                 dataset_name = getattr(config, 'dataset', 'default_dataset')
-                model_path = getattr(config, 'model_path', 'unknown_model')
+                model_path = getattr(config, '_name_or_path', 'unknown_model')
                 model_name = get_model_name_from_path(model_path)
                 print(f"Final dataset_name: {dataset_name}")
                 print(f"Model path: {model_path}")
@@ -91,6 +98,32 @@ class LlavaMetaModel:
         if self.method_type in ["segmentation-cache", "fuzzy-cache"] and self.cache_mode in ["read-only", "read-load"]:
             self.stats_collector = CacheStatisticsCollector()
             print(f"Cache statistics collector initialized for {self.cache_mode} mode.")
+
+
+        ################################################################################
+        ####### 新增代码块：为 CacheBlend 初始化 KV 控制器 #######
+        if self.method_type == "cacheblend":
+            from llava.mm_utils import get_model_name_from_path
+            
+            # 这些属性是在模型加载时，通过 model_args 传递给 config 的
+            dataset_name = getattr(config, "dataset", "default_dataset")
+            model_path = getattr(config, "_name_or_path", "unknown_model")
+            model_name = get_model_name_from_path(model_path)
+            
+            # LLM的 hidden_size 是KV缓存特征正确的 key_dim
+            key_dim = getattr(config, "hidden_size", 4096)
+            
+            # 您可以根据需要将其配置为从外部传入
+            base_cache_path = "/data/zyy/LLaVA/faiss"
+            dynamic_cache_path = os.path.join(base_cache_path, self.method_type, model_name, dataset_name)
+            
+            self.kv_controller = CacheBlendKVController(
+                key_dim=key_dim,
+                cache_base_path=dynamic_cache_path
+            )
+            print(f"CacheBlend: KV 控制器已在 '{dynamic_cache_path}' 路径下为模型 '{model_name}' (数据集 '{dataset_name}') 初始化。")
+        ####### 代码块结束 #######
+        ################################################################################
 
 
 
@@ -240,22 +273,250 @@ class LlavaMetaForCausalLM(ABC):
         image_features = self.get_model().mm_projector(image_features)
         return image_features
 
-    # def _pad_or_truncate_tokens(self, tokens, target_len, embedding_dim):
-    #         """
-    #         Helper function to pad or truncate tokens to a target length.
-    #         Assumes tokens are [batch_size, current_len, embedding_dim]
-    #         """
-    #         batch_size, current_len, _ = tokens.shape
-    #         if current_len == target_len:
-    #             return tokens
-    #         elif current_len < target_len:
-    #             padding_needed = target_len - current_len
-    #             # Pad with zeros
-    #             padding = torch.zeros(batch_size, padding_needed, embedding_dim, device=tokens.device, dtype=tokens.dtype)
-    #             return torch.cat([tokens, padding], dim=1)
-    #         else: # current_len > target_len
-    #             # Truncate
-    #             return tokens[:, :target_len, :]
+    ################################################################################
+    ####### 新增辅助函数：此函数包含 'write-only' 模式的核心逻辑 #######
+    def _perform_cacheblend_write_only_pass(self, images, masks):
+        """
+        在 'write-only' 模式下，此函数为背景和前景图像段执行独立的前向传播，
+        以预先计算并保存它们的KV缓存。
+        这是一个副作用操作，不会改变主计算流程。
+        """
+        print("CacheBlend 'write-only' 模式：正在执行独立的背景/前景KV缓存过程...")
+        model = self.get_model()
+        vision_tower = self.get_vision_tower()  # 到底调用哪个visual_tower,应该是在模型初始化的时候根据 method_type 决定的
+        
+        if not hasattr(model, 'kv_controller'):
+            print("CacheBlend 'write-only' 警告：未找到 kv_controller。跳过缓存步骤。")
+            return
+
+        # 1. 获取分离的背景/前景特征 (embeddings)
+        # 此逻辑假设 vision_tower 可以根据掩码返回分离的特征。
+        # LLaVA 的 vision_tower 需要进行相应修改以支持此功能，或在此处实现分离逻辑。
+        bg_feats, fg_feats, bg_attn_mask, fg_attn_mask = vision_tower(images, masks)
+        bg_embeds = model.mm_projector(bg_feats)
+        fg_embeds = model.mm_projector(fg_feats)
+
+        bg_mask = bg_attn_mask.bool().unsqueeze(-1).expand_as(bg_embeds)
+        fg_mask = fg_attn_mask.bool().unsqueeze(-1).expand_as(fg_embeds)
+
+        bg_embeds_flat = bg_embeds[bg_mask].reshape(1, -1, model.config.hidden_size)
+        fg_embeds_flat = fg_embeds[fg_mask].reshape(1, -1, model.config.hidden_size)
+
+        # 2. 为Faiss索引派生特征键
+        with torch.no_grad():
+            bg_feature_key = F.normalize(bg_embeds_flat.mean(dim=1), p=2, dim=1) if bg_embeds_flat.shape[1] > 0 else None
+            fg_feature_key = F.normalize(fg_embeds_flat.mean(dim=1), p=2, dim=1) if fg_embeds_flat.shape[1] > 0 else None
+
+        # 3. 执行独立的前向传播并收集KV缓存
+        bg_kv_cache_list, fg_kv_cache_list = None, None
+        
+        # --- 背景传播 ---
+        if bg_embeds_flat.shape[1] > 0:
+            # 我们直接调用基础模型（即Transformer层堆栈），以获取hidden_states和past_key_values
+            bg_outputs = model(
+                inputs_embeds=bg_embeds_flat,
+                use_cache=True,
+                return_dict=True
+            )
+            # 返回的 past_key_values 是每层 (key, value) 张量的元组
+            bg_kv_cache_list = [{"key": kv[0].clone().cpu(), "value": kv[1].clone().cpu()} for kv in bg_outputs.past_key_values]
+
+        # --- 前景传播 ---
+        if fg_embeds_flat.shape[1] > 0:
+            fg_outputs = model(
+                inputs_embeds=fg_embeds_flat,
+                use_cache=True,
+                return_dict=True
+            )
+            fg_kv_cache_list = [{"key": kv[0].clone().cpu(), "value": kv[1].clone().cpu()} for kv in fg_outputs.past_key_values]
+
+        # 4. 使用KV控制器保存收集到的缓存
+        model.kv_controller.add_patch_cache(
+            bg_feature=bg_feature_key,
+            fg_feature=fg_feature_key,
+            bg_kv_cache=bg_kv_cache_list,
+            fg_kv_cache=fg_kv_cache_list,
+            bg_tokens=bg_embeds_flat.shape[1],
+            fg_tokens=fg_embeds_flat.shape[1],
+            # 注意：在LLaVA中，position_ids的生成较晚且复杂。
+            # 在'write-only'阶段，我们可能还没有它们。可以存储None或一个简单的arange作为占位符。
+            bg_position_ids=torch.arange(bg_embeds_flat.shape[1]) if bg_embeds_flat.shape[1] > 0 else None,
+            fg_position_ids=torch.arange(fg_embeds_flat.shape[1]) if fg_embeds_flat.shape[1] > 0 else None,
+        )
+        print(f"CacheBlend 'write-only': 背景/前景 KV 缓存过程完成。")
+    ####### 函数结束 #######
+    ################################################################################
+    
+
+    ################################################################################
+    ####### 新增辅助函数：实现 'read-load' 模式的核心逻辑 #######
+    
+    def _search_and_prepare_cached_data(self, images, masks):
+        """
+        封装了 'read-load' 模式下的所有缓存交互：
+        1. 提取BG/FG特征。
+        2. 搜索相似的缓存。
+        3. 如果命中，准备对齐的 old_kvs 以供后续层使用。
+        4. 返回搜索结果和命中状态。
+        """
+        model = self.get_model()
+        vision_tower = self.get_vision_tower()
+
+        # 1. 提取视觉特征 (与 write-only 中类似)
+        bg_feats, fg_feats, bg_attn_mask, fg_attn_mask = vision_tower(images, masks)
+        bg_embeds = model.mm_projector(bg_feats)
+        fg_embeds = model.mm_projector(fg_feats)
+        
+        bg_mask = bg_attn_mask.bool().unsqueeze(-1).expand_as(bg_embeds)
+        fg_mask = fg_attn_mask.bool().unsqueeze(-1).expand_as(fg_embeds)
+
+        bg_embeds_flat = bg_embeds[bg_mask].reshape(1, -1, model.config.hidden_size)
+        fg_embeds_flat = fg_embeds[fg_mask].reshape(1, -1, model.config.hidden_size)
+
+        with torch.no_grad():
+            bg_feature_key = F.normalize(bg_embeds_flat.mean(dim=1), p=2, dim=1) if bg_embeds_flat.shape[1] > 0 else None
+            fg_feature_key = F.normalize(fg_embeds_flat.mean(dim=1), p=2, dim=1) if fg_embeds_flat.shape[1] > 0 else None
+
+        # 2. 在缓存中搜索
+        # 假设 similarity_threshold 从 config 中获取
+        similarity_threshold = getattr(model.config, 'similarity_threshold', 0.1)
+        bg_kv, bg_tokens, bg_pos_ids, fg_kv, fg_tokens, fg_pos_ids = \
+            model.kv_controller.search_patch_cache(bg_feature_key, fg_feature_key, similarity_threshold)
+
+        cache_hit = (bg_kv is not None) or (fg_kv is not None)
+        
+        # 将 token 数量为 None 的情况处理为 0
+        bg_tokens = bg_tokens if bg_tokens is not None else 0
+        fg_tokens = fg_tokens if fg_tokens is not None else 0
+
+        # 3. 如果命中，准备对齐的 old_kvs
+        if cache_hit:
+            # 初始化一个空的 old_kvs 列表，长度为模型层数
+            num_layers = model.config.num_hidden_layers
+            old_kvs = [[None, None] for _ in range(num_layers)]
+            
+            # 按 BG -> FG 的顺序将缓存的KV拼接到一个对齐的张量中
+            # 注意：这里的图像总长度(expected_len)需要与当前输入的图像token数一致
+            # 在调用此函数后，我们将根据重建的输入来确定这个长度
+            # 这里我们只返回原始的、未对齐的缓存数据
+            pass # 对齐逻辑将在主函数中处理，因为我们需要知道最终的输入长度
+
+        cached_data = {
+            "hit": cache_hit,
+            "bg_kv": bg_kv, "bg_tokens": bg_tokens, "bg_pos_ids": bg_pos_ids,
+            "fg_kv": fg_kv, "fg_tokens": fg_tokens, "fg_pos_ids": fg_pos_ids,
+            "original_bg_len": bg_embeds_flat.shape[1]
+        }
+        return cached_data
+
+
+    def _rebuild_inputs_from_cache(self, original_input_ids, original_inputs_embeds, cached_data):
+        """
+        根据缓存命中结果（可能是变长的），动态重建 inputs_embeds, input_ids 等。
+        此版本已修正，以正确处理 LLaVA 的 "占位符替换" 机制。
+        """
+        model = self.get_model()
+        device = original_inputs_embeds.device
+        
+        # 1. 解构原始输入，分离出文本嵌入和原始图像嵌入
+        from llava.constants import IMAGE_TOKEN_INDEX
+        image_token_idx = torch.where(original_input_ids == IMAGE_TOKEN_INDEX)[1][0].item()
+        original_image_len = original_inputs_embeds.shape[1] - original_input_ids.shape[1] + 1
+        
+        pre_text_embeds = original_inputs_embeds[:, :image_token_idx, :]
+        post_text_embeds = original_inputs_embeds[:, image_token_idx + original_image_len:, :]
+        original_image_embeds = original_inputs_embeds[:, image_token_idx:image_token_idx + original_image_len, :]
+
+        # 2. 根据 vision tower 的输出，分离原始图像嵌入为 BG 和 FG 部分
+        #    这是为了在部分未命中时，能正确填充真实 embedding
+        #    注意: original_bg_len 需要从 vision_tower 的处理结果中获取，这里假设它可以被传递
+        original_bg_len = cached_data.get('original_bg_len', 0) # 这是一个需要您从vision tower处获取并传入的变量
+        original_bg_embeds = original_image_embeds[:, :original_bg_len, :]
+        original_fg_embeds = original_image_embeds[:, original_bg_len:, :]
+
+        # 3. 根据缓存命中情况，决定各段最终使用的 embedding
+        final_image_embeds_parts = []
+        
+        # --- 获取一个合法的、中性的 token embedding 作为占位符模板 ---
+        pad_token_id = model.config.pad_token_id if model.config.pad_token_id is not None else 0
+        placeholder_template = model.embed_tokens(torch.tensor([[pad_token_id]], device=device))
+
+        # --- 处理背景部分 ---
+        if cached_data['bg_kv'] is not None: # 背景命中
+            cached_len = cached_data['bg_tokens']
+            # 使用模板 embedding 创建一个正确长度的占位符
+            placeholder = placeholder_template.expand(1, cached_len, -1)
+            final_image_embeds_parts.append(placeholder)
+        else: # 背景未命中
+            final_image_embeds_parts.append(original_bg_embeds)
+
+        # --- 处理前景部分 ---
+        if cached_data['fg_kv'] is not None: # 前景命中
+            cached_len = cached_data['fg_tokens']
+            placeholder = placeholder_template.expand(1, cached_len, -1)
+            final_image_embeds_parts.append(placeholder)
+        else: # 前景未命中
+            final_image_embeds_parts.append(original_fg_embeds)
+        
+        # 4. 拼接成新的图像嵌入和最终的 inputs_embeds
+        new_image_embeds = torch.cat(final_image_embeds_parts, dim=1)
+        new_image_len = new_image_embeds.shape[1]
+        new_inputs_embeds = torch.cat([pre_text_embeds, new_image_embeds, post_text_embeds], dim=1)
+        
+        # 5. 根据新的长度，重建 input_ids, position_ids, 和 attention_mask
+        new_image_ids = torch.full((1, new_image_len), IMAGE_TOKEN_INDEX, device=device, dtype=torch.long)
+        pre_text_ids = original_input_ids[:, :image_token_idx]
+        post_text_ids = original_input_ids[:, image_token_idx + 1:]
+        new_input_ids = torch.cat([pre_text_ids, new_image_ids, post_text_ids], dim=1)
+        
+        new_seq_len = new_inputs_embeds.shape[1]
+        new_attention_mask = torch.ones(1, new_seq_len, device=device, dtype=torch.bool)
+        new_position_ids = torch.arange(0, new_seq_len, device=device, dtype=torch.long).unsqueeze(0)
+        
+        # 6. 准备与新图像长度对齐的 old_kvs
+        aligned_old_kvs = self._align_cached_kvs(cached_data, new_image_len, device)
+
+        return new_input_ids, new_position_ids, new_attention_mask, new_inputs_embeds, aligned_old_kvs
+
+
+
+    def _align_cached_kvs(self, cached_data, expected_len, device):
+        """将BG/FG缓存拼接成一个对齐的old_kvs列表"""
+        model = self.get_model()
+        num_layers = model.config.num_hidden_layers
+        aligned_old_kvs = [[None, None] for _ in range(num_layers)]
+
+        bg_kv, bg_len = cached_data['bg_kv'], cached_data['bg_tokens']
+        fg_kv, fg_len = cached_data['fg_kv'], cached_data['fg_tokens']
+        
+        if not cached_data['hit']:
+            return aligned_old_kvs
+
+        for i in range(num_layers):
+            key_shape = (1, model.config.num_key_value_heads, expected_len, model.config.hidden_size // model.config.num_attention_heads)
+            value_shape = key_shape
+            
+            aligned_key = torch.zeros(key_shape, device=device, dtype=model.dtype)
+            aligned_value = torch.zeros(value_shape, device=device, dtype=model.dtype)
+            
+            current_pos = 0
+            if bg_kv and bg_len > 0:
+                k, v = bg_kv[i]['key'].to(device), bg_kv[i]['value'].to(device)
+                aligned_key[:, :, current_pos:current_pos+bg_len, :] = k
+                aligned_value[:, :, current_pos:current_pos+bg_len, :] = v
+                current_pos += bg_len
+            
+            if fg_kv and fg_len > 0:
+                k, v = fg_kv[i]['key'].to(device), fg_kv[i]['value'].to(device)
+                aligned_key[:, :, current_pos:current_pos+fg_len, :] = k
+                aligned_value[:, :, current_pos:current_pos+fg_len, :] = v
+
+            aligned_old_kvs[i] = [aligned_key, aligned_value]
+            
+        return aligned_old_kvs
+
+    ####### 函数结束 #######
+    ################################################################################
 
     # Helper function to pad/truncate tokens
     def _pad_or_truncate_tokens(self, tokens: torch.Tensor, target_length: int, embedding_dim: int):
@@ -512,235 +773,6 @@ class LlavaMetaForCausalLM(ABC):
             return image_features
     
 
-    # # 统一在此处进行封装，即均是调用 get_vision_tower
-    # def encode_background_and_object_images(self, images, masks=None, inference_mode="both"):
-    #     """
-    #     编码背景&目标图像，并根据推理模式进行特征拼接。
-
-    #     Args:
-    #         images (torch.Tensor): 输入图像数据。
-    #         masks (torch.Tensor, optional): (batch_size, 2) 张量，每行 [背景有效token数, 目标有效token数]。
-    #                                          用于辅助 VisionTower 生成 attention mask。
-    #         inference_mode (str): 推理模式，可选值：
-    #                               - "both": 同时使用背景和目标特征（默认）。
-    #                               - "background_only": 只使用背景特征。
-    #                               - "object_only": 只使用目标特征。
-    #                                 如果目标为空（object_valid为0），则即使选择"object_only"也回退到背景。
-    #     Returns:
-    #         torch.Tensor: 拼接后的图像特征。
-    #     """        
-    #     background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
-
-    #     # 这一行保持不变，符合你的API要求
-    #     background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
-
-    #     # ----------------------------------------------------------------------
-    #     # 注意：这里的 background_features 和 object_features 是 VisionTower 的原始输出
-    #     # 它可能包含填充的0或无效token。
-    #     # mm_projector 应该作用在有效部分或者整个序列上，如果它处理的是整个序列，
-    #     # 那么后续再根据 attention_mask 提取有效特征。
-    #     # 我将假设 mm_projector 作用在完整的特征张量上。
-    #     # ----------------------------------------------------------------------
-
-    #     # 对原始输出的特征进行 mm_projector 投影
-    #     background_features_projected = self.get_model().mm_projector(background_features)
-    #     object_features_projected = self.get_model().mm_projector(object_features)
-
-    #     batch_size, _, embedding_dim = background_features_projected.shape # embedding_dim 在投影后获取
-
-    #     # --- 验证有效token数 (保持不变) ---
-    #     # 确保 attention_mask 是 bool 类型并增加一个维度以进行广播
-    #     valid_background_mask = background_attention_mask.bool().unsqueeze(-1)
-    #     valid_object_mask = object_attention_mask.bool().unsqueeze(-1)
-
-    #     # 计算每个样本的有效 token 数量 (保持不变)
-    #     background_valid = valid_background_mask.squeeze(-1).sum(dim=1)
-    #     object_valid = valid_object_mask.squeeze(-1).sum(dim=1)
-        
-    #     # 验证总有效token数（如果你的 VisionTower 输出总token数固定为576）
-    #     # total_tokens_per_sample = background_features_projected.shape[1] # 获取 VisionTower 输出的token总数
-    #     # assert torch.all(background_valid + object_valid == total_tokens_per_sample), "总有效token数不正确"
-    #     # 假设原始代码的 576 限制是正确的，且 VisionTower 返回的 mask 涵盖了所有 token。
-    #     assert torch.all(background_valid + object_valid == 576), "总有效token数应为576"
-
-
-    #     # --- 向量化提取有效token (保持不变，但提取的是投影后的特征) ---
-    #     # 展平背景和目标特征，只提取 mask 标记为 True 的有效部分
-    #     bg_flat = background_features_projected[valid_background_mask.repeat(1, 1, embedding_dim)].reshape(-1, embedding_dim)
-    #     obj_flat = object_features_projected[valid_object_mask.repeat(1, 1, embedding_dim)].reshape(-1, embedding_dim)
-
-    #     # 按样本分割 (保持不变)
-    #     # bg_splits: list of tensors, each tensor is [num_bg_tokens_for_sample_i, embedding_dim]
-    #     bg_splits = torch.split(bg_flat, background_valid.tolist())
-    #     # obj_splits: list of tensors, each tensor is [num_obj_tokens_for_sample_i, embedding_dim]
-    #     obj_splits = torch.split(obj_flat, object_valid.tolist())
-
-
-    #     # --- 根据 inference_mode 决定如何处理特征 ---
-    #     processed_features_list = [] # 用于存放每个样本最终的特征序列
-
-    #     for i in range(batch_size):
-    #         current_bg_feat = bg_splits[i] # [bg_count_i, embedding_dim]
-    #         current_obj_feat = obj_splits[i] # [obj_count_i, embedding_dim]
-    #         current_obj_valid_count = object_valid[i].item() # 实际的目标 token 数量
-
-    #         current_sample_final_features = None
-
-    #         if inference_mode == "both":
-    #             current_sample_final_features = torch.cat([current_bg_feat, current_obj_feat], dim=0)
-    #         elif inference_mode == "background_only":
-    #             current_sample_final_features = current_bg_feat
-    #         elif inference_mode == "object_only":
-    #             if current_obj_valid_count > 0: # 如果目标有效 token 数大于0，则使用目标特征
-    #                 current_sample_final_features = current_obj_feat
-    #             else: # 如果目标为空，则回退到背景特征
-    #                 # print(f"Warning: Object is empty for sample {i} (obj_valid={current_obj_valid_count}), falling back to background for 'object_only' mode.")
-    #                 current_sample_final_features = current_bg_feat
-    #         else:
-    #             raise ValueError(f"Unknown inference_mode: {inference_mode}. Must be 'both', 'background_only', or 'object_only'.")
-            
-    #         processed_features_list.append(current_sample_final_features)
-
-    #     # 堆叠拼接后的特征，需要处理长度不一致的情况 (保持不变的 padding 逻辑)
-    #     max_len = max(feat.shape[0] for feat in processed_features_list)
-        
-    #     padded_features_list = []
-    #     for feat in processed_features_list:
-    #         padding_needed = max_len - feat.shape[0]
-    #         if padding_needed > 0:
-    #             # 填充0或其他pad token的embedding
-    #             pad_tensor = torch.zeros(padding_needed, embedding_dim, device=feat.device, dtype=feat.dtype)
-    #             padded_feat = torch.cat([feat, pad_tensor], dim=0)
-    #         else:
-    #             padded_feat = feat
-    #         padded_features_list.append(padded_feat)
-
-    #     concatenated_features = torch.stack(padded_features_list, dim=0) 
-        
-    #     return concatenated_features
-
-
-    # # 统一在此处进行封装，即均是调用 get_vision_tower
-    # def encode_background_and_object_images_back(self, images, masks):
-    #     """
-    #     编码背景&目标图像。
-    #     """        
-    #     background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
-    #     background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
-
-
-    #     # 补充两者的模态之间的融合
-        
-
-
-    #     background_features = self.get_model().mm_projector(background_features).to(images.device)
-    #     object_features = self.get_model().mm_projector(object_features).to(images.device)
-
-    #     batch_size, _, embedding_dim = background_features.shape
-
-    #     # --- 验证有效token数 ---
-    #     valid_background_mask = background_attention_mask.bool().unsqueeze(-1).to(images.device)
-    #     valid_object_mask = object_attention_mask.bool().unsqueeze(-1).to(images.device)
-    #     background_valid = valid_background_mask.squeeze(-1).sum(dim=1)
-    #     object_valid = valid_object_mask.squeeze(-1).sum(dim=1)
-    #     assert torch.all(background_valid + object_valid == 576), "总有效token数应为576"
-
-    #     # --- 向量化提取有效token ---
-    #     # 展平背景和目标特征
-    #     bg_flat = background_features[valid_background_mask.repeat(1, 1, embedding_dim)]  # [total_bg_tokens, 4096]
-    #     obj_flat = object_features[valid_object_mask.repeat(1, 1, embedding_dim)]        # [total_obj_tokens, 4096]
-
-    #     # 按样本分割
-    #     bg_splits = torch.split(bg_flat, (background_valid * embedding_dim).tolist())
-    #     obj_splits = torch.split(obj_flat, (object_valid * embedding_dim).tolist())
-
-    #     # 拼接并重塑形状
-        
-
-    #     # flag_token = torch.zeros(1, embedding_dim).to(background_features.device).to(background_features.dtype)
-    #     # DEFAULT_BACKGROUND_OBJECT_TOKEN_ID = 32000 
-    #     # flag_token = self.get_model().get_input_embeddings()(torch.tensor([DEFAULT_BACKGROUND_OBJECT_TOKEN_ID], device=background_features.device))
-        
-    #     # concatenated_features = [
-    #     #     torch.cat([bg.reshape(-1, embedding_dim), flag_token, obj.reshape(-1, embedding_dim)], dim=0)
-    #     #     for bg, obj in zip(bg_splits, obj_splits)
-    #     # ]
-    #     concatenated_features = [
-    #         torch.cat([bg.reshape(-1, embedding_dim), obj.reshape(-1, embedding_dim)], dim=0)
-    #         for bg, obj in zip(bg_splits, obj_splits)
-    #     ]
-
-    #     # descriptions = [
-    #     #     f"Left first {valid.item()} image background tokens, then {576 - valid.item()} image foreground tokens."
-    #     #     for valid in background_valid
-    #     # ]
-    #     # if not hasattr(self, 'tokenizer') or self.tokenizer is None:
-    #     #     self.tokenizer = AutoTokenizer.from_pretrained("lmsys/vicuna-7b-v1.5", use_fast=False)
-
-    #     # # 处理每个样本
-    #     # processed_features = []
-    #     # for i, feat in enumerate(concatenated_features):
-    #     #     # 检查是否需要拆分背景和前景
-    #     #     if background_valid[i].item() != feat.size(0):  # 需要拆分背景和前景
-    #     #         # 使用 tokenizer 对描述进行编码
-    #     #         description_id = self.tokenizer(descriptions[i], return_tensors="pt").input_ids.to(self.model.device)
-                
-    #     #         # 获取 description_feature
-    #     #         description_feature = self.get_model().embed_tokens(description_id).squeeze(0)  # [description_length, embedding_dim]
-                
-    #     #         # 分割背景和目标特征
-    #     #         bg_feature = feat[:background_valid[i].item()]  # 背景特征
-    #     #         obj_feature = feat[background_valid[i].item():]  # 目标特征
-                
-    #     #         # 将 description_feature 插入到背景和目标特征之间
-    #     #         feat = torch.cat([bg_feature, obj_feature, description_feature], dim=0)  # 在序列维度上拼接
-            
-    #     #     # 将处理后的特征加入列表
-    #     #     processed_features.append(feat)
-
-
-    #     # 堆叠拼接后的特征
-    #     concatenated_features = torch.stack(concatenated_features, dim=0) 
-    #     return concatenated_features
-
-        
-    #     # # --- 生成掩码和位置ID ---
-    #     # concatenated_attention_mask = torch.ones((batch_size, 577), dtype=torch.bool, device=device)
-
-    #     # attention_mask = concatenated_attention_mask.int()
-
-    #     # position_ids = attention_mask.long().cumsum(-1) - 1
-
-    #     # attention_mask = concatenated_attention_mask.unsqueeze(1).unsqueeze(3) 
-    #     # attention_mask = attention_mask.expand(-1, -1, -1, 577).bool()
-
-    #     # position_ids = torch.arange(concatenated_attention_mask.shape[1], device=device).expand(batch_size, -1)  # [batch_size, 576]
-
-    #     # # model 初始化    【这里增加条件判断】
-    #     # # if not self.get_model().load_prefusion_layers:  # and model未load
-    #     # #     self.get_model().load_prefusion()
-        
-    #     # orig_concatenated_features = concatenated_features.clone()
-
-    #     # # 模态预融合
-    #     # for layer in self.get_model().prefusion_layers:
-    #     #     concatenated_features = layer(concatenated_features, attention_mask=attention_mask, position_ids=position_ids)[0]
-
-    #     # # 提取经过融合处理的目标特征部分
-    #     # final_features_list = []
-    #     # for i in range(batch_size):
-    #     #     start_idx = background_valid[i].item()
-    #     #     end_idx = start_idx + object_valid[i].item()
-    #     #     fused_object_features = concatenated_features[i, start_idx + 1:end_idx + 1]
-    #     #     original_background_features = orig_concatenated_features[i, 0:start_idx]
-    #     #     final_feature = torch.cat([original_background_features, fused_object_features], dim=0)  # [576, 4096]
-    #     #     final_features_list.append(final_feature)
-
-    #     # final_features = torch.stack(final_features_list, dim=0)  # [batch_size, 576, 4096]
-    #     # assert all(final_features.shape[1] == 576 for _ in range(batch_size)), "特征数量不匹配"
-
-    #     # return final_features
-
     
     def prepare_inputs_labels_for_multimodal(
         self, input_ids, position_ids, attention_mask, past_key_values, labels,
@@ -799,16 +831,92 @@ class LlavaMetaForCausalLM(ABC):
             else:
                 raise ValueError(f"Unexpected mm_patch_merge_type: {self.config.mm_patch_merge_type}")
         else:
-            if self.method_type == "segmentation-cache":
-                # image_features = self.encode_background_and_object_images(images, masks, inference_mode = 'object_only')
-                # image_features = self.encode_background_and_object_images_back(images, masks)
-                image_features = self.encode_background_and_object_images_back_cache(images, masks)
-            elif self.method_type == "object-only":
-                image_features = self.encode_object_only_images(images, masks)
-            elif self.method_type == "fuzzy-cache":
-                image_features = self.encode_fuzzy_cache_images(images, masks)
-            else:  # native method - don't pass masks
-                image_features = self.encode_images(images)
+            model = self.get_model()
+            image_features = None # 初始化
+            
+            # ################################################################################
+            # ####### 修改后的主要逻辑注入点 #######
+            # if getattr(model, 'method_type', None) == 'cacheblend':
+            #     is_prefill = past_key_values is None
+                
+            #     # 只在 prefill 阶段执行 cacheblend 的特殊逻辑
+            #     if is_prefill:
+            #         if getattr(model, 'cache_mode', None) == 'write-only':
+            #             # 执行 'write-only' 的副作用操作
+            #             with torch.no_grad():
+            #                 self._perform_cacheblend_write_only_pass(images, masks)
+            #             # write-only后，继续走原生图像编码流程
+            #             image_features = self.encode_images(images)
+
+            #         elif getattr(model, 'cache_mode', None) == 'read-load':
+            #             # 执行 'read-load' 逻辑
+            #             print("CacheBlend 'read-load' 模式：启动缓存搜索与输入重建...")
+            #             cached_data = self._search_and_prepare_cached_data(images, masks)
+                        
+            #             if cached_data['hit']:
+            #                 # 如果命中，则需要重建整个输入序列
+            #                 input_ids, position_ids, attention_mask, original_inputs_embeds, old_kvs = \
+            #                     self._rebuild_inputs_from_cache(input_ids, original_inputs_embeds, cached_data)
+
+            #                 # 将准备好的数据附加到模型实例上，供 Attention Wrapper 使用
+            #                 if not hasattr(model, 'cache_fuse_metadata'):
+            #                     model.cache_fuse_metadata = {}
+                            
+            #                 image_start_index = torch.where(input_ids == IMAGE_TOKEN_INDEX)[0][0].item()
+            #                 image_len = cached_data['bg_tokens'] + cached_data['fg_tokens']
+                            
+            #                 model.cache_fuse_metadata.update({
+            #                     "old_kvs": old_kvs,
+            #                     "image_span": (image_start_index, image_len),
+            #                     "bg_len": cached_data['bg_tokens'],
+            #                     "fg_len": cached_data['fg_tokens'],
+            #                     "is_bg_hit": cached_data['bg_kv'] is not None,
+            #                     "is_fg_hit": cached_data['fg_kv'] is not None,
+            #                 })
+                            
+            #                 # 在这种情况下，image_features 已经包含在 original_inputs_embeds 中
+            #                 # 所以我们设置 image_features 为一个空张量，以跳过后续的标准拼接逻辑
+            #                 image_features = torch.tensor([], device=original_inputs_embeds.device)
+            #             else:
+            #                 # 缓存未命中，按原生流程处理
+            #                 print("CacheBlend 'read-load' 模式：缓存未命中，执行原生图像编码。")
+            #                 image_features = self.encode_images(images)
+            #         else:
+            #             # 其他模式（如 read-only），按原生流程处理
+            #             image_features = self.encode_images(images)
+            #     else: # Decode 阶段，总是原生处理
+            #         image_features = self.encode_images(images)
+
+            # ####### 代码块结束 #######
+            # ################################################################################
+
+
+            ################################################################################
+            ####### 简化后的逻辑注入点 #######
+            # 在这里，我们只处理 'write-only' 模式，因为它是一个独立的副作用操作。
+            # 'read-load' 的逻辑将被移动到更高层的 llava_llama.py 中。
+            if getattr(model, 'method_type', None) == 'cacheblend':
+                is_prefill = past_key_values is None
+                if is_prefill and getattr(model, 'cache_mode', None) == 'write-only':
+                    with torch.no_grad():
+                        self._perform_cacheblend_write_only_pass(images, masks)
+            ####### 代码块结束 #######
+            ################################################################################
+
+
+
+            # 如果 image_features 尚未被计算（即非cacheblend路径），则在这里计算
+            if image_features is None:
+                if self.method_type == "segmentation-cache":
+                    # image_features = self.encode_background_and_object_images(images, masks, inference_mode = 'object_only')
+                    # image_features = self.encode_background_and_object_images_back(images, masks)
+                    image_features = self.encode_background_and_object_images_back_cache(images, masks)
+                elif self.method_type == "object-only":
+                    image_features = self.encode_object_only_images(images, masks)
+                elif self.method_type == "fuzzy-cache":
+                    image_features = self.encode_fuzzy_cache_images(images, masks)
+                else:  # native method - don't pass masks
+                    image_features = self.encode_images(images)
 
 
         # TODO: image start / end is not implemented here to support pretraining.

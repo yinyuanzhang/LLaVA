@@ -6,6 +6,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "justMyCode": false,
             "console": "integratedTerminal",
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
@@ -20,7 +21,7 @@
                 "--dataset", "pope"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "4",
+                "CUDA_VISIBLE_DEVICES": "2",
                 "LD_LIBRARY_PATH": "",
                 "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
             },
@@ -145,7 +146,7 @@
                 "--dataset", "pope"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "5",
+                "CUDA_VISIBLE_DEVICES": "7",
                 "LD_LIBRARY_PATH": "",
                 "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
             },
@@ -170,7 +171,59 @@
                 "--dataset", "pope"
             ],
             "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "CacheBlend - Write-only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "justMyCode": false,
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-read-load.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "cacheblend",
+                "--cache-mode", "write-only",
+                "--dataset", "pope"
+            ],
+            "env": {
                 "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": "",
+                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "CacheBlend - Read Load",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "justMyCode": false,
+            "console": "integratedTerminal",
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-read-load.jsonl",
+                "--temperature", "0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "cacheblend",
+                "--cache-mode", "read-load",
+                "--dataset", "pope"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
                 "LD_LIBRARY_PATH": "",
                 "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
             },

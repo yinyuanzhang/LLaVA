@@ -198,6 +198,9 @@ def eval_model(args):
         if line.get('category') != 'random': # 使用 .get() 避免 KeyError，如果 'category' 不存在，则默认为 None
             continue # 跳过当前循环的其余部分，处理下一条数据
 
+        if line['question_id'] > 10000100:
+            break
+
         if args.cache_mode == "write-only":
             current_image_filename = line['image']
     
@@ -244,6 +247,16 @@ def eval_model(args):
                                    "metadata": {}}) + "\n")
         # ans_file.flush()
     
+    if getattr(model.config, 'method_type', None) == 'cacheblend' and \
+        getattr(model.config, 'cache_mode', None) == 'write-only':
+        
+        # 检查 kv_controller 是否存在并调用 save_all
+        if hasattr(model.get_model(), 'kv_controller'):
+            print("评测结束，正在持久化 CacheBlend KV 缓存...")
+            model.get_model().kv_controller.save_all()
+            print("KV 缓存已成功保存到磁盘。")
+            
+
     if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode == "write-only":
         model.get_model().background_cache.close()
     if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode in ["read-only", "read-load"]:  
@@ -264,7 +277,7 @@ if __name__ == "__main__":
     parser.add_argument("--top_p", type=float, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
     parser.add_argument("--max_new_tokens", type=int, default=128)
-    parser.add_argument("--method-type", type=str, default="native", choices=["native", "segmentation-cache", "object-only", "fuzzy-cache"])
+    parser.add_argument("--method-type", type=str, default="native", choices=["native", "segmentation-cache", "object-only", "fuzzy-cache","cacheblend"])
     parser.add_argument("--cache-mode", type=str, default="read-only", choices=["read-only", "write-only", "read-load"])
     parser.add_argument("--dataset", type=str, default="default_dataset") 
     args = parser.parse_args()

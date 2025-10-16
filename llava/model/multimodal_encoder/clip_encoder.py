@@ -40,6 +40,23 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, BaseModelOutputWithPooling]:
+        
+        
+        ################################## MODIFICATION START ##################################
+        # 目的: 增加一个“回退”到原生行为的逻辑。
+        #       当这个方法在原生路径下被调用时（即 masks is None），
+        #       它应该表现得和原始的 CLIPVisionTransformer 完全一样。
+        if masks is None:
+            # 如果没有提供 mask，则调用父类（即原生 CLIPVisionTransformer）的 forward 方法
+            return super().forward(
+                pixel_values=pixel_values,
+                output_attentions=output_attentions,
+                output_hidden_states=output_hidden_states,
+                return_dict=return_dict,
+            )
+        ################################### MODIFICATION END ###################################
+        
+        
         """
         Args:
             pixel_values (torch.Tensor): 输入图像张量，形状为 (batch_size, num_channels, height, width)。
@@ -498,7 +515,7 @@ class CLIPVisionTower(nn.Module):
 
         vision_tower_output_path = './checkpoints/clip-vit-large-patch14-336.pth'
         
-        if hasattr(self.args, 'method_type') and self.args.method_type in ["segmentation-cache", "object-only"]:
+        if hasattr(self.args, 'method_type') and self.args.method_type in ["segmentation-cache", "object-only", "background-only", "cacheblend"]:
             # Segmentation/object-only mode: use MyCLIPVisionModel that supports masks
             # 保存模型的状态字典(先保存，再加载)
             if not os.path.exists(vision_tower_output_path):
@@ -585,31 +602,61 @@ class CLIPVisionTower(nn.Module):
         else:
             raise ValueError(f'Unexpected select feature: {self.select_feature}')
         return image_features
-    
+
+    ################################## MODIFICATION START ##################################
+    # 目的: 将原 forward 方法拆分为两个功能明确的独立方法，并将原 forward 改造为调度器。
+
+    @torch.no_grad()
+    def forward_native(self, images):
+        """执行原生（无分割）的图像特征提取。"""
+        if type(images) is list:
+            image_features = []
+            for image in images:
+                image_forward_out = self.vision_tower(image.to(device=self.device, dtype=self.dtype).unsqueeze(0), output_hidden_states=True)
+                image_feature = self.feature_select(image_forward_out).to(image.dtype)
+                image_features.append(image_feature)
+        else:
+            image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), output_hidden_states=True)
+            image_features = self.feature_select(image_forward_outs).to(images.dtype)
+        return image_features
+
+    @torch.no_grad()
+    def forward_segmented(self, images, masks):
+        """执行支持背景-前景分割的特征提取。"""
+        if masks is None:
+            raise ValueError("forward_segmented requires masks to be provided.")
+        
+        # self.vision_tower 是 MyCLIPVisionModel, 它会调用 CLIPVisionTransformerWithBackgroundObject
+        image_forward_outs = self.vision_tower(
+            pixel_values=images.to(device=self.device, dtype=self.dtype), 
+            masks=masks.to(device=self.device, dtype=self.dtype), 
+            output_hidden_states=True # 虽然内部实现没用这个参数，但保持接口一致性
+        )
+        
+        # image_forward_outs 是一个列表，包含背景和前景的输出元组
+        # [(bg_hidden_state, bg_mask), (obj_hidden_state, obj_mask)]
+        background_features = self.my_feature_select(image_forward_outs[0]).to(images.dtype)
+        background_attention_mask = image_forward_outs[0][-1].to(images.dtype)
+        object_features = self.my_feature_select(image_forward_outs[1]).to(images.dtype)
+        object_attention_mask = image_forward_outs[1][-1].to(images.dtype)
+        
+        return background_features, object_features, background_attention_mask, object_attention_mask
+
     @torch.no_grad()
     def forward(self, images, masks=None):
-        if hasattr(self.args, 'method_type') and self.args.method_type in ["segmentation-cache", "object-only"]:
-            # Segmentation/object-only mode: self.vision_tower is MyCLIPVisionModel, pass masks
-            image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), masks = masks.to(device=self.device), output_hidden_states=True)
-            background_features = self.my_feature_select(image_forward_outs[0]).to(images.dtype)
-            background_attention_mask = image_forward_outs[0][-1].to(images.dtype)
-            object_features = self.my_feature_select(image_forward_outs[1]).to(images.dtype)
-            object_attention_mask = image_forward_outs[1][-1].to(images.dtype)
-            
-            return background_features, object_features, background_attention_mask, object_attention_mask
-        else:
-            # Native/fuzzy-cache mode: self.vision_tower is CLIPVisionModel, don't pass masks
-            if type(images) is list:
-                image_features = []
-                for image in images:
-                    image_forward_out = self.vision_tower(image.to(device=self.device, dtype=self.dtype).unsqueeze(0), output_hidden_states=True)
-                    image_feature = self.feature_select(image_forward_out).to(image.dtype)
-                    image_features.append(image_feature)
-            else:
-                image_forward_outs = self.vision_tower(images.to(device=self.device, dtype=self.dtype), output_hidden_states=True)
-                image_features = self.feature_select(image_forward_outs).to(images.dtype)
+        """
+        主 forward 方法，作为智能调度器。
+        根据 masks 参数是否提供，来决定调用原生模式还是分割模式。
+        """
+        is_segmentation_capable = hasattr(self.args, 'method_type') and \
+                                  self.args.method_type in ["segmentation-cache", "object-only", "background-only", "cacheblend"]
 
-            return image_features
+        if is_segmentation_capable and masks is not None:
+            return self.forward_segmented(images, masks)
+        else:
+            return self.forward_native(images)
+    ################################### MODIFICATION END ###################################
+
 
     @property
     def dummy_feature(self):
