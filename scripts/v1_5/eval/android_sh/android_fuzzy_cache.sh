@@ -41,7 +41,10 @@ python ../../llava/eval/llava_android_control.py \
     --cache-mode "write-only" \
     --method-type "fuzzy-cache" \
     --conv-mode "vicuna_v1" \
-    --yolo-model-path "$YOLO_MODEL_PATH"
+    --yolo-model-path "$YOLO_MODEL_PATH" \
+    --use-lightweight-query-key \
+    --query-key-extractor-type "resnet18" \
+    --similarity-threshold 0.1
 
 if [ $? -ne 0 ]; then echo "Error in write-only phase. Exiting."; exit 1; fi
 
@@ -61,7 +64,10 @@ python ../../llava/eval/llava_android_control.py \
     --cache-mode "read-load" \
     --method-type "fuzzy-cache" \
     --conv-mode "vicuna_v1" \
-    --yolo-model-path "$YOLO_MODEL_PATH"
+    --yolo-model-path "$YOLO_MODEL_PATH" \
+    --use-lightweight-query-key \
+    --query-key-extractor-type "resnet18" \
+    --similarity-threshold 0.1
     
 if [ $? -ne 0 ]; then echo "Error in read-load phase. Exiting."; exit 1; fi
 

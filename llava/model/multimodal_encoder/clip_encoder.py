@@ -174,16 +174,18 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
                 (
                     background_outputs.hidden_states[-2],  # 背景的 last_hidden_state
                     background_outputs[1:],  # 背景的其他输出（如 hidden_states 和 attentions）
-                    background_attention_mask  # 背景的掩码
+                    background_attention_mask,  # 背景的掩码
+                    patch_mask  # 完整的 [576] patch mask，用于 query_key_extractor
                 ),
                 (
                     object_outputs.hidden_states[-2],  # 目标的 last_hidden_state
                     object_outputs[1:],  # 目标的其他输出（如 hidden_states 和 attentions）
-                    object_attention_mask  # 目标的掩码
+                    object_attention_mask,  # 目标的掩码
+                    patch_mask  # 完整的 [576] patch mask，用于 query_key_extractor
                 )
             ]
 
-        # 返回两个 BaseModelOutputWithPooling 对象
+        # 返回两个 BaseModelOutputWithPooling 对象，并附加完整的 patch_mask
         return (
             BaseModelOutputWithPooling(
                 last_hidden_state=background_outputs[0],
@@ -198,7 +200,8 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
                 hidden_states=object_outputs.hidden_states,
                 attentions=object_outputs.attentions,
                 attention_mask=object_attention_mask  # 目标的掩码
-            )
+            ),
+            patch_mask  # 完整的 [576] patch mask，用于 query_key_extractor
         )
         
 
@@ -625,22 +628,40 @@ class CLIPVisionTower(nn.Module):
         """执行支持背景-前景分割的特征提取。"""
         if masks is None:
             raise ValueError("forward_segmented requires masks to be provided.")
-        
+
         # self.vision_tower 是 MyCLIPVisionModel, 它会调用 CLIPVisionTransformerWithBackgroundObject
         image_forward_outs = self.vision_tower(
-            pixel_values=images.to(device=self.device, dtype=self.dtype), 
-            masks=masks.to(device=self.device, dtype=self.dtype), 
+            pixel_values=images.to(device=self.device, dtype=self.dtype),
+            masks=masks.to(device=self.device, dtype=self.dtype),
             output_hidden_states=True # 虽然内部实现没用这个参数，但保持接口一致性
         )
-        
-        # image_forward_outs 是一个列表，包含背景和前景的输出元组
-        # [(bg_hidden_state, bg_mask), (obj_hidden_state, obj_mask)]
-        background_features = self.my_feature_select(image_forward_outs[0]).to(images.dtype)
-        background_attention_mask = image_forward_outs[0][-1].to(images.dtype)
-        object_features = self.my_feature_select(image_forward_outs[1]).to(images.dtype)
-        object_attention_mask = image_forward_outs[1][-1].to(images.dtype)
-        
-        return background_features, object_features, background_attention_mask, object_attention_mask
+
+        # 根据返回格式正确提取 patch_mask 和特征
+        if isinstance(image_forward_outs, list):
+            # return_dict=True 的情况：返回 list 包含 2 个 tuple
+            # 每个 tuple 格式：(hidden_states, other_outputs, attention_mask, patch_mask)
+            bg_output = image_forward_outs[0]
+            obj_output = image_forward_outs[1]
+
+            background_features = self.my_feature_select([bg_output[0]]).to(images.dtype)
+            background_attention_mask = bg_output[2].to(images.dtype)
+            object_features = self.my_feature_select([obj_output[0]]).to(images.dtype)
+            object_attention_mask = obj_output[2].to(images.dtype)
+            full_patch_mask = bg_output[3]  # patch_mask 在第4个位置，两个 tuple 中的 patch_mask 是相同的
+
+        elif isinstance(image_forward_outs, tuple) and len(image_forward_outs) == 3:
+            # return_dict=False 的情况：返回 tuple 包含 3 个元素
+            # (bg_BaseModelOutput, obj_BaseModelOutput, patch_mask)
+            background_features = self.my_feature_select(image_forward_outs[0]).to(images.dtype)
+            background_attention_mask = image_forward_outs[0][-1].to(images.dtype)
+            object_features = self.my_feature_select(image_forward_outs[1]).to(images.dtype)
+            object_attention_mask = image_forward_outs[1][-1].to(images.dtype)
+            full_patch_mask = image_forward_outs[2]  # patch_mask 在第3个位置
+
+        else:
+            raise ValueError(f"Unexpected return format from vision_tower: {type(image_forward_outs)} with length {len(image_forward_outs) if hasattr(image_forward_outs, '__len__') else 'unknown'}")
+
+        return background_features, object_features, background_attention_mask, object_attention_mask, full_patch_mask
 
     @torch.no_grad()
     def forward(self, images, masks=None):
@@ -656,7 +677,6 @@ class CLIPVisionTower(nn.Module):
         else:
             return self.forward_native(images)
     ################################### MODIFICATION END ###################################
-
 
     @property
     def dummy_feature(self):

@@ -33,7 +33,7 @@ class KVFaissCache:
             self.cached_data = []
             os.makedirs(cache_dir, exist_ok=True)
 
-    def add_kv_cache(self, query_key: torch.Tensor, kv_cache_list: List[Dict], num_tokens: int, position_ids: torch.Tensor):
+    def add_kv_cache(self, query_key: torch.Tensor, kv_cache_list: List[Dict], num_tokens: int, position_ids: torch.Tensor, embeds: torch.Tensor):
         """
         向缓存中添加新的KV cache数据
         
@@ -61,13 +61,14 @@ class KVFaissCache:
             'kv_cache': [kv.copy() if kv is not None else None for kv in kv_cache_list],  # 深拷贝
             'num_tokens': num_tokens,
             'position_ids': position_ids.clone().cpu(),  # 存储position_ids
+            'embeds': embeds.clone().cpu(),  # 存储原始的 embeds
             'timestamp': torch.tensor(0.0)  # 可用于LRU等策略
         }
         self.cached_data.append(cache_entry)
         
         print(f"Added new {self.cache_type} KV cache. Tokens: {num_tokens}, Total items: {self.index.ntotal}")
 
-    def search_kv_cache(self, query_key: torch.Tensor, similarity_threshold: float) -> Tuple[Optional[List[Dict]], Optional[int], Optional[torch.Tensor]]:
+    def search_kv_cache(self, query_key: torch.Tensor, similarity_threshold: float) -> Tuple[Optional[List[Dict]], Optional[int], Optional[torch.Tensor], Optional[torch.Tensor]]:
         """
         在缓存中搜索相似的KV cache
         
@@ -79,7 +80,7 @@ class KVFaissCache:
             Tuple[Optional[List[Dict]], Optional[int]]: (匹配的KV cache列表, token数量) 或 (None, None)
         """
         if self.index.ntotal == 0:
-            return None, None, None
+            return None, None, None, None
 
         query_key_np = query_key.detach().cpu().numpy().astype('float32')
         distances, indices = self.index.search(query_key_np, k=1)  # 搜索最近的1个
@@ -90,10 +91,10 @@ class KVFaissCache:
         if best_distance <= similarity_threshold:
             print(f"{self.cache_type.capitalize()} cache HIT! Distance: {best_distance:.4f} (Threshold: {similarity_threshold})")
             cached_item = self.cached_data[best_index]
-            return cached_item['kv_cache'], cached_item['num_tokens'], cached_item.get('position_ids')
+            return cached_item['kv_cache'], cached_item['num_tokens'], cached_item.get('position_ids'), cached_item.get('embeds')
         else:
             print(f"{self.cache_type.capitalize()} cache MISS! Distance: {best_distance:.4f} (Threshold: {similarity_threshold})")
-            return None, None, None
+            return None, None, None, None
 
     def save(self):
         """保存索引和缓存数据到文件"""
@@ -130,7 +131,9 @@ class CacheBlendKVController:
                        bg_kv_cache: Optional[List[Dict]], fg_kv_cache: Optional[List[Dict]],
                        bg_tokens: int, fg_tokens: int,
                        bg_position_ids: Optional[torch.Tensor] = None, 
-                       fg_position_ids: Optional[torch.Tensor] = None):
+                       fg_position_ids: Optional[torch.Tensor] = None,
+                       bg_embeds: Optional[torch.Tensor] = None,
+                       fg_embeds: Optional[torch.Tensor] = None):
         """
         添加背景和前景的patch缓存
         
@@ -143,37 +146,38 @@ class CacheBlendKVController:
             fg_tokens (int): 前景token数量
         """
         if bg_feature is not None and bg_kv_cache is not None and bg_tokens > 0:
-            self.bg_cache.add_kv_cache(bg_feature, bg_kv_cache, bg_tokens, bg_position_ids)
+            self.bg_cache.add_kv_cache(bg_feature, bg_kv_cache, bg_tokens, bg_position_ids, bg_embeds)
             
         if fg_feature is not None and fg_kv_cache is not None and fg_tokens > 0:
-            self.fg_cache.add_kv_cache(fg_feature, fg_kv_cache, fg_tokens, fg_position_ids)
+            self.fg_cache.add_kv_cache(fg_feature, fg_kv_cache, fg_tokens, fg_position_ids, fg_embeds)
 
-    def search_patch_cache(self, bg_feature: Optional[torch.Tensor], fg_feature: Optional[torch.Tensor], 
+    def search_patch_cache(self, bg_feature: Optional[torch.Tensor], fg_feature: Optional[torch.Tensor],
                           similarity_threshold: float) -> Tuple[
-                              Optional[List[Dict]], Optional[int], Optional[torch.Tensor], 
-                              Optional[List[Dict]], Optional[int], Optional[torch.Tensor]
+                              Optional[List[Dict]], Optional[int], Optional[torch.Tensor], Optional[torch.Tensor],
+                              Optional[List[Dict]], Optional[int], Optional[torch.Tensor], Optional[torch.Tensor]
                           ]:
         """
         搜索背景和前景的patch缓存
-        
+
         Args:
             bg_feature (Optional[torch.Tensor]): 背景查询特征
-            fg_feature (Optional[torch.Tensor]): 前景查询特征  
+            fg_feature (Optional[torch.Tensor]): 前景查询特征
             similarity_threshold (float): 相似度阈值
-            
+
         Returns:
-            Tuple: (bg_kv_cache, bg_tokens, fg_kv_cache, fg_tokens)
+            Tuple: (bg_kv_cache, bg_tokens, bg_pos_ids, bg_embeds, fg_kv_cache, fg_tokens, fg_pos_ids, fg_embeds)
         """
-        bg_kv_cache, bg_tokens, bg_pos_ids = None, None, None
-        fg_kv_cache, fg_tokens, fg_pos_ids = None, None, None
-        
+        # 初始化所有返回值,包括 embeds
+        bg_kv_cache, bg_tokens, bg_pos_ids, bg_embeds = None, None, None, None
+        fg_kv_cache, fg_tokens, fg_pos_ids, fg_embeds = None, None, None, None
+
         if bg_feature is not None:
-            bg_kv_cache, bg_tokens, bg_pos_ids = self.bg_cache.search_kv_cache(bg_feature, similarity_threshold)
-            
+            bg_kv_cache, bg_tokens, bg_pos_ids, bg_embeds = self.bg_cache.search_kv_cache(bg_feature, similarity_threshold)
+
         if fg_feature is not None:
-            fg_kv_cache, fg_tokens, fg_pos_ids = self.fg_cache.search_kv_cache(fg_feature, similarity_threshold)
-            
-        return bg_kv_cache, bg_tokens, bg_pos_ids, fg_kv_cache, fg_tokens, fg_pos_ids
+            fg_kv_cache, fg_tokens, fg_pos_ids, fg_embeds = self.fg_cache.search_kv_cache(fg_feature, similarity_threshold)
+
+        return bg_kv_cache, bg_tokens, bg_pos_ids, bg_embeds, fg_kv_cache, fg_tokens, fg_pos_ids, fg_embeds
 
     def save_all(self):
         """保存所有缓存"""

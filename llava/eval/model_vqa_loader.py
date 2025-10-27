@@ -198,8 +198,8 @@ def eval_model(args):
         if line.get('category') != 'random': # 使用 .get() 避免 KeyError，如果 'category' 不存在，则默认为 None
             continue # 跳过当前循环的其余部分，处理下一条数据
 
-        if line['question_id'] > 10000100:
-            break
+        # if line['question_id'] > 10000020:
+        #     break
 
         if args.cache_mode == "write-only":
             current_image_filename = line['image']
@@ -258,9 +258,9 @@ def eval_model(args):
             
 
     if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode == "write-only":
-        model.get_model().background_cache.close()
+        model.get_model().background_cache.save()
     if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode in ["read-only", "read-load"]:  
-        model.get_model().stats_collector.report_stats(args.dataset)
+        model.get_model().stats_collector.report()
     ans_file.close()
 
 if __name__ == "__main__":
@@ -279,6 +279,10 @@ if __name__ == "__main__":
     parser.add_argument("--max_new_tokens", type=int, default=128)
     parser.add_argument("--method-type", type=str, default="native", choices=["native", "segmentation-cache", "object-only", "fuzzy-cache","cacheblend"])
     parser.add_argument("--cache-mode", type=str, default="read-only", choices=["read-only", "write-only", "read-load"])
-    parser.add_argument("--dataset", type=str, default="default_dataset") 
+    parser.add_argument("--dataset", type=str, default="default_dataset")
+    # 【新增】轻量级query_key参数
+    parser.add_argument("--use-lightweight-query-key", action="store_true", default=False, help="Use lightweight CNN backbone for query_key extraction instead of full ViT")
+    parser.add_argument("--query-key-extractor-type", type=str, default="resnet18", choices=["resnet18", "resnet34", "resnet50", "resnet101", "vgg11", "vgg13", "vgg16", "vgg19"], help="Type of lightweight query_key extractor")
+    parser.add_argument("--similarity-threshold", type=float, default=0.1, help="Similarity threshold for cache matching (lower = stricter)")
     args = parser.parse_args()
     eval_model(args)

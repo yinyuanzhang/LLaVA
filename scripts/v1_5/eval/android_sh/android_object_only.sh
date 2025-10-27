@@ -25,7 +25,7 @@ export LD_LIBRARY_PATH=""
 
 # --- 运行评估 ---
 echo "--- Running LLaVA AndroidControl Evaluation (Object-Only Method) ---"
-python ../../llava/eval/llava_android_control.py \
+python llava/eval/llava_android_control.py \
     --model-path "$MODEL_PATH" \
     --model-base "$MODEL_BASE" \
     --eval-file "$EVAL_FILE" \

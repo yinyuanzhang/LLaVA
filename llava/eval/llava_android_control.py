@@ -608,10 +608,20 @@ if __name__ == "__main__":
     parser.add_argument('--cache-mode', type=str, default='read-only', help='Cache mode for inference.')
     
     parser.add_argument("--method-type", type=str, default="native", 
-                       choices=["native", "segmentation-cache", "object-only", "fuzzy-cache"],
-                       help="Method type: native (original), segmentation-cache (bg/fg cache), object-only (fg only), fuzzy-cache (whole image cache)")
+                       choices=["native", "segmentation-cache", "object-only", "fuzzy-cache", "cacheblend"],
+                       help="Method type: native (original), segmentation-cache (bg/fg cache), object-only (fg only), fuzzy-cache (whole image cache), cacheblend (KV cache blending)")
     parser.add_argument("--yolo-model-path", type=str, default="./checkpoints/yolov/yolov8n-seg.pt",
                        help="Path to YOLO model for mask generation")
+
+    # 轻量级 query_key 相关新参数（与 model_vqa_loader.py 保持一致）
+    parser.add_argument("--use-lightweight-query-key", action="store_true", default=False,
+                       help="Use lightweight CNN backbone for query_key extraction instead of full ViT")
+    parser.add_argument("--query-key-extractor-type", type=str, default="resnet18",
+                       choices=["resnet18", "resnet34", "resnet50", "resnet101", "vgg11", "vgg13", "vgg16", "vgg19"],
+                       help="Type of lightweight query_key extractor")
+    parser.add_argument("--similarity-threshold", type=float, default=0.1,
+                       help="Similarity threshold for cache matching (lower = stricter)")
+
     
     args = parser.parse_args()
     print(args)

@@ -4,8 +4,8 @@
 MODEL_PATH="$HOME/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500"
 MODEL_BASE="liuhaotian/llava-v1.5-7b"
 EVAL_FILE="/home/zyy/AndroidControl/android_control_test.json"
-IMAGE_ROOT_BAGLE="/home/zyy/AndroidControl/android_control_images_bagle"
-IMAGE_ROOT="/home/zyy/AndroidControl/android_control_images"
+FUZZY_IMAGE_ROOT="/home/zyy/AndroidControl/android_control_images2"
+IMAGE_ROOT="/home/zyy/AndroidControl/android_control_images1"
 SAVE_DIR="/data/zyy/LLaVA/evaluation/android_control" 
 YOLO_MODEL_PATH="/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt" 
 
@@ -27,11 +27,11 @@ export LD_LIBRARY_PATH=""
 
 # --- Write-only 阶段: 构建缓存 ---
 echo "--- Step 1: Building cache with segmentation-cache (write-only) ---"
-python ../../llava/eval/llava_android_control.py \
+python llava/eval/llava_android_control.py \
     --model-path "$MODEL_PATH" \
     --model-base "$MODEL_BASE" \
     --eval-file "$EVAL_FILE" \
-    --image-root "$IMAGE_ROOT_BAGLE" \
+    --image-root "$FUZZY_IMAGE_ROOT" \
     --output-dir "$SAVE_DIR" \
     --eval-type "$EVAL_TYPE" \
     --answers-file "$ANSWERS_FILE_WRITE" \
@@ -41,13 +41,16 @@ python ../../llava/eval/llava_android_control.py \
     --cache-mode "write-only" \
     --method-type "segmentation-cache" \
     --conv-mode "vicuna_v1" \
-    --yolo-model-path "$YOLO_MODEL_PATH"
+    --yolo-model-path "$YOLO_MODEL_PATH" \
+    --use-lightweight-query-key \
+    --query-key-extractor-type "resnet18" \
+    --similarity-threshold 0.1
 
 if [ $? -ne 0 ]; then echo "Error in write-only phase. Exiting."; exit 1; fi
 
 # --- Read-load 阶段: 使用缓存 ---
 echo "--- Step 2: Using cache with segmentation-cache (read-load) ---"
-python ../../llava/eval/llava_android_control.py \
+python llava/eval/llava_android_control.py \
     --model-path "$MODEL_PATH" \
     --model-base "$MODEL_BASE" \
     --eval-file "$EVAL_FILE" \
@@ -61,7 +64,10 @@ python ../../llava/eval/llava_android_control.py \
     --cache-mode "read-load" \
     --method-type "segmentation-cache" \
     --conv-mode "vicuna_v1" \
-    --yolo-model-path "$YOLO_MODEL_PATH"
+    --yolo-model-path "$YOLO_MODEL_PATH" \
+    --use-lightweight-query-key \
+    --query-key-extractor-type "resnet18" \
+    --similarity-threshold 0.1
     
 if [ $? -ne 0 ]; then echo "Error in read-load phase. Exiting."; exit 1; fi
 

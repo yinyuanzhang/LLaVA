@@ -1,0 +1,332 @@
+=================================================================================
+LLaVA 项目中 position_ids 和 attention_mask 参数流向图
+=================================================================================
+
+                              【PREFILL 阶段】
+                              
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 1. 调用 generate() 入口                                                 │
+│    Location: llava/model/language_model/llava_llama.py:380-482         │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Input Parameters:                                                       │
+│  - inputs: input_ids tensor [B, seq_len]                               │
+│  - images: image tensor [B, C, H, W] (optional)                        │
+│  - masks: segmentation mask (optional)                                 │
+│  - **kwargs: including position_ids, attention_mask (optional)         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ┌───────────────┼───────────────┐
+                    ▼               ▼               ▼
+        ┌──────────────────┐  ┌──────────────┐  ┌────────────┐
+        │ CacheBlend       │  │ 普通多模态   │  │ 纯文本模式 │
+        │ read-load 模式   │  │ 图像处理     │  │            │
+        └──────────────────┘  └──────────────┘  └────────────┘
+                    │               │               │
+                    └───────────────┼───────────────┘
+                                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 2. 参数处理与转换                                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ ◆ CacheBlend read-load 模式:                                           │
+│   - _handle_cacheblend_read_load()                                    │
+│     → 执行缓存搜索                                                      │
+│     → _rebuild_inputs_for_variable_cache()                            │
+│     → 返回: new_position_ids, new_attention_mask, new_inputs_embeds   │
+│                                                                         │
+│ ◆ 普通多模态模式:                                                       │
+│   - prepare_inputs_labels_for_multimodal()                            │
+│     → 编码多模态特征                                                    │
+│     → 初始化 position_ids (if None)                                    │
+│       position_ids = arange(0, seq_len)                               │
+│     → 初始化 attention_mask (if None)                                  │
+│       attention_mask = ones_like(input_ids)                           │
+│     → 返回: position_ids, attention_mask, inputs_embeds               │
+│                                                                         │
+│ ◆ 纯文本模式:                                                           │
+│   - inputs_embeds = embed_tokens(inputs)                              │
+│   - position_ids, attention_mask 保持 None 或在下一步生成             │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 3. 调用 super().generate()                                              │
+│    Location: transformers library (LlamaForCausalLM)                   │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Parameters passed:                                                      │
+│  - position_ids [B, seq_len]                                           │
+│  - attention_mask [B, seq_len] 或 None                                 │
+│  - inputs_embeds [B, seq_len, hidden_size]                            │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 4. generate() 循环（Prefill 第一次迭代）                               │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ ┌─────────────────────────────────────────────────────────────────┐   │
+│ │ prepare_inputs_for_generation()                                │   │
+│ │ Location: llava_llama.py:484-495                              │   │
+│ │                                                                 │   │
+│ │ - 调用父类方法处理基本参数                                     │   │
+│ │ - 返回 inputs dict，包含最终的参数                             │   │
+│ └─────────────────────────────────────────────────────────────────┘   │
+│                      │                                                  │
+│                      ▼                                                  │
+│ ┌─────────────────────────────────────────────────────────────────┐   │
+│ │ forward(                                                        │   │
+│ │   input_ids, attention_mask, position_ids,                     │   │
+│ │   inputs_embeds, ...                                           │   │
+│ │ )                                                              │   │
+│ │ Location: llava_llama.py:330-377                              │   │
+│ │                                                                 │   │
+│ │ Processing:                                                    │   │
+│ │ 1. 调用 prepare_inputs_labels_for_multimodal() (if no embeds) │   │
+│ │ 2. 调用 super().forward()                                     │   │
+│ └─────────────────────────────────────────────────────────────────┘   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 5. 进入 LLamaModel forward()                                            │
+│    ▼                                                                    │
+│ ┌──────────────────────────────────────────────────────────────────┐  │
+│ │ CacheBlendLlamaModel.forward()                                   │  │
+│ │ Location: cacheblend_llama.py:731-887                           │  │
+│ ├──────────────────────────────────────────────────────────────────┤  │
+│ │                                                                  │  │
+│ │ 【Step A】准备 position_ids (if None)                           │  │
+│ │   device = inputs_embeds.device                                │  │
+│ │   position_ids = arange(                                        │  │
+│ │     past_kv_len, seq_len + past_kv_len,                        │  │
+│ │     device=device                                              │  │
+│ │   ).unsqueeze(0)                                               │  │
+│ │                                                                  │  │
+│ │ 【Step B】准备 attention_mask (4D)                              │  │
+│ │   if attention_mask is not None:                               │  │
+│ │     attention_mask = _prepare_4d_causal_attention_mask(        │  │
+│ │       attention_mask, (batch_size, seq_length),                │  │
+│ │       inputs_embeds, past_key_values_length                    │  │
+│ │     )                                                          │  │
+│ │   返回格式: [B, 1, seq_len, seq_len] (causal mask)             │  │
+│ │                                                                  │  │
+│ └──────────────────────────────────────────────────────────────────┘  │
+│                      │                                                  │
+│                      ▼                                                  │
+│ ┌──────────────────────────────────────────────────────────────────┐  │
+│ │ 进入 decoder layers 循环                                        │  │
+│ │                                                                  │  │
+│ │ for layer_idx, decoder_layer in enumerate(self.layers):        │  │
+│ │   layer_outputs = decoder_layer(                               │  │
+│ │     hidden_states,                                             │  │
+│ │     attention_mask=attention_mask,    ◄─ [B,1,seq,seq]         │  │
+│ │     position_ids=position_ids,        ◄─ [B,seq]               │  │
+│ │     past_key_value=past_key_values,                            │  │
+│ │     **kwargs                          ◄─ cacheblend metadata   │  │
+│ │   )                                                            │  │
+│ │                                                                  │  │
+│ │ 【关键】稀疏化检测 & 更新 (layer_idx 处理)                      │  │
+│ │   if imp_indices is not None and layer has been sparsified:   │  │
+│ │     # 稀疏化 position_ids                                      │  │
+│ │     position_ids = position_ids[..., imp_indices]              │  │
+│ │     # 稀疏化 attention_mask                                    │  │
+│ │     if attention_mask.dim() == 2:                             │  │
+│ │       attention_mask = attention_mask[:, imp_indices]          │  │
+│ │     elif attention_mask.dim() == 4:                            │  │
+│ │       # 同时稀疏化行和列                                       │  │
+│ │       attention_mask = attention_mask[:, :, imp_indices, :]   │  │
+│ │       attention_mask = attention_mask[:, :, :, imp_indices]   │  │
+│ │     cacheblend_metadata["_position_updated"] = True            │  │
+│ │                                                                  │  │
+│ └──────────────────────────────────────────────────────────────────┘  │
+│                      │                                                  │
+│                      ▼                                                  │
+│ ┌──────────────────────────────────────────────────────────────────┐  │
+│ │ CacheBlendLlamaDecoderLayer.forward()                           │  │
+│ │ Location: cacheblend_llama.py:580-687                          │  │
+│ ├──────────────────────────────────────────────────────────────────┤  │
+│ │                                                                  │  │
+│ │ 接收参数:                                                        │  │
+│ │  - attention_mask: [B, 1, Q_len, K_len] (4D causal)            │  │
+│ │  - position_ids: [B, seq_len]                                  │  │
+│ │  - kwargs: cacheblend_metadata, cacheblend_status, ...         │  │
+│ │                                                                  │  │
+│ │ 直接传递给 attention 层:                                        │  │
+│ │   hidden_states, attn_weights, present_kv = self.self_attn(   │  │
+│ │     hidden_states, attention_mask, position_ids, ...           │  │
+│ │   )                                                            │  │
+│ │                                                                  │  │
+│ └──────────────────────────────────────────────────────────────────┘  │
+│                      │                                                  │
+│                      ▼                                                  │
+│ ┌──────────────────────────────────────────────────────────────────┐  │
+│ │ CacheBlendLlamaAttention.forward()                              │  │
+│ │ Location: cacheblend_llama.py:393-501                          │  │
+│ ├──────────────────────────────────────────────────────────────────┤  │
+│ │                                                                  │  │
+│ │ 【Step 1】回退检查                                             │  │
+│ │   if self._should_fallback(...):                               │  │
+│ │     return super().forward(...)  # 回到原生 LlamaAttention     │  │
+│ │                                                                  │  │
+│ │ 【Step 2】QKV 投影                                             │  │
+│ │   query_states = self.q_proj(hidden_states)                    │  │
+│ │   key_states = self.k_proj(hidden_states)                      │  │
+│ │   value_states = self.v_proj(hidden_states)                    │  │
+│ │   # reshape 为 [batch, num_heads, seq_len, head_dim]           │  │
+│ │                                                                  │  │
+│ │ 【Step 3】应用 RoPE (Rotary Position Embedding)                │  │
+│ │   cos, sin = self.rotary_emb(value_states, seq_len=kv_seq_len)│  │
+│ │   # position_ids 被用于计算旋转角度                             │  │
+│ │                                                                  │  │
+│ │ 【Step 4】应用 CacheBlend 逻辑                                 │  │
+│ │   query_states, key_states, value_states = \                  │  │
+│ │     self._apply_cacheblend_logic(...)                          │  │
+│ │                                                                  │  │
+│ │ 【Step 5】计算注意力权重                                       │  │
+│ │   attn_weights = matmul(                                        │  │
+│ │     query_states,                                              │  │
+│ │     key_states.transpose(-2, -1)                               │  │
+│ │   ) / sqrt(head_dim)                                           │  │
+│ │   # attn_weights shape: [batch, num_heads, Q_len, K_len]       │  │
+│ │                                                                  │  │
+│ │ 【Step 6】应用 attention_mask                                  │  │
+│ │   if attention_mask is not None:                               │  │
+│ │     # 处理维度不匹配（稀疏化情况）                              │  │
+│ │     if attn_weights.size() != attention_mask.size():           │  │
+│ │       imp_indices = cacheblend_metadata.get("imp_indices")     │  │
+│ │       if imp_indices is not None:                              │  │
+│ │         # 重建 mask，确保与稀疏 query 对应                     │  │
+│ │         custom_mask = ...                                      │  │
+│ │         attention_mask = custom_mask                           │  │
+│ │                                                                  │  │
+│ │     attn_weights = attn_weights + attention_mask               │  │
+│ │                                                                  │  │
+│ │ 【Step 7】Softmax + Dropout                                    │  │
+│ │   attn_weights = softmax(attn_weights, dim=-1)                 │  │
+│ │                                                                  │  │
+│ │ 【Step 8】加权求和                                             │  │
+│ │   attn_output = matmul(attn_weights, value_states)             │  │
+│ │                                                                  │  │
+│ │ 【Step 9】输出投影                                             │  │
+│ │   attn_output = self.o_proj(attn_output)                       │  │
+│ │                                                                  │  │
+│ └──────────────────────────────────────────────────────────────────┘  │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 返回 logits，保存 past_key_values                                       │
+└─────────────────────────────────────────────────────────────────────────┘
+
+=================================================================================
+                              【DECODE 阶段】
+=================================================================================
+
+                          ┌─────────────────┐
+                          │ 循环生成下一个   │
+                          │ token            │
+                          └────────┬──────────┘
+                                   │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ prepare_inputs_for_generation()                                         │
+│ Location: llava_llama.py:484-495                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ Input:                                                                  │
+│  - input_ids: 包含前面生成的所有 token                                 │
+│  - past_key_values: 存储了前面所有层的 KV 缓存                         │
+│  - inputs_embeds: None (Decode 阶段只用 input_ids)                     │
+│                                                                         │
+│ Processing:                                                             │
+│  - 只处理最新的 token (seq_len = 1)                                    │
+│  - position_ids 和 attention_mask 由 generate() 自动管理                │
+│  - Llama 的原生 prepare_inputs_for_generation 会自动生成合适的参数     │
+│                                                                         │
+│ Output:                                                                 │
+│  - inputs dict: {                                                       │
+│      input_ids: 最新生成的 token [B, 1]                               │
+│      attention_mask: [B, 1] (或包含整个历史的 mask)                   │
+│      position_ids: [B, 1] (或包含整个历史的 positions)                │
+│      past_key_values: 缓存                                             │
+│      images: None (Decode 不需要图像)                                  │
+│    }                                                                    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│ forward() 第二次迭代                                                     │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ - 输入为单个 token (seq_len = 1)                                      │
+│ - past_key_values 已有前面所有层的缓存                                │
+│ - position_ids: [B, 1] 对应当前位置                                    │
+│ - attention_mask: 因果掩码，允许当前 token 看到所有历史                │
+│                                                                         │
+│ 在 CacheBlendLlamaAttention._should_fallback() 中:                     │
+│   if hidden_states.shape[1] == 1:  # Decode 阶段                      │
+│     return True  # 回退到原生实现                                     │
+│                                                                         │
+│ 原因: CacheBlend 的优化只在 Prefill 有效，Decode 直接使用缓存         │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ▼
+                  ┌──────────────────┐
+                  │ 重复直到结束标记 │
+                  └──────────────────┘
+
+=================================================================================
+关键维度参考表
+=================================================================================
+
+参数名              | Prefill 维度              | Decode 维度        | 说明
+─────────────────────────────────────────────────────────────────────────
+input_ids          | [B, seq_len]             | [B, 1]            | 递增添加新 token
+position_ids       | [B, seq_len]             | [B, 1]            | 递增的位置索引
+attention_mask     | [B, seq_len]             | [B, seq_len]      | Causal 因果掩码
+attention_mask 4D  | [B, 1, seq, seq]         | [B, 1, 1, seq]    | 注意力计算用
+inputs_embeds      | [B, seq_len, hidden]     | None              | 在 Prefill 时传
+hidden_states      | [B, seq_len, hidden]     | [B, 1, hidden]    | 模型内部状态
+past_key_values    | None (初始) -> Cache     | Cache 逐步扩展     | KV 缓存池
+attn_weights       | [B, H, seq, seq]         | [B, H, 1, seq]    | 注意力权重
+
+=================================================================================
+CacheBlend 稀疏化流程
+=================================================================================
+
+Prefill 阶段:
+
+Layer 1 (check layer):
+  ▼
+计算 imp_indices = 重要 token 索引
+  ▼
+稀疏化 Query: query_states = query_states[:, :, imp_indices, :]
+  ▼
+K/V 保持完整（用于下层 fusion）
+
+Layer 2:
+  ▼
+接收稀疏 Query，完整 K/V
+  ▼
+融合历史 KV 缓存到重要 token
+  ▼
+重建完整 K/V
+  ▼
+执行注意力（完整 K/V 对稀疏 Query）
+
+后续层 (Layer 3+):
+  ▼
+继承前一层的稀疏化状态
+  ▼
+自动处理稀疏 sequence length
+
+Decode 阶段:
+  ▼
+回退到原生实现（直接使用历史缓存）
+

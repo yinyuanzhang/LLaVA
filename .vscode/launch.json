@@ -1,513 +1,816 @@
 {
     "version": "0.2.0",
     "configurations": [
+        // ========================================
+        // POPE Dataset Configurations
+        // ========================================
+
+        // --- LLaVA-1.5 7B + POPE ---
         {
-            "name": "Native Method - Read Only",
+            "name": "POPE: LLaVA Native (Baseline)",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
-            "justMyCode": false,
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
                 "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/native-read-only.jsonl",
-                "--temperature", "0",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_native.jsonl",
+                "--temperature", "0.0",
                 "--conv-mode", "vicuna_v1",
                 "--method-type", "native",
                 "--cache-mode", "read-only",
-                "--dataset", "pope"
+                "--dataset", "pope",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "POPE: LLaVA Object-Only",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_object_only.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "object-only",
+                "--cache-mode", "read-only",
+                "--dataset", "pope",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "POPE: LLaVA Segmentation Write-Only (VIT)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_seg_write_vit.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "write-only",
+                "--dataset", "pope",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "POPE: LLaVA Segmentation Write-Only (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014_bagle",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_seg_write_resnet18.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "write-only",
+                "--dataset", "pope",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "POPE: LLaVA Segmentation Read-Load (VIT)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_seg_read_vit.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "pope",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "POPE: LLaVA Segmentation Read-Load (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_seg_read_resnet18.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "pope",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "POPE: LLaVA Segmentation Read-Load (ResNet50)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_seg_read_resnet50.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "pope",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet50",
+                "--similarity-threshold", "0.05",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "POPE: LLaVA Fuzzy-Cache (VGG16)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_fuzzy_vgg16.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "fuzzy-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "pope",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "vgg16",
+                "--similarity-threshold", "0.05",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "2",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
+                "LD_LIBRARY_PATH": ""
+            }
         },
         {
-            "name": "Segmentation-Cache - Write Only",
+            "name": "POPE: LLaVA CacheBlend Write-Only",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
             "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
-                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014_bagle",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/segmentation-write-only.jsonl",
-                "--temperature", "0",
-                "--conv-mode", "vicuna_v1",
-                "--method-type", "segmentation-cache",
-                "--cache-mode", "write-only",
-                "--dataset", "pope"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "5",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Segmentation-Cache - Read Only",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
-                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/segmentation-read-only.jsonl",
-                "--temperature", "0",
-                "--conv-mode", "vicuna_v1",
-                "--method-type", "segmentation-cache",
-                "--cache-mode", "read-only",
-                "--dataset", "pope"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "5",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Segmentation-Cache - Read Load",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
-                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/segmentation-read-load.jsonl",
-                "--temperature", "0",
-                "--conv-mode", "vicuna_v1",
-                "--method-type", "segmentation-cache",
-                "--cache-mode", "read-load",
-                "--dataset", "pope"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "5",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Object-Only - Read Only",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
-                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/object-only-read-only.jsonl",
-                "--temperature", "0",
-                "--conv-mode", "vicuna_v1",
-                "--method-type", "object-only",
-                "--cache-mode", "read-only",
-                "--dataset", "pope"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "5",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Fuzzy-Cache - Write Only",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
-                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-write-only.jsonl",
-                "--temperature", "0",
-                "--conv-mode", "vicuna_v1",
-                "--method-type", "fuzzy-cache",
-                "--cache-mode", "write-only",
-                "--dataset", "pope"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Fuzzy-Cache - Read Load",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
-                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-read-load.jsonl",
-                "--temperature", "0",
-                "--conv-mode", "vicuna_v1",
-                "--method-type", "fuzzy-cache",
-                "--cache-mode", "read-load",
-                "--dataset", "pope"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "CacheBlend - Write-only",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "cwd": "${workspaceFolder}",
             "justMyCode": false,
-            "console": "integratedTerminal",
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
                 "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-read-load.jsonl",
-                "--temperature", "0",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_cacheblend_write.jsonl",
+                "--temperature", "0.0",
                 "--conv-mode", "vicuna_v1",
                 "--method-type", "cacheblend",
                 "--cache-mode", "write-only",
-                "--dataset", "pope"
+                "--dataset", "pope",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "5",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
+                "CUDA_VISIBLE_DEVICES": "2",
+                "LD_LIBRARY_PATH": ""
+            }
         },
         {
-            "name": "CacheBlend - Read Load",
+            "name": "POPE: LLaVA CacheBlend Read-Load",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
-            "justMyCode": false,
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
                 "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/answers/fuzzy-cache-read-load.jsonl",
-                "--temperature", "0",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_cacheblend_read.jsonl",
+                "--temperature", "0.0",
                 "--conv-mode", "vicuna_v1",
                 "--method-type", "cacheblend",
                 "--cache-mode", "read-load",
-                "--dataset", "pope"
+                "--dataset", "pope",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
-                "LD_LIBRARY_PATH": "",
-                "AUTO_DL_TMP": "${env:HOME}/autodl-tmp"
-            },
-            "cwd": "${workspaceFolder}"
+                "CUDA_VISIBLE_DEVICES": "2",
+                "LD_LIBRARY_PATH": ""
+            }
         },
+
+        // --- LLaVA-1.5 13B + POPE ---
         {
-            "name": "Android Control - Native",
-            "type": "debugpy",
+            "name": "POPE: LLaVA-13B Native (Baseline)",
+            "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
-                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
-                "--eval-type", "high",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/native-read-only.jsonl",
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-13b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-13b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava13b_native.jsonl",
                 "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "read-only",
+                "--conv-mode", "vicuna_v1",
                 "--method-type", "native",
-                "--conv-mode", "vicuna_v1",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
-                "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Android Control - Object-Only",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
-                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
-                "--eval-type", "high",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/object-only-read-only.jsonl",
-                "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
                 "--cache-mode", "read-only",
-                "--method-type", "object-only",
-                "--conv-mode", "vicuna_v1",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--dataset", "pope",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
+                "CUDA_VISIBLE_DEVICES": "3",
                 "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
+            }
         },
         {
-            "name": "Android Control - Segmentation-Cache (Write-Only)",
-            "type": "debugpy",
+            "name": "POPE: LLaVA-13B Segmentation (ResNet18)",
+            "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images_bagle",
-                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
-                "--eval-type", "high",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/segmentation-write-only.jsonl",
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-13b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-13b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava13b_seg_resnet18.jsonl",
                 "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "write-only",
+                "--conv-mode", "vicuna_v1",
                 "--method-type", "segmentation-cache",
-                "--conv-mode", "vicuna_v1",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
-                "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Android Control - Segmentation-Cache (Read-Load)",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
-                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
-                "--eval-type", "high",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/segmentation-read-load.jsonl",
-                "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
                 "--cache-mode", "read-load",
-                "--method-type", "segmentation-cache",
-                "--conv-mode", "vicuna_v1",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--dataset", "pope",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
+                "CUDA_VISIBLE_DEVICES": "3",
                 "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
+            }
         },
+
+        // ========================================
+        // Android Control Dataset Configurations
+        // ========================================
+
+        // --- LLaVA-1.5 7B + Android Control ---
         {
-            "name": "Android Control - Fuzzy-Cache (Write-Only)",
-            "type": "debugpy",
+            "name": "Android: LLaVA Native (Baseline)",
+            "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
                 "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images_bagle",
-                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
                 "--eval-type", "high",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/fuzzy-cache-write-only.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_native.jsonl",
                 "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "write-only",
-                "--method-type", "fuzzy-cache",
                 "--conv-mode", "vicuna_v1",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
-                "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Android Control - Fuzzy-Cache (Read-Load)",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images1",
-                "--output-dir", "${env:HOME}/autodl-tmp/playground/data/eval/android_control",
-                "--eval-type", "high",
-                "--answers-file", "${env:HOME}/autodl-tmp/playground/data/eval/android_control/answers/fuzzy-cache-read-load.jsonl",
-                "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "read-load",
-                "--method-type", "fuzzy-cache",
-                "--conv-mode", "vicuna_v1",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
-            ],
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "7",
-                "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Android SH Debug - Native",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
-            "console": "integratedTerminal",
-            "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
-                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images",
-                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
-                "--eval-type", "high",
-                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-native.jsonl",
-                "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "read-only",
                 "--method-type", "native",
-                "--conv-mode", "vicuna_v1",
+                "--cache-mode", "read-only",
+                "--dataset", "android_control",
                 "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "4",
                 "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
+            }
         },
         {
-            "name": "Android SH Debug - Object-Only",
-            "type": "debugpy",
+            "name": "Android: LLaVA Object-Only",
+            "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
                 "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images",
-                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
                 "--eval-type", "high",
-                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-object-only.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_object_only.jsonl",
                 "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "read-only",
-                "--method-type", "object-only",
                 "--conv-mode", "vicuna_v1",
+                "--method-type", "object-only",
+                "--cache-mode", "read-only",
+                "--dataset", "android_control",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "4",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "Android: LLaVA Segmentation Write-Only (VIT)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_seg_write_vit.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "write-only",
+                "--dataset", "android_control",
+                "--similarity-threshold", "0.02",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "Android: LLaVA Segmentation Write-Only (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_seg_write_resnet18.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "write-only",
+                "--dataset", "android_control",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.02",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "Android: LLaVA Segmentation Read-Load (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_seg_read_resnet18.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "android_control",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.02",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "Android: LLaVA Segmentation Read-Load (ResNet50)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_seg_read_resnet50.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "android_control",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet50",
+                "--similarity-threshold", "0.01",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "Android: LLaVA Fuzzy-Cache (VGG16)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_fuzzy_vgg16.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "fuzzy-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "android_control",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "vgg16",
+                "--similarity-threshold", "0.01",
                 "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "6",
                 "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
+            }
         },
         {
-            "name": "Android SH Debug - Segmentation-Cache",
-            "type": "debugpy",
+            "name": "Android: LLaVA CacheBlend Write-Only",
+            "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
                 "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images",
-                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
                 "--eval-type", "high",
-                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-segmentation-cache.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_cacheblend_write.jsonl",
                 "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "read-only",
-                "--method-type", "segmentation-cache",
                 "--conv-mode", "vicuna_v1",
+                "--method-type", "cacheblend",
+                "--cache-mode", "write-only",
+                "--dataset", "android_control",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "6",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "Android: LLaVA CacheBlend Read-Load",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava_cacheblend_read.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "cacheblend",
+                "--cache-mode", "read-load",
+                "--dataset", "android_control",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "6",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+
+        // --- LLaVA-1.5 13B + Android Control ---
+        {
+            "name": "Android: LLaVA-13B Native (Baseline)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-13b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-13b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava13b_native.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "native",
+                "--cache-mode", "read-only",
+                "--dataset", "android_control",
                 "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "7",
                 "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
+            }
         },
         {
-            "name": "Android SH Debug - Fuzzy-Cache",
-            "type": "debugpy",
+            "name": "Android: LLaVA-13B Segmentation (ResNet50)",
+            "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
             "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-13b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-13b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/android_control/answers/llava13b_seg_resnet50.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "android_control",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet50",
+                "--similarity-threshold", "0.01",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+
+        // ========================================
+        // Performance Comparison Configurations
+        // ========================================
+
+        // --- Speed Benchmarks ---
+        {
+            "name": "BENCHMARK: VIT vs ResNet18 Speed Test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/benchmark/speed_test_resnet18.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "pope",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+
+        // --- Threshold Tuning ---
+        {
+            "name": "TUNING: Android Control Threshold 0.005",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
             "args": [
                 "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
                 "--model-base", "liuhaotian/llava-v1.5-7b",
                 "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
-                "--image-root", "/home/zyy/AndroidControl/android_control_images",
-                "--output-dir", "/data/zyy/LLaVA/evaluation/android_control",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
                 "--eval-type", "high",
-                "--answers-file", "/data/zyy/LLaVA/evaluation/android_control/debug-fuzzy-cache.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/tuning/android_threshold_0005.jsonl",
                 "--temperature", "0.0",
-                "--seed", "42",
-                "--dataset", "android_control",
-                "--cache-mode", "read-only",
-                "--method-type", "fuzzy-cache",
                 "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "android_control",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.005",
                 "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
             ],
             "env": {
-                "CUDA_VISIBLE_DEVICES": "8",
+                "CUDA_VISIBLE_DEVICES": "7",
                 "LD_LIBRARY_PATH": ""
-            },
-            "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "TUNING: Android Control Threshold 0.05",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_android_control.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--eval-file", "/home/zyy/AndroidControl/android_control_test.json",
+                "--image-root", "/home/zyy/AndroidControl/android_control_images1/",
+                "--output-dir", "${workspaceFolder}/evaluation/android_control/",
+                "--eval-type", "high",
+                "--answers-file", "${workspaceFolder}/evaluation/tuning/android_threshold_005.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-load",
+                "--dataset", "android_control",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.05",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+
+        // ========================================
+        // Legacy Configurations (for compatibility)
+        // ========================================
+        {
+            "name": "LEGACY: Original Model Path (Checkpoint-5500)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/legacy_checkpoint.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "native",
+                "--cache-mode", "read-only",
+                "--dataset", "pope",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
         }
     ]
 }

@@ -40,6 +40,13 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
             bnb_4bit_quant_type='nf4'
         )
     else:
+        # # 现代化的精度选择策略：优先使用bfloat16
+        # if torch.cuda.is_available() and torch.cuda.is_bf16_supported():
+        #     kwargs['torch_dtype'] = torch.bfloat16
+        #     print("[INFO] Using bfloat16 for better numerical stability")
+        # else:
+        #     kwargs['torch_dtype'] = torch.float16
+        #     print("[INFO] Using float16 (bfloat16 not supported on this device)")
         kwargs['torch_dtype'] = torch.float16
 
     if use_flash_attn:
@@ -214,6 +221,50 @@ def load_pretrained_model(model_path, model_base, model_name, model_args = None,
             vision_tower.load_model(device_map=device_map)
         if device_map != 'auto':
             vision_tower.to(device=device_map, dtype=torch.float16)
+
+        # 【修复】在模型完全加载后，重新加载 query_key_extractor 的干净权重
+        # 避免因 float16 转换导致的 NaN 权重问题
+        if hasattr(model.get_model(), 'query_key_extractor') and model.get_model().query_key_extractor is not None:
+            print("[INFO] 重新加载 query_key_extractor 的干净权重以避免精度转换导致的 NaN 问题...")
+            try:
+                # 重新创建一个干净的 query_key_extractor 实例
+                from llava.model.lightweight_query_key_extractor import create_query_key_extractor
+
+                # 获取原有的配置参数
+                original_extractor = model.get_model().query_key_extractor
+                config = model.get_model().config
+
+                # 确定提取器类型和参数
+                extractor_type = getattr(config, 'query_key_extractor_type', 'resnet18')
+
+                # 创建新的提取器实例（使用干净的预训练权重）
+                new_extractor = create_query_key_extractor(
+                    extractor_type=extractor_type,
+                    output_dim=None,  # 使用backbone原生特征维度
+                    target_size=224,
+                    patch_size=14,    # CLIP ViT patch size
+                    spatial_merge_size=1  # LLaVA 不使用spatial merge，所以设为1
+                )
+
+                # 确保新提取器在正确的设备上
+                device = next(model.parameters()).device
+                new_extractor = new_extractor.to(device)
+
+                # 强制设置为 float32 精度
+                new_extractor = new_extractor.float()
+
+                # 设置为评估模式
+                new_extractor.eval()
+
+                # 替换原有的提取器
+                model.get_model().query_key_extractor = new_extractor
+
+                print(f"[INFO] 成功重新加载 {extractor_type} query_key_extractor，精度：{next(new_extractor.parameters()).dtype}")
+
+            except Exception as e:
+                print(f"[WARNING] 重新加载 query_key_extractor 失败: {e}")
+                print("[WARNING] 将继续使用原有的提取器，但可能存在精度问题")
+
         image_processor = vision_tower.image_processor
 
     if hasattr(model.config, "max_sequence_length"):
