@@ -292,8 +292,6 @@ class CacheBlendLlamaAttention(CacheBlendAttentionMixin, LlamaAttention):
                 cache_position=cache_position, **kwargs
             )
 
-        print("--------------------")
-
         # ============== 从这里开始是CacheBlend自定义逻辑 ==============
         cacheblend_metadata = kwargs.get("cacheblend_metadata", {})
         cacheblend_status = kwargs.get("cacheblend_status", 0)

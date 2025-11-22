@@ -21,14 +21,16 @@ ANSWERS_FILE="$SAVE_DIR/answers-android-control-native-${EVAL_TYPE}-${TIMESTAMP}
 # 确保输出目录存在
 mkdir -p "$SAVE_DIR"
 
-export CUDA_VISIBLE_DEVICES="5"
+export CUDA_VISIBLE_DEVICES="4"
 export LD_LIBRARY_PATH=""
+
+# --model-path $MODEL_PATH \
+# --model-base $MODEL_BASE \
 
 # --- 运行评估 ---
 echo "--- Running LLaVA AndroidControl Evaluation (Native Method) ---"
 python llava/eval/llava_android_control.py \
-    --model-path $MODEL_PATH \
-    --model-base $MODEL_BASE \
+    --model-path $MODEL_BASE \
     --eval-file "$EVAL_FILE" \
     --image-root "$IMAGE_ROOT" \
     --output-dir "$SAVE_DIR" \
@@ -39,8 +41,7 @@ python llava/eval/llava_android_control.py \
     --dataset "android_control" \
     --cache-mode "read-only" \
     --method-type "native" \
-    --conv-mode "vicuna_v1" \
-    --yolo-model-path "$YOLO_MODEL_PATH"
+    --conv-mode "vicuna_v1"
     
 if [ $? -ne 0 ]; then echo "Error in native evaluation. Exiting."; exit 1; fi
 

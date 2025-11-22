@@ -1,0 +1,3944 @@
+[
+  {
+    "question_id": "17334_3",
+    "image_path": "17334_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_14",
+    "image_path": "4635_pair7/step_14.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_8",
+    "image_path": "18544_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "591_3",
+    "image_path": "591_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19697_6",
+    "image_path": "19697_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1632_8",
+    "image_path": "1632_pair3/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14774_3",
+    "image_path": "14774_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_16",
+    "image_path": "9823_pair4/step_16.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12187_3",
+    "image_path": "12187_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1819_4",
+    "image_path": "1819_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_11",
+    "image_path": "20055_pair5/step_11.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8158_5",
+    "image_path": "8158_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19805_2",
+    "image_path": "19805_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7733_5",
+    "image_path": "7733_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14654_5",
+    "image_path": "14654_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13619_5",
+    "image_path": "13619_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9195_7",
+    "image_path": "9195_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6645_2",
+    "image_path": "6645_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3195_1",
+    "image_path": "3195_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5241_4",
+    "image_path": "5241_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9893_8",
+    "image_path": "9893_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12303_3",
+    "image_path": "12303_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7271_2",
+    "image_path": "7271_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10183_1",
+    "image_path": "10183_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2406_3",
+    "image_path": "2406_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6760_1",
+    "image_path": "6760_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4662_2",
+    "image_path": "4662_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17533_3",
+    "image_path": "17533_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9318_5",
+    "image_path": "9318_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5072_1",
+    "image_path": "5072_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10986_1",
+    "image_path": "10986_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8044_4",
+    "image_path": "8044_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14390_3",
+    "image_path": "14390_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12429_4",
+    "image_path": "12429_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5288_7",
+    "image_path": "5288_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_5",
+    "image_path": "2771_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17355_3",
+    "image_path": "17355_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13846_2",
+    "image_path": "13846_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12243_3",
+    "image_path": "12243_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13247_1",
+    "image_path": "13247_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9893_3",
+    "image_path": "9893_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_10",
+    "image_path": "19946_pair5/step_10.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15438_4",
+    "image_path": "15438_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6944_3",
+    "image_path": "6944_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19382_2",
+    "image_path": "19382_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5251_3",
+    "image_path": "5251_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13805_1",
+    "image_path": "13805_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4740_2",
+    "image_path": "4740_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1632_2",
+    "image_path": "1632_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13686_2",
+    "image_path": "13686_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3224_5",
+    "image_path": "3224_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6178_2",
+    "image_path": "6178_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17410_2",
+    "image_path": "17410_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17853_6",
+    "image_path": "17853_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11551_7",
+    "image_path": "11551_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_6",
+    "image_path": "1969_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_3",
+    "image_path": "6405_pair3/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_1",
+    "image_path": "4977_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_15",
+    "image_path": "6405_pair5/step_15.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1819_6",
+    "image_path": "1819_pair3/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7509_6",
+    "image_path": "7509_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6589_2",
+    "image_path": "6589_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_4",
+    "image_path": "20055_pair3/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5312_3",
+    "image_path": "5312_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7829_5",
+    "image_path": "7829_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_1",
+    "image_path": "4635_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13668_8",
+    "image_path": "13668_pair3/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "140_8",
+    "image_path": "140_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17533_2",
+    "image_path": "17533_pair2/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19719_8",
+    "image_path": "19719_pair3/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_11",
+    "image_path": "9823_pair3/step_11.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_3",
+    "image_path": "2771_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8885_4",
+    "image_path": "8885_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18828_2",
+    "image_path": "18828_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_17",
+    "image_path": "9823_pair6/step_17.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1306_4",
+    "image_path": "1306_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "591_7",
+    "image_path": "591_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3023_7",
+    "image_path": "3023_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4226_7",
+    "image_path": "4226_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19375_3",
+    "image_path": "19375_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13686_4",
+    "image_path": "13686_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11816_7",
+    "image_path": "11816_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15442_6",
+    "image_path": "15442_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9283_4",
+    "image_path": "9283_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7538_5",
+    "image_path": "7538_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5241_1",
+    "image_path": "5241_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_10",
+    "image_path": "4977_pair5/step_10.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11551_3",
+    "image_path": "11551_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13668_4",
+    "image_path": "13668_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7829_3",
+    "image_path": "7829_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_18",
+    "image_path": "6405_pair1/step_18.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16830_3",
+    "image_path": "16830_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7644_3",
+    "image_path": "7644_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14251_8",
+    "image_path": "14251_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5072_3",
+    "image_path": "5072_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19602_1",
+    "image_path": "19602_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1736_3",
+    "image_path": "1736_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_4",
+    "image_path": "6562_pair3/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18938_4",
+    "image_path": "18938_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_2",
+    "image_path": "19946_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13350_4",
+    "image_path": "13350_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_9",
+    "image_path": "6405_pair2/step_9.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13089_2",
+    "image_path": "13089_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14321_2",
+    "image_path": "14321_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14157_9",
+    "image_path": "14157_pair1/step_9.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12187_1",
+    "image_path": "12187_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10206_1",
+    "image_path": "10206_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6681_3",
+    "image_path": "6681_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14212_3",
+    "image_path": "14212_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5595_1",
+    "image_path": "5595_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_9",
+    "image_path": "12434_pair4/step_9.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_8",
+    "image_path": "5676_pair3/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7455_2",
+    "image_path": "7455_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_17",
+    "image_path": "6405_pair6/step_17.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15658_5",
+    "image_path": "15658_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_12",
+    "image_path": "2771_pair7/step_12.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_6",
+    "image_path": "4977_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4413_3",
+    "image_path": "4413_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13203_4",
+    "image_path": "13203_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_12",
+    "image_path": "6562_pair6/step_12.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9195_9",
+    "image_path": "9195_pair2/step_9.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10464_5",
+    "image_path": "10464_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3760_4",
+    "image_path": "3760_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9806_2",
+    "image_path": "9806_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_6",
+    "image_path": "12434_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1293_3",
+    "image_path": "1293_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15975_1",
+    "image_path": "15975_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12739_3",
+    "image_path": "12739_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1306_2",
+    "image_path": "1306_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14390_6",
+    "image_path": "14390_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_8",
+    "image_path": "19946_pair4/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14774_7",
+    "image_path": "14774_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10183_3",
+    "image_path": "10183_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_8",
+    "image_path": "4635_pair4/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11816_2",
+    "image_path": "11816_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7538_2",
+    "image_path": "7538_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4674_3",
+    "image_path": "4674_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "719_3",
+    "image_path": "719_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4336_1",
+    "image_path": "4336_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16712_6",
+    "image_path": "16712_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15020_5",
+    "image_path": "15020_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10558_5",
+    "image_path": "10558_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_5",
+    "image_path": "5676_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13247_5",
+    "image_path": "13247_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5355_8",
+    "image_path": "5355_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1280_4",
+    "image_path": "1280_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5837_3",
+    "image_path": "5837_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7889_1",
+    "image_path": "7889_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6683_3",
+    "image_path": "6683_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12473_5",
+    "image_path": "12473_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19585_3",
+    "image_path": "19585_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6944_1",
+    "image_path": "6944_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19269_3",
+    "image_path": "19269_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_9",
+    "image_path": "6562_pair5/step_9.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "936_2",
+    "image_path": "936_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_5",
+    "image_path": "4635_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6402_2",
+    "image_path": "6402_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14928_6",
+    "image_path": "14928_pair3/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12498_4",
+    "image_path": "12498_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7379_2",
+    "image_path": "7379_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8804_6",
+    "image_path": "8804_pair3/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10711_8",
+    "image_path": "10711_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1482_2",
+    "image_path": "1482_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_9",
+    "image_path": "3026_pair4/step_9.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "228_7",
+    "image_path": "228_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15032_5",
+    "image_path": "15032_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10986_3",
+    "image_path": "10986_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5595_3",
+    "image_path": "5595_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_3",
+    "image_path": "12434_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6714_5",
+    "image_path": "6714_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15658_3",
+    "image_path": "15658_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1632_5",
+    "image_path": "1632_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19552_2",
+    "image_path": "19552_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6472_5",
+    "image_path": "6472_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8804_1",
+    "image_path": "8804_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5455_2",
+    "image_path": "5455_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19375_6",
+    "image_path": "19375_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3493_2",
+    "image_path": "3493_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5025_2",
+    "image_path": "5025_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13355_2",
+    "image_path": "13355_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19636_4",
+    "image_path": "19636_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9783_5",
+    "image_path": "9783_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1170_2",
+    "image_path": "1170_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_6",
+    "image_path": "18544_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1489_7",
+    "image_path": "1489_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19812_3",
+    "image_path": "19812_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3898_4",
+    "image_path": "3898_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4745_4",
+    "image_path": "4745_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14554_4",
+    "image_path": "14554_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11417_4",
+    "image_path": "11417_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_10",
+    "image_path": "1969_pair1/step_10.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10925_5",
+    "image_path": "10925_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6760_3",
+    "image_path": "6760_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8044_2",
+    "image_path": "8044_pair2/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "916_1",
+    "image_path": "916_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "140_3",
+    "image_path": "140_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_11",
+    "image_path": "3026_pair5/step_11.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15244_3",
+    "image_path": "15244_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1074_4",
+    "image_path": "1074_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7838_2",
+    "image_path": "7838_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1074_8",
+    "image_path": "1074_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_8",
+    "image_path": "1969_pair4/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_5",
+    "image_path": "1969_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_5",
+    "image_path": "19946_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18066_5",
+    "image_path": "18066_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13367_5",
+    "image_path": "13367_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1359_2",
+    "image_path": "1359_pair2/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18181_4",
+    "image_path": "18181_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "122_6",
+    "image_path": "122_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6589_6",
+    "image_path": "6589_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7733_2",
+    "image_path": "7733_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19897_3",
+    "image_path": "19897_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8770_4",
+    "image_path": "8770_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6385_2",
+    "image_path": "6385_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8770_1",
+    "image_path": "8770_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_1",
+    "image_path": "2771_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11816_5",
+    "image_path": "11816_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6046_4",
+    "image_path": "6046_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18828_5",
+    "image_path": "18828_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_3",
+    "image_path": "3026_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18374_4",
+    "image_path": "18374_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8044_6",
+    "image_path": "8044_pair3/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1820_5",
+    "image_path": "1820_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19719_3",
+    "image_path": "19719_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1819_7",
+    "image_path": "1819_pair1/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_4",
+    "image_path": "4977_pair3/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10223_2",
+    "image_path": "10223_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13887_4",
+    "image_path": "13887_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11571_4",
+    "image_path": "11571_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17853_7",
+    "image_path": "17853_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15993_2",
+    "image_path": "15993_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5200_4",
+    "image_path": "5200_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7585_1",
+    "image_path": "7585_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7608_6",
+    "image_path": "7608_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7538_7",
+    "image_path": "7538_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12176_1",
+    "image_path": "12176_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1736_6",
+    "image_path": "1736_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16860_3",
+    "image_path": "16860_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5852_6",
+    "image_path": "5852_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19812_5",
+    "image_path": "19812_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12076_6",
+    "image_path": "12076_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10738_1",
+    "image_path": "10738_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6385_4",
+    "image_path": "6385_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2200_4",
+    "image_path": "2200_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11501_5",
+    "image_path": "11501_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8165_5",
+    "image_path": "8165_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_7",
+    "image_path": "5676_pair1/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19269_6",
+    "image_path": "19269_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16324_4",
+    "image_path": "16324_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_13",
+    "image_path": "2771_pair5/step_13.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3023_2",
+    "image_path": "3023_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17098_5",
+    "image_path": "17098_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17355_1",
+    "image_path": "17355_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "719_7",
+    "image_path": "719_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_6",
+    "image_path": "19946_pair3/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6714_3",
+    "image_path": "6714_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17853_3",
+    "image_path": "17853_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_4",
+    "image_path": "18544_pair3/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9783_2",
+    "image_path": "9783_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14212_1",
+    "image_path": "14212_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4640_1",
+    "image_path": "4640_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1280_1",
+    "image_path": "1280_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "long_press",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15020_1",
+    "image_path": "15020_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15442_3",
+    "image_path": "15442_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_15",
+    "image_path": "4635_pair5/step_15.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14172_2",
+    "image_path": "14172_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12739_4",
+    "image_path": "12739_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15832_1",
+    "image_path": "15832_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1489_3",
+    "image_path": "1489_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6046_1",
+    "image_path": "6046_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1489_5",
+    "image_path": "1489_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16669_1",
+    "image_path": "16669_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15149_3",
+    "image_path": "15149_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "470_2",
+    "image_path": "470_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18298_3",
+    "image_path": "18298_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13529_2",
+    "image_path": "13529_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13668_2",
+    "image_path": "13668_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12649_3",
+    "image_path": "12649_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7608_8",
+    "image_path": "7608_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5288_4",
+    "image_path": "5288_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12498_5",
+    "image_path": "12498_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_11",
+    "image_path": "5676_pair4/step_11.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "945_1",
+    "image_path": "945_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_8",
+    "image_path": "20055_pair2/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11705_6",
+    "image_path": "11705_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8165_7",
+    "image_path": "8165_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3195_4",
+    "image_path": "3195_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17098_1",
+    "image_path": "17098_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17522_4",
+    "image_path": "17522_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10612_4",
+    "image_path": "10612_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3760_5",
+    "image_path": "3760_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15316_1",
+    "image_path": "15316_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "231_3",
+    "image_path": "231_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3591_1",
+    "image_path": "3591_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "167_3",
+    "image_path": "167_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19585_1",
+    "image_path": "19585_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_7",
+    "image_path": "2771_pair4/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7509_5",
+    "image_path": "7509_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14764_5",
+    "image_path": "14764_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2158_1",
+    "image_path": "2158_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14554_1",
+    "image_path": "14554_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5251_4",
+    "image_path": "5251_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11840_7",
+    "image_path": "11840_pair1/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1170_5",
+    "image_path": "1170_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19956_3",
+    "image_path": "19956_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16669_4",
+    "image_path": "16669_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10527_1",
+    "image_path": "10527_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "719_5",
+    "image_path": "719_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "916_4",
+    "image_path": "916_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19956_6",
+    "image_path": "19956_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7382_3",
+    "image_path": "7382_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4674_4",
+    "image_path": "4674_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3591_4",
+    "image_path": "3591_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16712_3",
+    "image_path": "16712_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13436_1",
+    "image_path": "13436_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11571_2",
+    "image_path": "11571_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9208_1",
+    "image_path": "9208_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5288_2",
+    "image_path": "5288_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "231_5",
+    "image_path": "231_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9072_3",
+    "image_path": "9072_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17258_1",
+    "image_path": "17258_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10558_1",
+    "image_path": "10558_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15020_4",
+    "image_path": "15020_pair3/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3592_6",
+    "image_path": "3592_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6681_1",
+    "image_path": "6681_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_13",
+    "image_path": "4635_pair6/step_13.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15149_6",
+    "image_path": "15149_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_10",
+    "image_path": "18544_pair4/step_10.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_10",
+    "image_path": "2771_pair6/step_10.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10590_6",
+    "image_path": "10590_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8804_3",
+    "image_path": "8804_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11501_1",
+    "image_path": "11501_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10558_4",
+    "image_path": "10558_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13805_3",
+    "image_path": "13805_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14265_4",
+    "image_path": "14265_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_3",
+    "image_path": "9823_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10738_3",
+    "image_path": "10738_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12978_2",
+    "image_path": "12978_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15968_3",
+    "image_path": "15968_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1293_6",
+    "image_path": "1293_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18066_6",
+    "image_path": "18066_pair3/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_5",
+    "image_path": "3026_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "167_1",
+    "image_path": "167_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5707_3",
+    "image_path": "5707_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_3",
+    "image_path": "6562_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_6",
+    "image_path": "9823_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5215_3",
+    "image_path": "5215_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12303_1",
+    "image_path": "12303_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18298_5",
+    "image_path": "18298_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1359_4",
+    "image_path": "1359_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19339_5",
+    "image_path": "19339_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14928_2",
+    "image_path": "14928_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13203_1",
+    "image_path": "13203_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9806_7",
+    "image_path": "9806_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2406_1",
+    "image_path": "2406_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19719_5",
+    "image_path": "19719_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12245_6",
+    "image_path": "12245_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5574_1",
+    "image_path": "5574_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_7",
+    "image_path": "6562_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16022_1",
+    "image_path": "16022_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10925_3",
+    "image_path": "10925_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7585_4",
+    "image_path": "7585_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16169_3",
+    "image_path": "16169_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13886_3",
+    "image_path": "13886_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16169_1",
+    "image_path": "16169_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13228_3",
+    "image_path": "13228_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_7",
+    "image_path": "12434_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_11",
+    "image_path": "4977_pair6/step_11.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6760_5",
+    "image_path": "6760_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17317_1",
+    "image_path": "17317_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8158_6",
+    "image_path": "8158_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3592_5",
+    "image_path": "3592_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18938_2",
+    "image_path": "18938_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7382_6",
+    "image_path": "7382_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11972_2",
+    "image_path": "11972_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17621_6",
+    "image_path": "17621_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11417_1",
+    "image_path": "11417_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14157_7",
+    "image_path": "14157_pair2/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13805_5",
+    "image_path": "13805_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14940_2",
+    "image_path": "14940_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15968_7",
+    "image_path": "15968_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3023_5",
+    "image_path": "3023_pair3/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1193_1",
+    "image_path": "1193_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_11",
+    "image_path": "4635_pair3/step_11.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19453_3",
+    "image_path": "19453_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18181_2",
+    "image_path": "18181_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "228_2",
+    "image_path": "228_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12176_5",
+    "image_path": "12176_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2200_6",
+    "image_path": "2200_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3760_1",
+    "image_path": "3760_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10711_3",
+    "image_path": "10711_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5932_1",
+    "image_path": "5932_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14764_6",
+    "image_path": "14764_pair1/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14321_6",
+    "image_path": "14321_pair2/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7509_3",
+    "image_path": "7509_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15032_1",
+    "image_path": "15032_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15316_3",
+    "image_path": "15316_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1193_4",
+    "image_path": "1193_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5707_5",
+    "image_path": "5707_pair2/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5355_5",
+    "image_path": "5355_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "231_1",
+    "image_path": "231_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9283_2",
+    "image_path": "9283_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "938_2",
+    "image_path": "938_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3224_3",
+    "image_path": "3224_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4670_3",
+    "image_path": "4670_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1820_2",
+    "image_path": "1820_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12473_4",
+    "image_path": "12473_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15968_1",
+    "image_path": "15968_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4226_5",
+    "image_path": "4226_pair1/step_5.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_8",
+    "image_path": "4977_pair4/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12076_2",
+    "image_path": "12076_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5002_2",
+    "image_path": "5002_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4178_2",
+    "image_path": "4178_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_7",
+    "image_path": "3026_pair3/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "697_2",
+    "image_path": "697_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8939_3",
+    "image_path": "8939_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4745_3",
+    "image_path": "4745_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19697_1",
+    "image_path": "19697_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9208_3",
+    "image_path": "9208_pair2/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13367_3",
+    "image_path": "13367_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18066_7",
+    "image_path": "18066_pair1/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14928_4",
+    "image_path": "14928_pair2/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14157_11",
+    "image_path": "14157_pair3/step_11.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17098_8",
+    "image_path": "17098_pair3/step_8.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_15",
+    "image_path": "9823_pair5/step_15.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9195_3",
+    "image_path": "9195_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_14",
+    "image_path": "6405_pair4/step_14.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7748_2",
+    "image_path": "7748_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2174_2",
+    "image_path": "2174_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_7",
+    "image_path": "20055_pair1/step_7.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19453_4",
+    "image_path": "19453_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11550_1",
+    "image_path": "11550_pair1/step_1.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13619_3",
+    "image_path": "13619_pair1/step_3.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_6",
+    "image_path": "6562_pair4/step_6.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14251_4",
+    "image_path": "14251_pair1/step_4.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9318_2",
+    "image_path": "9318_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10464_2",
+    "image_path": "10464_pair1/step_2.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_9",
+    "image_path": "20055_pair4/step_9.png",
+    "llm_output": "Error: not enough values to unpack (expected 6, got 1)",
+    "llm_prediction": null,
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  }
+]

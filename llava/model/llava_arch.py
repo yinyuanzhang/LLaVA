@@ -29,7 +29,7 @@ from transformers.models.llama.modeling_llama import LlamaDecoderLayer
 from llava.mm_utils import get_anyres_image_grid_shape
 import copy
 from transformers import AutoTokenizer
-from .cache import FaissCache, CacheStatisticsCollector
+from .cache import FaissCache
 import torch.nn.functional as F
 
 ################################################################################
@@ -91,6 +91,7 @@ class LlavaMetaModel:
         """
         # 初始化基础配置
         self.background_cache = None
+        # 移除旧的stats_collector初始化
         self.stats_collector = None
         self.kv_controller = None
         self.use_lightweight_query_key = getattr(config, 'use_lightweight_query_key', False)
@@ -108,10 +109,19 @@ class LlavaMetaModel:
         elif self.method_type == "cacheblend":
             self._initialize_cacheblend_system(config, common_config)
 
-        # 3. 初始化统计收集器（适用于需要读取缓存的模式）
-        if self.method_type in ["segmentation-cache", "fuzzy-cache", "cacheblend"]:
-            self.stats_collector = CacheStatisticsCollector()
-            print(f"Cache statistics collector initialized for {self.cache_mode} mode.")
+        # 3. 初始化统计数据结构（与Qwen2.5-VL保持一致）
+        if self.method_type in ["segmentation-cache", "fuzzy-cache", "cacheblend", "object-only"]:
+            # 使用与Qwen2.5-VL完全一致的统计数据结构
+            self.stats = {
+                'no_cache': {'system_len': [], 'img_len': [], 'query_len': []},
+                'with_cache': {'system_len': [], 'img_len': [], 'query_len': []},
+                'no_cache_count': 0,
+                'with_cache_count': 0,
+                # 缓存命中率统计
+                'cache_hits': 0,
+                'cache_searches': 0,
+            }
+            print(f"Cache statistics (Qwen2.5-VL style) initialized for {self.cache_mode} mode.")
 
     def _get_common_cache_config(self, config):
         """
@@ -177,7 +187,7 @@ class LlavaMetaModel:
                 self.query_key_extractor = create_query_key_extractor(
                     extractor_type=common_config['extractor_type'],
                     output_dim=None,  # 使用backbone原生特征维度
-                    target_size=224,
+                    target_size=None,
                     patch_size=14,    # CLIP ViT patch size
                     spatial_merge_size=1  # LLaVA 不使用spatial merge，所以设为1
                 )
@@ -335,6 +345,56 @@ class LlavaMetaModel:
         #         self.load_prefusion_layers=True
 
 
+    def print_and_reset_stats(self):
+        """Prints average stats and resets for a new session."""
+        print("--- Segmentation Cache Statistics ---")
+
+        # 打印配置信息
+        if hasattr(self, 'similarity_threshold'):
+            print(f"Similarity Threshold: {self.similarity_threshold}")
+
+        # 计算并显示缓存命中率
+        if self.stats['cache_searches'] > 0:
+            hit_rate = (self.stats['cache_hits'] / self.stats['cache_searches']) * 100
+            print(f"Cache Hit Rate: {self.stats['cache_hits']}/{self.stats['cache_searches']} ({hit_rate:.2f}%)")
+        else:
+            print("Cache Hit Rate: No cache searches recorded")
+
+        # 计算未采用缓存时的平均值
+        no_cache_stats = self.stats['no_cache']
+        if self.stats['no_cache_count'] > 0:
+            avg_no_cache_sys = sum(no_cache_stats['system_len']) / self.stats['no_cache_count']
+            avg_no_cache_img = sum(no_cache_stats['img_len']) / self.stats['no_cache_count']
+            avg_no_cache_query = sum(no_cache_stats['query_len']) / self.stats['no_cache_count']
+            print(f"No Cache (N={self.stats['no_cache_count']}):")
+            print(f"  Avg System Len: {avg_no_cache_sys:.2f}")
+            print(f"  Avg Image Len: {avg_no_cache_img:.2f}")
+            print(f"  Avg Query Len: {avg_no_cache_query:.2f}")
+
+        # 计算采用缓存时的平均值
+        with_cache_stats = self.stats['with_cache']
+        if self.stats['with_cache_count'] > 0:
+            avg_with_cache_sys = sum(with_cache_stats['system_len']) / self.stats['with_cache_count']
+            avg_with_cache_img = sum(with_cache_stats['img_len']) / self.stats['with_cache_count']
+            avg_with_cache_query = sum(with_cache_stats['query_len']) / self.stats['with_cache_count']
+            print(f"With Cache (N={self.stats['with_cache_count']}):")
+            print(f"  Avg System Len: {avg_with_cache_sys:.2f}")
+            print(f"  Avg Recomputed Image Len: {avg_with_cache_img:.2f}")
+            print(f"  Avg Query Len: {avg_with_cache_query:.2f}")
+
+        # 重置统计数据
+        self.stats = {
+            'no_cache': {'system_len': [], 'img_len': [], 'query_len': []},
+            'with_cache': {'system_len': [], 'img_len': [], 'query_len': []},
+            'no_cache_count': 0,
+            'with_cache_count': 0,
+            # 缓存命中率统计
+            'cache_hits': 0,
+            'cache_searches': 0,
+        }
+        print("--- Stats reset ---")
+            
+
 def unpad_image(tensor, original_size):
     """
     Unpads a PyTorch tensor of a padded and resized image.
@@ -487,7 +547,7 @@ class LlavaMetaForCausalLM(ABC):
             return
 
         # 1. 获取分离的背景/前景特征 (参考 Qwen 实现)
-        bg_feats, fg_feats, bg_attn_mask, fg_attn_mask, full_patch_mask = vision_tower(images, masks)
+        bg_feats, fg_feats, bg_attn_mask, fg_attn_mask, full_patch_mask, _ = vision_tower(images, masks)
         bg_embeds = model.mm_projector(bg_feats)
         fg_embeds = model.mm_projector(fg_feats)
 
@@ -562,6 +622,10 @@ class LlavaMetaForCausalLM(ABC):
             fg_embeds=fg_embeds_flat.squeeze(0) if num_fg_tokens > 0 else None
         )
 
+        # 记录写操作统计
+        # 移除旧的write统计调用
+        # write操作统计已不再需要
+
         print(f"CacheBlend: Cache collection finished. BG: {num_bg_tokens} tokens, FG: {num_fg_tokens} tokens")
     ####### 函数结束 #######
     ################################################################################
@@ -597,6 +661,17 @@ class LlavaMetaForCausalLM(ABC):
             print(f"CacheBlend: Cache search result: Hit! Status: [{hit_status_str}]")
         else:
             print(f"CacheBlend: Cache search result: Miss. Status: [{hit_status_str}]")
+
+        # 记录缓存统计 - 这里是关键的修复！
+        overall_hit = bg_hit or fg_hit  # 只要有一个命中就算命中
+        # 移除旧的cache outcome统计调用
+        # 缓存结果统计已在主要逻辑中处理
+
+        if hasattr(self.get_model(), 'stats'):
+            self.get_model().stats['cache_searches'] += 1
+            if overall_hit:
+                self.get_model().stats['cache_hits'] += 1
+
 
         return bg_kv_cache, bg_tokens, bg_pos_ids, bg_embeds, fg_kv_cache, fg_tokens, fg_pos_ids, fg_embeds
 
@@ -843,6 +918,9 @@ class LlavaMetaForCausalLM(ABC):
                     bg_features.clone().detach(),
                     bg_position_ids
                 )
+                # 记录写操作统计
+                # 移除旧的write统计调用
+                # write操作统计已不再需要
             else:
                 print("警告: 缓存系统未初始化，无法写入。")
 
@@ -936,14 +1014,21 @@ class LlavaMetaForCausalLM(ABC):
         编码背景&目标图像，并优化缓存逻辑。
         此方法将统计**分离后的**背景和目标有效token数量，并交给统计类处理。
         同时，它会记录缓存的命中/未命中情况。
+        支持灵活路由：缓存未命中时可切换到 Native 编码模式。
         """
         # ============================================================================
         # 阶段1: 获取视觉特征并进行投影
         # ============================================================================
         self.cache_mode = getattr(self.get_model(), "cache_mode", "read-only")
 
+        # 从 config 中获取 is_flexible_route 参数
+        is_flexible_route = getattr(self.get_model().config, "is_flexible_route", False)
+
         background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
-        background_features, object_features, background_attention_mask, object_attention_mask, full_patch_mask = background_object_visual_tower(images, masks)
+        background_features, object_features, background_attention_mask, object_attention_mask, full_patch_mask, reorder_mapping = background_object_visual_tower(images, masks)
+
+        # 存储重排映射信息，供position_ids构建使用
+        self.get_model()._segmentation_reorder_mapping = reorder_mapping
 
         background_features = self.get_model().mm_projector(background_features).to(images.device)
         object_features = self.get_model().mm_projector(object_features).to(object_features.device)
@@ -962,7 +1047,8 @@ class LlavaMetaForCausalLM(ABC):
 
         assert (current_bg_valid_count + current_obj_valid_count == 576), "总有效token数应为576"
 
-        self.get_model().stats_collector.record_counts(current_bg_valid_count, current_obj_valid_count)
+        # 移除旧的统计调用，改用统一的stats结构
+        # 背景和前景token数量统计已在原始序列统计中处理
 
 
         # ============================================================================
@@ -999,7 +1085,11 @@ class LlavaMetaForCausalLM(ABC):
             cache_hit_status = False
 
         # 记录缓存统计
-        self.get_model().stats_collector.record_cache_outcome(cache_hit_status)
+        # 记录缓存统计（与Qwen2.5-VL一致）
+        if hasattr(self.get_model(), 'stats'):
+            self.get_model().stats['cache_searches'] += 1
+            if cache_hit_status:
+                self.get_model().stats['cache_hits'] += 1
 
 
         # ============================================================================
@@ -1009,8 +1099,27 @@ class LlavaMetaForCausalLM(ABC):
             background_features_to_use = reused_background_features_final.to(images.device)
             background_valid_final = background_features_to_use.shape[1]
         else:
-            background_features_to_use = bg_flat_calculated
-            background_valid_final = current_bg_valid_count
+            # 缓存未命中：根据 is_flexible_route 决定路径
+            if is_flexible_route:
+                # 灵活路由：切换到 Native 模式
+                print("Flexible Route: 缓存未命中，切换到Native完整图像编码")
+                native_features = self.encode_images(images)
+
+                # 记录统计（使用完整图像的统计）
+                if hasattr(self.get_model(), 'stats'):
+                    if self.get_model().stats['no_cache_count'] > 0:
+                        last_system_len = self.get_model().stats['no_cache']['system_len'][-1] if self.get_model().stats['no_cache']['system_len'] else 0
+                        last_query_len = self.get_model().stats['no_cache']['query_len'][-1] if self.get_model().stats['no_cache']['query_len'] else 0
+
+                        self.get_model().stats['with_cache']['system_len'].append(last_system_len)
+                        self.get_model().stats['with_cache']['img_len'].append(576)  # 完整图像
+                        self.get_model().stats['with_cache']['query_len'].append(last_query_len)
+                        self.get_model().stats['with_cache_count'] += 1
+
+                return native_features  # 直接返回，跳过后续的分离处理
+            else:
+                background_features_to_use = bg_flat_calculated
+                background_valid_final = current_bg_valid_count
 
 
         # ============================================================================
@@ -1032,6 +1141,31 @@ class LlavaMetaForCausalLM(ABC):
             dim=0
         ).unsqueeze(0)
 
+        # ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+        # 记录segmentation-cache的with_cache统计（修复：根据缓存命中情况正确计算img_len）
+        if hasattr(self.get_model(), 'stats'):
+            # 根据Qwen2.5-VL的设计，正确计算实际需要重计算的token数量
+            if cache_hit_status:
+                # 缓存命中：只需要重计算前景token（背景从缓存复用）
+                actual_img_len = current_obj_valid_count
+                print(f"Segmentation Cache: 缓存命中，只重计算前景token: {actual_img_len}")
+            else:
+                # 缓存未命中：需要重计算所有图像token（背景+前景）
+                actual_img_len = background_valid_final + current_obj_valid_count
+                print(f"Segmentation Cache: 缓存未命中，重计算所有token: {actual_img_len}")
+
+            # 使用默认的system和query长度（需要从原始序列中计算）
+            # 这里简化处理，实际应该从之前记录的原始序列信息中获取
+            if self.get_model().stats['no_cache_count'] > 0:
+                last_system_len = self.get_model().stats['no_cache']['system_len'][-1] if self.get_model().stats['no_cache']['system_len'] else 0
+                last_query_len = self.get_model().stats['no_cache']['query_len'][-1] if self.get_model().stats['no_cache']['query_len'] else 0
+
+                self.get_model().stats['with_cache']['system_len'].append(last_system_len)
+                self.get_model().stats['with_cache']['img_len'].append(actual_img_len)
+                self.get_model().stats['with_cache']['query_len'].append(last_query_len)
+                self.get_model().stats['with_cache_count'] += 1
+        # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
         return concatenated_features
 
 
@@ -1041,7 +1175,7 @@ class LlavaMetaForCausalLM(ABC):
         基于 segmentation-cache 的逻辑，但只返回目标特征。
         """
         background_object_visual_tower = self.get_model().get_vision_tower().to(images.device)
-        background_features, object_features, background_attention_mask, object_attention_mask = background_object_visual_tower(images, masks)
+        background_features, object_features, background_attention_mask, object_attention_mask, _, _ = background_object_visual_tower(images, masks)
         
         # 只处理目标特征
         object_features = self.get_model().mm_projector(object_features).to(object_features.device)
@@ -1051,7 +1185,25 @@ class LlavaMetaForCausalLM(ABC):
         
         # 提取有效的目标特征
         obj_flat = object_features[valid_object_mask.repeat(1, 1, embedding_dim)].reshape(batch_size, -1, embedding_dim)
-        
+
+        # ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+        # 记录object-only的with_cache统计（只计算前景token）
+        if hasattr(self.get_model(), 'stats'):
+            # Object-only模式：只使用前景token，所以img_len就是前景token数量
+            actual_fg_len = valid_object_mask.squeeze(-1).sum(dim=1).item()
+            print(f"Object-only: 仅使用前景token，重计算token数: {actual_fg_len}")
+
+            # 获取原始序列信息
+            if self.get_model().stats['no_cache_count'] > 0:
+                last_system_len = self.get_model().stats['no_cache']['system_len'][-1] if self.get_model().stats['no_cache']['system_len'] else 0
+                last_query_len = self.get_model().stats['no_cache']['query_len'][-1] if self.get_model().stats['no_cache']['query_len'] else 0
+
+                self.get_model().stats['with_cache']['system_len'].append(last_system_len)
+                self.get_model().stats['with_cache']['img_len'].append(actual_fg_len)  # 仅前景token
+                self.get_model().stats['with_cache']['query_len'].append(last_query_len)
+                self.get_model().stats['with_cache_count'] += 1
+        # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
         return obj_flat
     
     def encode_fuzzy_cache_images(self, images, masks):
@@ -1100,7 +1252,8 @@ class LlavaMetaForCausalLM(ABC):
                 if self.get_model().background_cache:
                     reused_features_final, _ = self.get_model().background_cache.search_feature(
                         query_key_for_search,
-                        distance_threshold=0.1  # 归一化后使用更小的阈值
+                        # 与 segmentation-cache 对齐：使用 CLI 传入的 similarity_threshold
+                        distance_threshold=self.get_model().similarity_threshold
                     )
                     if reused_features_final is not None:
                         cache_hit_status = True
@@ -1114,7 +1267,12 @@ class LlavaMetaForCausalLM(ABC):
         
         # 记录缓存结果
         if is_cache_search_attempted:
-            self.get_model().stats_collector.record_cache_outcome(cache_hit_status)
+            pass
+            # 记录缓存统计（与Qwen2.5-VL一致）
+        if hasattr(self.get_model(), 'stats'):
+            self.get_model().stats['cache_searches'] += 1
+            if cache_hit_status:
+                self.get_model().stats['cache_hits'] += 1
             
         # 决定最终使用的特征
         if reused_features_final is not None:
@@ -1182,6 +1340,25 @@ class LlavaMetaForCausalLM(ABC):
         else:
             model = self.get_model()
             image_features = None # 初始化
+
+            # ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+            # 记录原始序列统计（与Qwen2.5-VL保持一致）
+            if hasattr(self.get_model(), 'stats') and images is not None:
+                original_img_token_indices = (input_ids[0] == IMAGE_TOKEN_INDEX).nonzero(as_tuple=True)[0]
+                if original_img_token_indices.numel() > 0:
+                    original_system_len = original_img_token_indices[0].item()
+                    original_img_len = original_img_token_indices.numel()
+                    original_query_len = input_ids.shape[1] - (original_system_len + original_img_len)
+                else:
+                    original_system_len = input_ids.shape[1]
+                    original_img_len = 0
+                    original_query_len = 0
+
+                self.get_model().stats['no_cache']['system_len'].append(original_system_len)
+                self.get_model().stats['no_cache']['img_len'].append(576)
+                self.get_model().stats['no_cache']['query_len'].append(original_query_len)
+                self.get_model().stats['no_cache_count'] += 1
+            # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
             # 检查是否为CacheBlend的write-only模式
             if getattr(self.get_model(), 'method_type', None) == 'cacheblend' and \
@@ -1258,11 +1435,19 @@ class LlavaMetaForCausalLM(ABC):
                 cur_new_input_embeds.append(cur_input_embeds_no_im[i])
                 cur_new_labels.append(cur_labels_noim[i])
                 if i < num_images:
+                    # 记录图像tokens的准确起始位置（在添加图像特征之前）
+                    image_start_position = sum(x.shape[0] for x in cur_new_input_embeds)
+
                     cur_image_features = image_features[cur_image_idx]
                     cur_image_idx += 1
                     cur_new_input_embeds.append(cur_image_features)
                     cur_new_labels.append(torch.full((cur_image_features.shape[0],), IGNORE_INDEX, device=cur_labels.device, dtype=cur_labels.dtype))
 
+                    # 存储图像位置信息（用于segmentation_cache的position_ids构建）
+                    if not hasattr(self.get_model(), '_image_token_positions'):
+                        self.get_model()._image_token_positions = []
+                    self.get_model()._image_token_positions.append(image_start_position)
+            
             cur_new_input_embeds = [x.to(self.device) for x in cur_new_input_embeds]
 
             cur_new_input_embeds = torch.cat(cur_new_input_embeds)
@@ -1319,10 +1504,64 @@ class LlavaMetaForCausalLM(ABC):
         else:
             attention_mask = attention_mask.to(dtype=_attention_mask.dtype)
 
+        # 位置优化的调试代码
+        # # 检查是否需要修正position_ids（segmentation_cache模式）
+        # if (getattr(self, 'method_type', None) == "segmentation-cache" and
+        #     hasattr(self.get_model(), '_segmentation_reorder_mapping')):
+
+        #     # 构建正确的position_ids
+        #     corrected_position_ids = self._build_segmentation_position_ids(
+        #         _position_ids, past_key_values, new_input_embeds
+        #     )
+
+        #     # 清理临时映射信息
+        #     delattr(self.get_model(), '_segmentation_reorder_mapping')
+
+        #     return None, corrected_position_ids, attention_mask, past_key_values, new_input_embeds, new_labels
+
+        # native模式保持原逻辑
         if _position_ids is None:
             position_ids = None
 
         return None, position_ids, attention_mask, past_key_values, new_input_embeds, new_labels
+
+    def _build_segmentation_position_ids(self, original_position_ids, past_key_values, inputs_embeds):
+        """构建segmentation_cache的正确position_ids"""
+        device = inputs_embeds.device
+        batch_size, seq_len = inputs_embeds.shape[:2]
+
+        # 1. 计算past_key_values偏移
+        past_length = 0
+        if past_key_values is not None:
+            print("目前不支持处理 past_key_values 不为 None的情况")
+            if hasattr(past_key_values, 'get_usable_length'):
+                past_length = past_key_values.get_usable_length(seq_len)
+            else:
+                past_length = past_key_values[0][0].shape[2]
+
+        # 2. 创建基础position_ids
+        base_position_ids = torch.arange(past_length, seq_len + past_length, dtype=torch.long, device=device)
+        position_ids = base_position_ids.unsqueeze(0).expand(batch_size, -1)
+
+        # 3. 获取重排映射
+        reorder_mapping = self.get_model()._segmentation_reorder_mapping  # [total_valid_tokens] tensor
+
+        # 4. 获取准确的图像tokens起始位置
+        if hasattr(self.get_model(), '_image_token_positions'):
+            image_start_pos = self.get_model()._image_token_positions[0]  # 假设只处理第一张图
+            # 清理临时位置信息
+            delattr(self.get_model(), '_image_token_positions')
+        else:
+            raise ValueError("Cannot find accurate image token positions for segmentation_cache")
+
+        # 5. 根据重排映射调整图像部分的position_ids
+        for i, original_patch_idx in enumerate(reorder_mapping):
+            current_pos = image_start_pos + i
+            if current_pos < seq_len:
+                # 使用原始patch的真实位置 + 基础偏移
+                position_ids[0, current_pos] = past_length + image_start_pos + original_patch_idx.item()
+
+        return position_ids
 
     def initialize_vision_tokenizer(self, model_args, tokenizer):
         # 训练时添加 DEFAULT_BACKGROUND_OBJECT_TOKEN

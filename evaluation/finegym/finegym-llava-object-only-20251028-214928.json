@@ -1,0 +1,12 @@
+[
+    {
+        "summary": {
+            "final_accuracy": "0.00%",
+            "correct_predictions": 0,
+            "total_instances_evaluated": 0,
+            "model_name": "/home/zyy/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+            "method_type": "object-only",
+            "use_image_segmentation": true
+        }
+    }
+]

@@ -139,6 +139,10 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         if hasattr(model_args[0], "similarity_threshold"):
             config.similarity_threshold = model_args[0].similarity_threshold
 
+        # 【新增】灵活路由参数传递
+        if hasattr(model_args[0], "is_flexible_route"):
+            config.is_flexible_route = model_args[0].is_flexible_route
+
         super(LlamaForCausalLM, self).__init__(config)
 
         # 【核心修复】根据 method_type 和 cache_mode 选择模型架构
@@ -228,7 +232,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         # 【关键修正】使用与write-only模式相同的视觉处理流程来获取真正的掩码信息
         with torch.no_grad():
             # 获取分离的背景/前景特征和掩码信息（与write-only模式一致）
-            bg_feats, fg_feats, bg_attn_mask, fg_attn_mask, full_patch_mask = vision_tower(images, masks)
+            bg_feats, fg_feats, bg_attn_mask, fg_attn_mask, full_patch_mask, _ = vision_tower(images, masks)
             bg_embeds = model.mm_projector(bg_feats)
             fg_embeds = model.mm_projector(fg_feats)
 
@@ -317,12 +321,82 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
 
             self._prepare_cache_fusion_metadata(self.cache_fuse_metadata, new_input_ids, new_inputs_embeds, cached_data)
 
+            # ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+            # 记录CacheBlend的with_cache统计（修复：按照Qwen2.5-VL的正确逻辑）
+            if hasattr(self.model, 'stats'):
+                # 根据Qwen2.5-VL CacheBlend设计，计算实际需要重计算的token数量
+                recomp_ratio = 0.16  # 与Qwen2.5-VL保持一致的重计算比例
+
+                # 检查BG/FG缓存命中情况
+                bg_hit = bg_tokens > 0 if bg_tokens is not None else False
+                fg_hit = fg_tokens > 0 if fg_tokens is not None else False
+
+                # 分别计算BG和FG的重计算token数量
+                recomp_bg_len = new_bg_len if not bg_hit else int(new_bg_len * recomp_ratio)
+                recomp_fg_len = new_fg_len if not fg_hit else int(new_fg_len * recomp_ratio)
+
+                recomp_img_len = recomp_bg_len + recomp_fg_len
+
+                # 从原始序列信息中获取system和query长度
+                if self.model.stats['no_cache_count'] > 0:
+                    last_system_len = self.model.stats['no_cache']['system_len'][-1] if self.model.stats['no_cache']['system_len'] else 0
+                    last_query_len = self.model.stats['no_cache']['query_len'][-1] if self.model.stats['no_cache']['query_len'] else 0
+
+                    self.model.stats['with_cache']['system_len'].append(last_system_len)
+                    self.model.stats['with_cache']['img_len'].append(recomp_img_len)  # 实际重计算的token数
+                    self.model.stats['with_cache']['query_len'].append(last_query_len)
+                    self.model.stats['with_cache_count'] += 1
+
+                    print(f"CacheBlend: BG命中={bg_hit}, FG命中={fg_hit}, 重计算token: BG={recomp_bg_len}, FG={recomp_fg_len}, 总计={recomp_img_len}")
+            # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
             return new_input_ids, new_position_ids, new_attention_mask, new_inputs_embeds
         else:
             print("CacheBlend 'read-load' 模式：缓存未命中，执行原生流程。")
             # 即使未命中，也要设置基本的元数据以确保所有层都知道当前状态
             self.cache_fuse_metadata["check"] = False
 
+            # 【新增】Flexible routing: 缓存未命中时切换到 Native 模式
+            is_flexible_route = True  # 先固定为 True，后续可改为参数
+
+            if is_flexible_route:
+                print("CacheBlend: 启用 Flexible routing，切换到 Native 编码")
+
+                # 使用 Native 模式重新编码图像
+                native_image_features = self.encode_images(images)  # [1, 576, hidden_size]
+
+                # 替换 inputs_embeds 中的图像部分
+                from llava.constants import IMAGE_TOKEN_INDEX
+
+                # 定位图像 tokens 的位置
+                image_token_mask = (input_ids[0] == IMAGE_TOKEN_INDEX)
+                image_indices = torch.where(image_token_mask)[0]
+
+                if len(image_indices) > 0:
+                    first_image_pos = image_indices[0].item()
+                    last_image_pos = image_indices[-1].item()
+
+                    # 提取非图像部分的 embeddings
+                    pre_image_embeds = inputs_embeds[:, :first_image_pos, :]
+                    post_image_embeds = inputs_embeds[:, last_image_pos+1:, :]
+
+                    # 重建 inputs_embeds: system + native_image + query
+                    native_inputs_embeds = torch.cat([
+                        pre_image_embeds,
+                        native_image_features,  # 使用 Native 编码的图像特征
+                        post_image_embeds
+                    ], dim=1)
+
+                    print(f"CacheBlend: Native 编码完成，序列长度: {native_inputs_embeds.shape[1]}")
+
+                    return input_ids, position_ids, attention_mask, native_inputs_embeds
+                else:
+                    print("CacheBlend WARNING: 未找到图像 tokens，使用原始 inputs_embeds")
+
+            # 如果不启用 flexible routing，或者找不到图像 tokens，使用原始逻辑
+            return input_ids, position_ids, attention_mask, inputs_embeds
+
+            # 这是原本代码
             return input_ids, position_ids, attention_mask, inputs_embeds
     ####### 函数结束 #######
     ################################################################################
@@ -493,6 +567,14 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                                       inputs_embeds=None, **kwargs):
         images = kwargs.pop("images", None)
         image_sizes = kwargs.pop("image_sizes", None)
+
+        # 位置优化的调试代码
+        # # 针对自定义 position_ids 的关键修改
+        # is_decode_phase = past_key_values is not None
+        # is_segmentation_mode = getattr(self, 'method_type', None) == 'segmentation-cache'
+        # if is_decode_phase and is_segmentation_mode:
+        #     kwargs.pop("position_ids", None)
+
         inputs = super().prepare_inputs_for_generation(
             input_ids, past_key_values=past_key_values, inputs_embeds=inputs_embeds, **kwargs
         )

@@ -134,7 +134,7 @@ def evaluate_type_only(pred_action, current_check_pam):
         return False
     
     # 直接比较动作类型
-    return pred_action['action'] == current_check_pam['action']
+    return pred_action['action'].lower() == current_check_pam['action'].lower()
 
 def makeup_android_control_message(action):
     if action['action'] == 'wait':

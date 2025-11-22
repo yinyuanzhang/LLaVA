@@ -33,26 +33,21 @@ def get_chunk(lst, n, k):
     return chunks[k]
 
 
-# class YOLOInference:
-#     def __init__(self, model_path="yolov8l.pt"):
-#         self.model = YOLO(model_path).eval()
-
-
-
-
-
 # Custom dataset class
 class CustomDataset(Dataset):
-    def __init__(self, questions, image_folder, tokenizer, image_processor, model_config):
+    def __init__(self, questions, image_folder, tokenizer, image_processor, model_config, yolo_model_path="./checkpoints/yolov/yolov8l-seg.pt"):
         self.questions = questions
         self.image_folder = image_folder
         self.tokenizer = tokenizer
         self.image_processor = image_processor
         self.model_config = model_config
+        self.yolo_model_path = yolo_model_path
 
-        # self.yolo_inference = YOLOInference(model_path="yolov8n-seg.pt")
-        self.yolo_model = YOLO('./checkpoints/yolov/yolov8n-seg.pt').to('cpu')
-        # self.yolo_model = torch.hub.load("ultralytics/yolov5", "yolov5s").to('cpu')
+        # Initialize YOLO model with configurable path
+        self.yolo_model = YOLO(self.yolo_model_path).to('cpu')
+        print(f"YOLO model loaded successfully: {self.yolo_model_path}")
+
+
 
     def __getitem__(self, index):
         line = self.questions[index]
@@ -161,10 +156,10 @@ def collate_fn(batch):
 
 
 # DataLoader
-def create_data_loader(questions, image_folder, tokenizer, image_processor, model_config, batch_size=1, num_workers=4):
+def create_data_loader(questions, image_folder, tokenizer, image_processor, model_config, batch_size=1, num_workers=4, yolo_model_path="./checkpoints/yolov/yolov8l-seg.pt"):
     # mp.set_start_method('spawn')
     assert batch_size == 1, "batch_size must be 1"
-    dataset = CustomDataset(questions, image_folder, tokenizer, image_processor, model_config)
+    dataset = CustomDataset(questions, image_folder, tokenizer, image_processor, model_config, yolo_model_path)
     data_loader = DataLoader(dataset, batch_size=batch_size, num_workers=num_workers, shuffle=False, collate_fn=collate_fn)
     return data_loader
 
@@ -198,7 +193,7 @@ def eval_model(args):
         if line.get('category') != 'random': # 使用 .get() 避免 KeyError，如果 'category' 不存在，则默认为 None
             continue # 跳过当前循环的其余部分，处理下一条数据
 
-        # if line['question_id'] > 10000020:
+        # if line['question_id'] > 10000005:
         #     break
 
         if args.cache_mode == "write-only":
@@ -215,7 +210,7 @@ def eval_model(args):
     print(f"Original questions count: {len(questions)}")
     print(f"Questions to process after pre-filtering: {len(questions_to_process)}")
 
-    data_loader = create_data_loader(questions_to_process, args.image_folder, tokenizer, image_processor, model.config)
+    data_loader = create_data_loader(questions_to_process, args.image_folder, tokenizer, image_processor, model.config, yolo_model_path=args.yolo_model_path)
 
     for (input_ids, image_tensor, image_sizes, mask_tensor), line in tqdm(zip(data_loader, questions_to_process), total=len(questions_to_process)):
         idx = line["question_id"]
@@ -247,21 +242,29 @@ def eval_model(args):
                                    "metadata": {}}) + "\n")
         # ans_file.flush()
     
-    if getattr(model.config, 'method_type', None) == 'cacheblend' and \
-        getattr(model.config, 'cache_mode', None) == 'write-only':
-        
-        # 检查 kv_controller 是否存在并调用 save_all
-        if hasattr(model.get_model(), 'kv_controller'):
-            print("评测结束，正在持久化 CacheBlend KV 缓存...")
-            model.get_model().kv_controller.save_all()
-            print("KV 缓存已成功保存到磁盘。")
-            
 
-    if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode == "write-only":
-        model.get_model().background_cache.save()
-    if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode in ["read-only", "read-load"]:  
-        model.get_model().stats_collector.report()
-    ans_file.close()
+    try:
+        # 打印缓存统计报告（适用于读取缓存的模式）
+        if args.method_type in ["segmentation-cache", "fuzzy-cache", "cacheblend", "object-only"] and \
+           args.cache_mode in ["read-only", "read-load"] and \
+           hasattr(model.get_model(), 'stats'):
+            print("--- Final Cache Statistics ---")
+            # 使用新的统计报告方法（与Qwen2.5-VL一致）
+            model.get_model().print_and_reset_stats()
+    finally:
+        # 确保缓存被正确保存
+        if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode == "write-only":
+            if hasattr(model.get_model(), 'background_cache') and model.get_model().background_cache is not None:
+                print("Evaluation finished. Saving segmentation/fuzzy cache...")
+                model.get_model().background_cache.save()
+                print("Background cache saved successfully.")
+        elif args.method_type == "cacheblend" and args.cache_mode == "write-only":
+            if hasattr(model.get_model(), 'kv_controller') and model.get_model().kv_controller is not None:
+                print("Evaluation finished. Saving CacheBlend cache...")
+                model.get_model().kv_controller.save_all()
+                print("CacheBlend cache saved successfully.")
+
+        ans_file.close()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -273,7 +276,7 @@ if __name__ == "__main__":
     parser.add_argument("--conv-mode", type=str, default="llava_v1")
     parser.add_argument("--num-chunks", type=int, default=1)
     parser.add_argument("--chunk-idx", type=int, default=0)
-    parser.add_argument("--temperature", type=float, default=0.2)
+    parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--top_p", type=float, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
     parser.add_argument("--max_new_tokens", type=int, default=128)
@@ -284,5 +287,7 @@ if __name__ == "__main__":
     parser.add_argument("--use-lightweight-query-key", action="store_true", default=False, help="Use lightweight CNN backbone for query_key extraction instead of full ViT")
     parser.add_argument("--query-key-extractor-type", type=str, default="resnet18", choices=["resnet18", "resnet34", "resnet50", "resnet101", "vgg11", "vgg13", "vgg16", "vgg19"], help="Type of lightweight query_key extractor")
     parser.add_argument("--similarity-threshold", type=float, default=0.1, help="Similarity threshold for cache matching (lower = stricter)")
+    parser.add_argument("--yolo-model-path", type=str, default="./checkpoints/yolov/yolov8n-seg.pt", help="Path to YOLO segmentation model")
+    parser.add_argument("--is-flexible-route", action="store_true", default=False, help="Enable flexible routing: use native encoding when cache misses")
     args = parser.parse_args()
     eval_model(args)

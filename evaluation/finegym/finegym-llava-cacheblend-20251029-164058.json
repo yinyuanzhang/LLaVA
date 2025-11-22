@@ -1,0 +1,712 @@
+[
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0023_0028_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0023_0028_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0023_0028_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0023_0028_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0023_0028_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0019_0021_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0019_0021_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0019_0021_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0019_0021_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0019_0021_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0022_0023_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0022_0023_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0022_0023_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0022_0023_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0022_0023_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0033_0034_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Balance Beam",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0033_0034_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0033_0034_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0033_0034_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0033_0034_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0034_0035_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0034_0035_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0034_0035_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0034_0035_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0034_0035_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0048_0049_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0048_0049_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0048_0049_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0048_0049_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0048_0049_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0059_0061_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0059_0061_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0059_0061_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0059_0061_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0059_0061_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0075_0076_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0075_0076_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0075_0076_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0075_0076_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002451_002529_A_0075_0076_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Balance Beam",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0023_0026_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0023_0026_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0023_0026_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0023_0026_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0023_0026_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0052_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0052_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0052_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0052_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0052_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0054_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0054_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0054_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0054_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0052_0054_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0059_0060_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0059_0060_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0059_0060_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0059_0060_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0059_0060_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0061_0062_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0061_0062_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0061_0062_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0061_0062_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0061_0062_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0085_0087_1",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Floor Exercise",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0085_0087_2",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0085_0087_3",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0085_0087_4",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002558_002653_A_0085_0087_5",
+        "prompt": "The image shows a gymnast performing a move. Please identify the gymnastics event from the following four categories:\n\n**Vault-Women** (The gymnast uses a springboard to perform a series of acrobatic moves, such as flips and twists, above a vaulting horse.)\n**Floor Exercise** (The gymnast performs a series of tumbling passes, jumps, and dance moves on a padded floor.)\n**Balance Beam** (The gymnast performs a series of balancing skills, flips, leaps, and turns on a narrow beam.)\n**Uneven Bars** (The gymnast performs a series of swinging, rotational, and release moves between two different height bars.)\n\nPlease carefully distinguish the differences between these actions based on the relationship between the gymnast and the equipment, and identify which category is shown in the image.\n\nReturn only the category name, without any other text. Please think step by step to identify the gymnastics event category.",
+        "text": "Vault-Women",
+        "ground_truth_event": "Floor Exercise",
+        "is_correct": false
+    },
+    {
+        "summary": {
+            "final_accuracy": "9.00%",
+            "correct_predictions": 9,
+            "total_instances_evaluated": 100,
+            "model_name": "/home/zyy/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+            "method_type": "cacheblend",
+            "use_image_segmentation": false
+        }
+    }
+]

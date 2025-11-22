@@ -169,13 +169,24 @@ class LightweightQueryKeyExtractor(nn.Module):
 
         if not rows.any() or not cols.any():
             # 如果没有背景区域，返回全零图像
-            return torch.zeros(
-                image_tensor.shape[0],
-                self.target_size,
-                self.target_size,
-                device=image_tensor.device,
-                dtype=image_tensor.dtype
-            )
+            if self.target_size is None:
+                # target_size为None时，返回最小的32x32图像（ResNet最小输入尺寸）
+                return torch.zeros(
+                    image_tensor.shape[0],
+                    32,
+                    32,
+                    device=image_tensor.device,
+                    dtype=image_tensor.dtype
+                )
+            else:
+                # target_size有具体值时
+                return torch.zeros(
+                    image_tensor.shape[0],
+                    self.target_size,
+                    self.target_size,
+                    device=image_tensor.device,
+                    dtype=image_tensor.dtype
+                )
 
         row_indices = torch.where(rows)[0]
         col_indices = torch.where(cols)[0]
@@ -189,6 +200,27 @@ class LightweightQueryKeyExtractor(nn.Module):
         bg_region_mask = bg_mask[rmin:rmax+1, cmin:cmax+1]
         bg_region = bg_region * bg_region_mask.unsqueeze(0).float()
 
+        # --- 情况B: 动态尺寸 (Target Size is None) ---
+        if self.target_size is None:
+            # 【安全检查】ResNet 下采样倍数为 32。
+            # 如果高或宽小于 32，会导致最后特征图变为 0，引发 RuntimeError。
+            # 因此，如果尺寸太小，我们进行最小限度的放大。
+            _, h, w = bg_region.shape
+            if h < 32 or w < 32:
+                scale_factor = max(32 / h, 32 / w)
+                # 稍微多放一点余量，向上取整
+                new_h = max(32, int(h * scale_factor))
+                new_w = max(32, int(w * scale_factor))
+                
+                bg_region = F.interpolate(
+                    bg_region.unsqueeze(0), 
+                    size=(new_h, new_w), 
+                    mode='bilinear', 
+                    align_corners=False
+                ).squeeze(0)
+            
+            return bg_region
+            
         # Resize到target_size，保持aspect ratio
         _, h, w = bg_region.shape
         if h > w:

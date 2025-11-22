@@ -1,0 +1,112 @@
+[
+  {
+    "question_id": "17334_2",
+    "image_path": "17334_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_12",
+    "image_path": "4635_pair7/step_12.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_2",
+    "image_path": "18544_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "591_2",
+    "image_path": "591_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19697_4",
+    "image_path": "19697_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1632_6",
+    "image_path": "1632_pair3/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14774_2",
+    "image_path": "14774_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_7",
+    "image_path": "9823_pair4/step_7.png",
+    "llm_output": "type",
+    "llm_prediction": {
+      "action": "type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12187_2",
+    "image_path": "12187_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1819_3",
+    "image_path": "1819_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  }
+]

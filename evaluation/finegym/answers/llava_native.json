@@ -1,0 +1,222 @@
+[
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_1",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_2",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_3",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_4",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0003_0005_5",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_1",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_2",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_3",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_4",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0006_0008_5",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_1",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_2",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_3",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_4",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0012_0013_5",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_1",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_2",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_3",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_4",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0015_0017_5",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_1",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_2",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_3",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_4",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0019_0021_5",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_1",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_2",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_3",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Uneven Bars",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": true
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_4",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "question_id": "0LtLS9wROrk_E_002407_002435_A_0021_0023_5",
+        "prompt": "\nThere are four categories of women's gymnastics:\nUneven Bars: Horizontal bars.\nBalance Beam: A single, narrow, elevated beam.\nVault-Women: A springboard and a vaulting table (a support platform).\nFloor Exercise: No other elevated apparatus.\nThe image shows one frame from a sequence of a gymnastics move. Based on the image, please analyze which category of gymnastics this move belongs to. Return only the category name.\n            ",
+        "text": "Vault-Women",
+        "ground_truth_event": "Uneven Bars",
+        "is_correct": false
+    },
+    {
+        "summary": {
+            "final_accuracy": "40.00%",
+            "correct_predictions": 12,
+            "total_instances_evaluated": 30,
+            "model_name": "liuhaotian/llava-v1.5-7b",
+            "method_type": "native",
+            "use_image_segmentation": false
+        }
+    }
+]

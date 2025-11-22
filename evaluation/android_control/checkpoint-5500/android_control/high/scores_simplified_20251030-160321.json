@@ -1,0 +1,16 @@
+{
+  "total_jobs": 10,
+  "type_match_acc": 90.0,
+  "error_num": 0,
+  "evaluation_mode": "simplified",
+  "action_type_stats": {
+    "type": {
+      "total": 3,
+      "correct": 3
+    },
+    "click": {
+      "total": 7,
+      "correct": 6
+    }
+  }
+}

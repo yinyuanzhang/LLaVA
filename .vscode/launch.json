@@ -61,6 +61,36 @@
             }
         },
         {
+            "name": "POPE: LLaVA Segmentation Read-Only (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/model_vqa_loader.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014_bagle",
+                "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
+                "--answers-file", "${workspaceFolder}/evaluation/pope/answers/llava_seg_write_resnet18.jsonl",
+                "--temperature", "0.0",
+                "--conv-mode", "vicuna_v1",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-only",
+                "--dataset", "pope",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "7",
+                "LD_LIBRARY_PATH": ""
+            }
+        },        
+        {
             "name": "POPE: LLaVA Segmentation Write-Only (VIT)",
             "type": "python",
             "request": "launch",
@@ -404,7 +434,7 @@
                 "--method-type", "object-only",
                 "--cache-mode", "read-only",
                 "--dataset", "android_control",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "4",
@@ -433,7 +463,7 @@
                 "--cache-mode", "write-only",
                 "--dataset", "android_control",
                 "--similarity-threshold", "0.02",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "5",
@@ -464,7 +494,7 @@
                 "--use-lightweight-query-key",
                 "--query-key-extractor-type", "resnet18",
                 "--similarity-threshold", "0.02",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "5",
@@ -495,7 +525,7 @@
                 "--use-lightweight-query-key",
                 "--query-key-extractor-type", "resnet18",
                 "--similarity-threshold", "0.02",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "5",
@@ -526,7 +556,7 @@
                 "--use-lightweight-query-key",
                 "--query-key-extractor-type", "resnet50",
                 "--similarity-threshold", "0.01",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "5",
@@ -557,7 +587,7 @@
                 "--use-lightweight-query-key",
                 "--query-key-extractor-type", "vgg16",
                 "--similarity-threshold", "0.01",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "6",
@@ -585,7 +615,7 @@
                 "--method-type", "cacheblend",
                 "--cache-mode", "write-only",
                 "--dataset", "android_control",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "6",
@@ -613,7 +643,7 @@
                 "--method-type", "cacheblend",
                 "--cache-mode", "read-load",
                 "--dataset", "android_control",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "6",
@@ -643,7 +673,7 @@
                 "--method-type", "native",
                 "--cache-mode", "read-only",
                 "--dataset", "android_control",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "7",
@@ -674,7 +704,7 @@
                 "--use-lightweight-query-key",
                 "--query-key-extractor-type", "resnet50",
                 "--similarity-threshold", "0.01",
-                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt"
+                "--yolo-model-path", "/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt"
             ],
             "env": {
                 "CUDA_VISIBLE_DEVICES": "7",
@@ -794,8 +824,9 @@
             "cwd": "${workspaceFolder}",
             "justMyCode": false,
             "args": [
-                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
-                "--model-base", "liuhaotian/llava-v1.5-7b",
+                // "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                // "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--model-path", "liuhaotian/llava-v1.5-7b",
                 "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/pope/val2014",
                 "--question-file", "${env:HOME}/autodl-tmp/playground/data/eval/pope/llava_pope_test.jsonl",
                 "--answers-file", "${workspaceFolder}/evaluation/pope/answers/legacy_checkpoint.jsonl",
@@ -811,6 +842,184 @@
                 "CUDA_VISIBLE_DEVICES": "7",
                 "LD_LIBRARY_PATH": ""
             }
+        },
+
+        // ========================================
+        // FineGym Dataset Configurations
+        // ========================================
+        {
+            "name": "FineGym: LLaVA Native (Baseline)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_finegym.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/extracted_frames",
+                "--answers-file", "${workspaceFolder}/evaluation/finegym/answers/llava_native.json",
+                "--val-element-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_val_element.txt",
+                "--categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_categories.txt",
+                "--set-categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/set_categories.txt",
+                "--n-frames", "5",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "finegym",
+                "--method-type", "native",
+                "--cache-mode", "read-only",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "FineGym: LLaVA Object-Only (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_finegym.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/extracted_frames",
+                "--answers-file", "${workspaceFolder}/evaluation/finegym/answers/llava_object_only.json",
+                "--val-element-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_val_element.txt",
+                "--categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_categories.txt",
+                "--set-categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/set_categories.txt",
+                "--n-frames", "5",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "finegym",
+                "--method-type", "object-only",
+                "--cache-mode", "read-only",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt",
+                "--use-image-segmentation",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "FineGym: LLaVA Segmentation-Cache (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_finegym.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "liuhaotian/llava-v1.5-7b",
+                // "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/extracted_frames",
+                "--answers-file", "${workspaceFolder}/evaluation/finegym/answers/llava_segmentation_cache.json",
+                "--val-element-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_val_element.txt",
+                "--categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_categories.txt",
+                "--set-categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/set_categories.txt",
+                "--n-frames", "5",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "finegym",
+                "--method-type", "segmentation-cache",
+                "--cache-mode", "read-only",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt",
+                "--use-image-segmentation",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "FineGym: LLaVA Fuzzy-Cache (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_finegym.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/extracted_frames",
+                "--answers-file", "${workspaceFolder}/evaluation/finegym/answers/llava_fuzzy_cache.json",
+                "--val-element-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_val_element.txt",
+                "--categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_categories.txt",
+                "--set-categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/set_categories.txt",
+                "--n-frames", "5",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "finegym",
+                "--method-type", "fuzzy-cache",
+                "--cache-mode", "read-only",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
+        },
+        {
+            "name": "FineGym: LLaVA CacheBlend (ResNet18)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/llava/eval/llava_finegym.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "args": [
+                "--model-path", "${env:HOME}/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500",
+                "--model-base", "liuhaotian/llava-v1.5-7b",
+                "--image-folder", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/extracted_frames",
+                "--answers-file", "${workspaceFolder}/evaluation/finegym/answers/llava_cacheblend.json",
+                "--val-element-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_val_element.txt",
+                "--categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/gym99_categories.txt",
+                "--set-categories-txt", "${env:HOME}/autodl-tmp/playground/data/eval/fineGym/set_categories.txt",
+                "--n-frames", "5",
+                "--temperature", "0.0",
+                "--seed", "42",
+                "--dataset", "finegym",
+                "--method-type", "cacheblend",
+                "--cache-mode", "read-only",
+                "--conv-mode", "vicuna_v1",
+                "--yolo-model-path", "/data/zyy/LLaVA/checkpoints/yolov/yolov8n-seg.pt",
+                "--use-lightweight-query-key",
+                "--query-key-extractor-type", "resnet18",
+                "--similarity-threshold", "0.1",
+                "--num-chunks", "1",
+                "--chunk-idx", "0"
+            ],
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "5",
+                "LD_LIBRARY_PATH": ""
+            }
         }
+
     ]
 }

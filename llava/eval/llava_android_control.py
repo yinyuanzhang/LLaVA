@@ -32,50 +32,6 @@ except ImportError as e:
     sys.exit(1)
 
 
-def generate_mask_for_image(image_path: str, yolo_model_path: str = "./checkpoints/yolov/yolov8n-seg.pt"):
-    """
-    为图像生成mask，使用YOLO模型进行目标检测和分割
-    
-    Args:
-        image_path (str): 图像路径
-        yolo_model_path (str): YOLO模型路径
-        
-    Returns:
-        PIL.Image: 生成的mask图像
-    """
-    try:
-        # 初始化YOLO模型
-        yolo_model = YOLO(yolo_model_path)
-        
-        # 运行检测
-        result = yolo_model(image_path)
-        
-        # 获取原始图像尺寸
-        orig_h, orig_w = result[0].orig_shape
-        combined_mask = np.zeros((orig_h, orig_w), dtype=np.uint8)
-        
-        # 如果检测到目标，合并所有mask
-        if result[0].masks is not None:
-            masks = result[0].masks.data.cpu().numpy().astype(np.uint8)
-            
-            for mask in masks:
-                # 确保mask尺寸正确
-                if mask.shape != (orig_h, orig_w):
-                    mask = cv2.resize(mask, (orig_w, orig_h), interpolation=cv2.INTER_LINEAR)
-                combined_mask = np.bitwise_or(combined_mask, mask)
-        
-        # 转换为PIL图像
-        mask_pil = Image.fromarray(combined_mask)
-        return mask_pil
-        
-    except Exception as e:
-        warnings.warn(f"Error generating mask for {image_path}: {e}")
-        # 返回空的mask作为fallback
-        image = Image.open(image_path)
-        w, h = image.size
-        return Image.fromarray(np.zeros((h, w), dtype=np.uint8))
-
-
 def set_seed(seed: int):
     """设置随机种子以确保可复现性。"""
     print(f"Setting random seed to {seed}...")
@@ -144,11 +100,55 @@ def generate_jobs_from_filtered_data(image_root: str, eval_file: str, eval_type:
             if thinking:
                 system_prompt = "The screen is cut and reassembled with the background in front and the foreground in the back. You FIRST think about the reasoning process as an internal monologue and then provide the final answer.\nThe reasoning process MUST BE enclosed within <think> </think> tags.\nDuring the reasoning process, identify and state the sub-goal of the current step by enclosing it within <step> </step> tags."
             
-            # 根据是否使用简化版prompt生成不同的tool_system_prompt
-            if use_simplified_prompt:
-                tool_system_prompt = "\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\\n{\\\"type\\\": \\\"function\\\", \\\"function\\\": {\\\"name\\\": \\\"mobile_use\\\", \\\"description\\\": \\\"Use a touchscreen to interact with a mobile device, and take screenshots.\\\\n* This is an interface to a mobile device with touchscreen. You can perform actions like swiping, typing, clicking, etc.\\\\n* Some applications may take time to start or process actions, so you may need to wait and take successive screenshots to see the results of your actions.\\\\n* The screen's resolution is " + str(w_bar) + "x" + str(h_bar) + ".\\\\n* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.\\\", \\\"parameters\\\": {\\\"properties\\\": {\\\"action\\\": {\\\"description\\\": \\\"The action to perform. The available actions are:\\\\n* `key`: Perform a key event on the mobile device.\\\\n* `click`: Click the point on the screen.\\\\n* `long_press`: Press the point on the screen.\\\\n* `swipe`: Swipe from one point to another.\\\\n* `type`: Input text into the activated input box.\\\\n* `system_button`: Press the system button.\\\\n* `open`: Open an app on the device.\\\\n* `wait`: Wait for the change to happen.\\\\n* `terminate`: Terminate the current task.\\\", \\\"enum\\\": [\\\"key\\\", \\\"click\\\", \\\"long_press\\\", \\\"swipe\\\", \\\"type\\\", \\\"system_button\\\", \\\"open\\\", \\\"wait\\\", \\\"terminate\\\"], \\\"type\\\": \\\"string\\\"}}, \\\"required\\\": [\\\"action\\\"], \\\"type\\\": \\\"object\\\"}}}}\\n</tools>\\n\\nPlease carefully consider what action to perform. For each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": \\\"mobile_use\\\", \\\"arguments\\\": {\\\"action\\\": \\\"<action_type>\\\"}}\\n</tool_call>"
-            else:
-                tool_system_prompt = "\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\\n{\\\"type\\\": \\\"function\\\", \\\"function\\\": {\\\"name\\\": \\\"mobile_use\\\", \\\"description\\\": \\\"Use a touchscreen to interact with a mobile device, and take screenshots.\\\\n* This is an interface to a mobile device with touchscreen. You can perform actions like clicking, typing, swiping, etc.\\\\n* Some applications may take time to start or process actions, so you may need to wait and take successive screenshots to see the results of your actions.\\\\n* The screen's resolution is " + str(w_bar) + "x" + str(h_bar) + ".\\\\n* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.\\\", \\\"parameters\\\": {\\\"properties\\\": {\\\"action\\\": {\\\"description\\\": \\\"The action to perform. The available actions are:\\\\n* `key`: Perform a key event on the mobile device.\\\\n    - This supports adb's `keyevent` syntax.\\\\n    - Examples: \\\\\\\"volume_up\\\\\\\", \\\\\\\"volume_down\\\\\\\", \\\\\\\"power\\\\\\\", \\\\\\\"camera\\\\\\\", \\\\\\\"clear\\\\\\\".\\\\n* `click`: Click the point on the screen with coordinate (x, y).\\\\n* `long_press`: Press the point on the screen with coordinate (x, y) for specified seconds.\\\\n* `swipe`: Swipe from the starting point with coordinate (x, y) to the end point with coordinates2 (x2, y2).\\\\n* `type`: Input the specified text into the activated input box.\\\\n* `system_button`: Press the system button.\\\\n* `open`: Open an app on the device.\\\\n* `wait`: Wait specified seconds for the change to happen.\\\\n* `terminate`: Terminate the current task and report its completion status.\\\", \\\"enum\\\": [\\\"key\\\", \\\"click\\\", \\\"long_press\\\", \\\"swipe\\\", \\\"type\\\", \\\"system_button\\\", \\\"open\\\", \\\"wait\\\", \\\"terminate\\\"], \\\"type\\\": \\\"string\\\"}, \\\"coordinate\\\": {\\\"description\\\": \\\"(x, y): The x (pixels from the left edge) and y (pixels from the top edge) coordinates to move the mouse to. Required only by `action=click`, `action=long_press`, and `action=swipe`.\\\", \\\"type\\\": \\\"array\\\"}, \\\"coordinate2\\\": {\\\"description\\\": \\\"(x, y): The x (pixels from the left edge) and y (pixels from the top edge) coordinates to move the mouse to. Required only by `action=swipe`.\\\", \\\"type\\\": \\\"array\\\"}, \\\"text\\\": {\\\"description\\\": \\\"Required only by `action=key`, `action=type`, and `action=open`.\\\", \\\"type\\\": \\\"string\\\"}, \\\"time\\\": {\\\"description\\\": \\\"The seconds to wait. Required only by `action=long_press` and `action=wait`.\\\", \\\"type\\\": \\\"number\\\"}, \\\"button\\\": {\\\"description\\\": \\\"Back means returning to the previous interface, Home means returning to the desktop, Menu means opening the application background menu, and Enter means pressing the enter. Required only by `action=system_button`\\\", \\\"enum\\\": [\\\"Back\\\", \\\"Home\\\", \\\"Menu\\\", \\\"Enter\\\"], \\\"type\\\": \\\"string\\\"}, \\\"status\\\": {\\\"description\\\": \\\"The status of the task. Required only by `action=terminate`.\\\", \\\"type\\\": \\\"string\\\", \\\"enum\\\": [\\\"success\\\", \\\"failure\\\"]}}, \\\"required\\\": [\\\"action\\\"], \\\"type\\\": \\\"object\\\"}}}}\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call>"
+
+            # # 根据是否使用简化版prompt生成不同的tool_system_prompt
+            # if use_simplified_prompt:
+            #     tool_system_prompt = "\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\\n{\\\"type\\\": \\\"function\\\", \\\"function\\\": {\\\"name\\\": \\\"mobile_use\\\", \\\"description\\\": \\\"Use a touchscreen to interact with a mobile device, and take screenshots.\\\\n* This is an interface to a mobile device with touchscreen. You can perform actions like swiping, typing, clicking, etc.\\\\n* Some applications may take time to start or process actions, so you may need to wait and take successive screenshots to see the results of your actions.\\\\n* The screen's resolution is " + str(w_bar) + "x" + str(h_bar) + ".\\\\n* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.\\\", \\\"parameters\\\": {\\\"properties\\\": {\\\"action\\\": {\\\"description\\\": \\\"The action to perform. The available actions are:\\\\n* `key`: Perform a key event on the mobile device.\\\\n* `click`: Click the point on the screen.\\\\n* `long_press`: Press the point on the screen.\\\\n* `swipe`: Swipe from one point to another.\\\\n* `type`: Input text into the activated input box.\\\\n* `system_button`: Press the system button.\\\\n* `open`: Open an app on the device.\\\\n* `wait`: Wait for the change to happen.\\\\n* `terminate`: Terminate the current task.\\\", \\\"enum\\\": [\\\"key\\\", \\\"click\\\", \\\"long_press\\\", \\\"swipe\\\", \\\"type\\\", \\\"system_button\\\", \\\"open\\\", \\\"wait\\\", \\\"terminate\\\"], \\\"type\\\": \\\"string\\\"}}, \\\"required\\\": [\\\"action\\\"], \\\"type\\\": \\\"object\\\"}}}}\\n</tools>\\n\\nPlease carefully consider what action to perform. For each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": \\\"mobile_use\\\", \\\"arguments\\\": {\\\"action\\\": \\\"<action_type>\\\"}}\\n</tool_call>"
+            # else:
+            #     tool_system_prompt = "\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\\n{\\\"type\\\": \\\"function\\\", \\\"function\\\": {\\\"name\\\": \\\"mobile_use\\\", \\\"description\\\": \\\"Use a touchscreen to interact with a mobile device, and take screenshots.\\\\n* This is an interface to a mobile device with touchscreen. You can perform actions like clicking, typing, swiping, etc.\\\\n* Some applications may take time to start or process actions, so you may need to wait and take successive screenshots to see the results of your actions.\\\\n* The screen's resolution is " + str(w_bar) + "x" + str(h_bar) + ".\\\\n* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.\\\", \\\"parameters\\\": {\\\"properties\\\": {\\\"action\\\": {\\\"description\\\": \\\"The action to perform. The available actions are:\\\\n* `key`: Perform a key event on the mobile device.\\\\n    - This supports adb's `keyevent` syntax.\\\\n    - Examples: \\\\\\\"volume_up\\\\\\\", \\\\\\\"volume_down\\\\\\\", \\\\\\\"power\\\\\\\", \\\\\\\"camera\\\\\\\", \\\\\\\"clear\\\\\\\".\\\\n* `click`: Click the point on the screen with coordinate (x, y).\\\\n* `long_press`: Press the point on the screen with coordinate (x, y) for specified seconds.\\\\n* `swipe`: Swipe from the starting point with coordinate (x, y) to the end point with coordinates2 (x2, y2).\\\\n* `type`: Input the specified text into the activated input box.\\\\n* `system_button`: Press the system button.\\\\n* `open`: Open an app on the device.\\\\n* `wait`: Wait specified seconds for the change to happen.\\\\n* `terminate`: Terminate the current task and report its completion status.\\\", \\\"enum\\\": [\\\"key\\\", \\\"click\\\", \\\"long_press\\\", \\\"swipe\\\", \\\"type\\\", \\\"system_button\\\", \\\"open\\\", \\\"wait\\\", \\\"terminate\\\"], \\\"type\\\": \\\"string\\\"}, \\\"coordinate\\\": {\\\"description\\\": \\\"(x, y): The x (pixels from the left edge) and y (pixels from the top edge) coordinates to move the mouse to. Required only by `action=click`, `action=long_press`, and `action=swipe`.\\\", \\\"type\\\": \\\"array\\\"}, \\\"coordinate2\\\": {\\\"description\\\": \\\"(x, y): The x (pixels from the left edge) and y (pixels from the top edge) coordinates to move the mouse to. Required only by `action=swipe`.\\\", \\\"type\\\": \\\"array\\\"}, \\\"text\\\": {\\\"description\\\": \\\"Required only by `action=key`, `action=type`, and `action=open`.\\\", \\\"type\\\": \\\"string\\\"}, \\\"time\\\": {\\\"description\\\": \\\"The seconds to wait. Required only by `action=long_press` and `action=wait`.\\\", \\\"type\\\": \\\"number\\\"}, \\\"button\\\": {\\\"description\\\": \\\"Back means returning to the previous interface, Home means returning to the desktop, Menu means opening the application background menu, and Enter means pressing the enter. Required only by `action=system_button`\\\", \\\"enum\\\": [\\\"Back\\\", \\\"Home\\\", \\\"Menu\\\", \\\"Enter\\\"], \\\"type\\\": \\\"string\\\"}, \\\"status\\\": {\\\"description\\\": \\\"The status of the task. Required only by `action=terminate`.\\\", \\\"type\\\": \\\"string\\\", \\\"enum\\\": [\\\"success\\\", \\\"failure\\\"]}}, \\\"required\\\": [\\\"action\\\"], \\\"type\\\": \\\"object\\\"}}}}\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call>"
+
+
+            # 这里是我们的尝试
+            # tool_system_prompt = (
+            #         "\\n\\n# Next Action Selection\\n\\n"
+            #         "Based on the user query and task progress, you must select the single best action to perform next.\\n\\n"
+            #         "## Available Actions:\\n"
+            #         # 这里我们从您原来的prompt中提取了动作列表，作为上下文
+            #         "* `key`: Perform a key event on the mobile device.\\n"
+            #         "* `click`: Click the point on the screen.\\n"
+            #         "* `long_press`: Press the point on the screen.\\n"
+            #         "* `swipe`: Swipe from one point to another.\\n"
+            #         "* `type`: Input text into the activated input box.\\n"
+            #         "* `system_button`: Press the system button.\\n"
+            #         "* `open`: Open an app on the device.\\n"
+            #         "* `wait`: Wait for the change to happen.\\n"
+            #         "* `terminate`: Terminate the current task.\\n\\n"
+                    
+            #         "## Output Format\\n"
+            #         "Return **only** the name of the action you selected from the list (e.g., `click`, `swipe`).\\n"
+            #         "**Do not** return JSON, XML, or any other text."
+            # )
+
+            tool_system_prompt = (
+                    "\\n\\n# Next Action Selection\\n\\n"
+                    "Based on the user query and task progress, you must select the single best action to perform next.\\n\\n"
+                    "## Available Actions:\\n"
+                    # 这里我们从您原来的prompt中提取了动作列表，作为上下文
+                    "* `click`: Click the point on the screen.\\n"
+                    "* `long_press`: Press the point on the screen.\\n"
+                    "* `swipe`: Swipe from one point to another.\\n"
+                    "* `type`: Input text into the activated input box.\\n"
+                    "* `system_button`: Press the system button.\\n"
+                    "* `open`: Open an app on the device.\\n"
+                    "* `wait`: Wait for the change to happen.\\n"
+                    
+                    "## Output Format\\n"
+                    "Return **only** the name of the action you selected from the list (e.g., `click`, `swipe`).\\n"
+                    "**Do not** return JSON, XML, or any other text."
+            )
+
+
+
 
             system_message = system_prompt + tool_system_prompt
 
@@ -256,7 +256,18 @@ class LLaVAModel:
         self.cache_mode = cache_mode
         self.dataset = dataset
         self.yolo_model_path = yolo_model_path
-        
+
+        # 初始化 YOLO 模型（只在需要时初始化）
+        self.yolo_model = None
+        if self.method_type in ["segmentation-cache", "object-only", "cacheblend"]:
+            if YOLO is not None:
+                print(f"Initializing YOLO model from: {self.yolo_model_path}")
+                self.yolo_model = YOLO(self.yolo_model_path).to('cpu')
+                print(f"YOLO model loaded successfully: {self.yolo_model_path}")
+            else:
+                print("Warning: YOLO not available. Segmentation features will be disabled.")
+
+
         # 初始化 LLaVA 模型
         disable_torch_init()
         model_name = get_model_name_from_path(model_path)
@@ -265,7 +276,47 @@ class LLaVAModel:
             model_path, model_base, model_name, model_args=args
         )
         self.model.eval()
-    
+
+    def generate_mask_for_image(self, image_path: str):
+        """
+        为图像生成mask，使用已初始化的YOLO模型
+        """
+        try:
+            # 运行检测
+            result = self.yolo_model(image_path)
+
+            # 获取原始图像尺寸
+            orig_h, orig_w = result[0].orig_shape
+            combined_mask = np.zeros((orig_h, orig_w), dtype=np.uint8)
+
+            # # 如果检测到目标，合并所有mask
+            # if result[0].masks is not None:
+            #     masks = result[0].masks.data.cpu().numpy().astype(np.uint8)
+
+            #     for mask in masks:
+            #         # 确保mask尺寸正确
+            #         if mask.shape != (orig_h, orig_w):
+            #             mask = cv2.resize(mask, (orig_w, orig_h), interpolation=cv2.INTER_LINEAR)
+            #         combined_mask = np.bitwise_or(combined_mask, mask)
+
+            # 修改：使用检测框而不是分割mask
+            if result[0].boxes is not None and len(result[0].boxes) > 0:
+                for box in result[0].boxes:
+                    x1, y1, x2, y2 = [int(v) for v in box.xyxy[0].tolist()]
+                    cv2.rectangle(combined_mask, (x1, y1), (x2, y2), 1, -1)
+
+            # 转换为PIL图像
+            mask_pil = Image.fromarray(combined_mask)
+            return mask_pil
+
+        except Exception as e:
+            warnings.warn(f"Error generating mask for {image_path}: {e}")
+            # 返回空的mask作为fallback
+            image = Image.open(image_path)
+            w, h = image.size
+            return Image.fromarray(np.zeros((h, w), dtype=np.uint8))
+
+
     def generate(self, job_dict):
         """生成响应"""
         image_file = job_dict['image']
@@ -285,15 +336,21 @@ class LLaVAModel:
         else:
             prompt = DEFAULT_IMAGE_TOKEN + '\\n' + full_prompt
 
+        from llava.conversation import conv_templates
+        conv = conv_templates[self.conv_mode].copy()
+        conv.append_message(conv.roles[0], prompt)
+        conv.append_message(conv.roles[1], None)
+        prompt = conv.get_prompt()
+        
         # 处理图像
         image = Image.open(image_file).convert('RGB')
         image_tensor = process_images([image], self.image_processor, self.model.config)[0]
         
         # 处理masks（如果使用segmentation相关方法）
         masks = None
-        if self.method_type in ["segmentation-cache", "object-only"]:
+        if self.method_type in ["segmentation-cache", "object-only", "cacheblend"]:
             # 生成mask
-            mask_pil = generate_mask_for_image(image_file, self.yolo_model_path)
+            mask_pil = self.generate_mask_for_image(image_file)
             # 对mask进行与图像相同的预处理
             mask_tensor = process_mask_images([mask_pil], self.image_processor, self.model.config)[0]
             # 修复数据类型：使用 uint8 而非 half
@@ -351,6 +408,9 @@ def run_evaluation(args):
     print("--- Step 3: Running inference ---")
     ans_file = open(args.answers_file, "w")
     
+    # # # 方便debug，实现任务过滤
+    # jobs = jobs[0:10]
+
     for job in tqdm(jobs, desc=f"Processing AndroidControl jobs"):
         try:
             # 准备输入给 LLaVA 的字典
@@ -384,19 +444,26 @@ def run_evaluation(args):
         compute_scores(args, jobs)
 
     try:
-        # 可以在这里执行一些收尾工作，比如打印统计报告
-        if hasattr(model.model, 'get_model') and hasattr(model.model.get_model(), 'stats_collector') and model.model.get_model().stats_collector:
+        # 打印缓存统计报告（适用于读取缓存的模式）
+        if args.method_type in ["segmentation-cache", "fuzzy-cache", "cacheblend", "object-only"] and \
+           args.cache_mode in ["read-only", "read-load"] and \
+           hasattr(model.model.model, 'stats'):
             print("--- Final Cache Statistics ---")
-            model.model.get_model().stats_collector.report_stats(args.dataset)
+            # 使用新的统计报告方法（与Qwen2.5-VL一致）
+            model.model.model.print_and_reset_stats()
     finally:
-        # 关键修复：添加缓存清理逻辑，与 model_vqa_loader.py 保持一致
+        # 确保缓存被正确保存
         if args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode == "write-only":
-            if hasattr(model.model, 'get_model') and hasattr(model.model.get_model(), 'background_cache'):
-                model.model.get_model().background_cache.close()
-                print("Cache closed after write-only phase.")
-        elif args.method_type in ["segmentation-cache", "fuzzy-cache"] and args.cache_mode in ["read-only", "read-load"]:
-            if hasattr(model.model, 'get_model') and hasattr(model.model.get_model(), 'stats_collector'):
-                model.model.get_model().stats_collector.report_stats(args.dataset)
+            if hasattr(model.model.model, 'background_cache') and model.model.model.background_cache is not None:
+                print("Evaluation finished. Saving segmentation/fuzzy cache...")
+                model.model.model.background_cache.save()
+                print("Background cache saved successfully.")
+        elif args.method_type == "cacheblend" and args.cache_mode == "write-only":
+            if hasattr(model.model.model, 'kv_controller') and model.model.model.kv_controller is not None:
+                print("Evaluation finished. Saving CacheBlend cache...")
+                model.model.model.kv_controller.save_all()
+                print("CacheBlend cache saved successfully.")
+
 
 
 def compute_scores_simplified(args, jobs: List[Dict]):
@@ -422,7 +489,9 @@ def compute_scores_simplified(args, jobs: List[Dict]):
         action_type_stats[gt_action]['total'] += 1
 
         try:
-            pred_action_type = parse_simplified_output(output, thinking=args.thinking)
+            # 原有实现-保留
+            # pred_action_type = parse_simplified_output(output, thinking=args.thinking)
+            pred_action_type = output
             if pred_action_type is None:
                 error_num += 1
                 continue
@@ -610,7 +679,7 @@ if __name__ == "__main__":
     parser.add_argument("--method-type", type=str, default="native", 
                        choices=["native", "segmentation-cache", "object-only", "fuzzy-cache", "cacheblend"],
                        help="Method type: native (original), segmentation-cache (bg/fg cache), object-only (fg only), fuzzy-cache (whole image cache), cacheblend (KV cache blending)")
-    parser.add_argument("--yolo-model-path", type=str, default="./checkpoints/yolov/yolov8n-seg.pt",
+    parser.add_argument("--yolo-model-path", type=str, default="/home/zyy/autodl-tmp/playground/data/eval/yolo_gui/runs/detect/train2/weights/best.pt",
                        help="Path to YOLO model for mask generation")
 
     # 轻量级 query_key 相关新参数（与 model_vqa_loader.py 保持一致）
@@ -622,6 +691,7 @@ if __name__ == "__main__":
     parser.add_argument("--similarity-threshold", type=float, default=0.1,
                        help="Similarity threshold for cache matching (lower = stricter)")
 
+    parser.add_argument("--is-flexible-route", action="store_true", default=False, help="Enable flexible routing: use native encoding when cache misses")
     
     args = parser.parse_args()
     print(args)

@@ -75,9 +75,6 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         # 1. embedding 2. 根据index进行重组 -> list 3. 根据list，进行最大padding，同时记录mask 
 
 
-        # 获取嵌入表示
-        hidden_states = self.embeddings(pixel_values)
-        hidden_states = self.pre_layrnorm(hidden_states)
 
         # masks = masks[:, 0, :, :].float()
         # mask_4d = masks.unsqueeze(1)
@@ -87,7 +84,8 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
 
 
         # set window_size  336/14 = 24;   336/168 = 2;  336/112 = 3; 336/84 = 4; 
-        window_size = 56
+        window_size = 56  # 相当于 4*4；         
+        # window_size = 28   相当于2*2
 
         # 获取嵌入表示
         hidden_states = self.embeddings(pixel_values)
@@ -116,6 +114,16 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         # 找到背景和目标索引
         background_indices = [torch.where(patch_mask[i] == 0)[0] + 1 for i in range(batch_size)]
         target_indices = [torch.where(patch_mask[i] == 1)[0] + 1 for i in range(batch_size)]
+
+        # 新增：计算完整的重排映射
+        full_reorder_mapping = []
+        for i in range(batch_size):
+            # 创建重排后的patch索引序列（background + foreground）
+            reordered_indices = torch.cat([
+                background_indices[i] - 1,  # 背景patch原始索引 (减1因为之前+1了)
+                target_indices[i] - 1       # 前景patch原始索引
+            ])
+            full_reorder_mapping.append(reordered_indices)
 
         # 提取背景和目标嵌入
         background_embeddings = [
@@ -175,17 +183,19 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
                     background_outputs.hidden_states[-2],  # 背景的 last_hidden_state
                     background_outputs[1:],  # 背景的其他输出（如 hidden_states 和 attentions）
                     background_attention_mask,  # 背景的掩码
-                    patch_mask  # 完整的 [576] patch mask，用于 query_key_extractor
+                    patch_mask,  # 完整的 [576] patch mask，用于 query_key_extractor
+                    full_reorder_mapping[0]  # 新增：重排映射 [background_indices..., foreground_indices...]
                 ),
                 (
                     object_outputs.hidden_states[-2],  # 目标的 last_hidden_state
                     object_outputs[1:],  # 目标的其他输出（如 hidden_states 和 attentions）
                     object_attention_mask,  # 目标的掩码
-                    patch_mask  # 完整的 [576] patch mask，用于 query_key_extractor
+                    patch_mask,  # 完整的 [576] patch mask，用于 query_key_extractor
+                    full_reorder_mapping[0]  # 新增：重排映射 [background_indices..., foreground_indices...]
                 )
             ]
 
-        # 返回两个 BaseModelOutputWithPooling 对象，并附加完整的 patch_mask
+        # 返回两个 BaseModelOutputWithPooling 对象，并附加完整的 patch_mask 和重排映射
         return (
             BaseModelOutputWithPooling(
                 last_hidden_state=background_outputs[0],
@@ -201,7 +211,8 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
                 attentions=object_outputs.attentions,
                 attention_mask=object_attention_mask  # 目标的掩码
             ),
-            patch_mask  # 完整的 [576] patch mask，用于 query_key_extractor
+            patch_mask,  # 完整的 [576] patch mask，用于 query_key_extractor
+            full_reorder_mapping[0]  # 新增：重排映射 [background_indices..., foreground_indices...]
         )
         
 
@@ -636,10 +647,10 @@ class CLIPVisionTower(nn.Module):
             output_hidden_states=True # 虽然内部实现没用这个参数，但保持接口一致性
         )
 
-        # 根据返回格式正确提取 patch_mask 和特征
+        # 根据返回格式正确提取 patch_mask、特征和重排映射
         if isinstance(image_forward_outs, list):
             # return_dict=True 的情况：返回 list 包含 2 个 tuple
-            # 每个 tuple 格式：(hidden_states, other_outputs, attention_mask, patch_mask)
+            # 每个 tuple 格式：(hidden_states, other_outputs, attention_mask, patch_mask, reorder_mapping)
             bg_output = image_forward_outs[0]
             obj_output = image_forward_outs[1]
 
@@ -647,21 +658,23 @@ class CLIPVisionTower(nn.Module):
             background_attention_mask = bg_output[2].to(images.dtype)
             object_features = self.my_feature_select([obj_output[0]]).to(images.dtype)
             object_attention_mask = obj_output[2].to(images.dtype)
-            full_patch_mask = bg_output[3]  # patch_mask 在第4个位置，两个 tuple 中的 patch_mask 是相同的
+            full_patch_mask = bg_output[3]  # patch_mask 在第4个位置
+            reorder_mapping = bg_output[4]  # 新增：重排映射在第5个位置
 
-        elif isinstance(image_forward_outs, tuple) and len(image_forward_outs) == 3:
-            # return_dict=False 的情况：返回 tuple 包含 3 个元素
-            # (bg_BaseModelOutput, obj_BaseModelOutput, patch_mask)
+        elif isinstance(image_forward_outs, tuple) and len(image_forward_outs) == 4:
+            # return_dict=False 的情况：返回 tuple 包含 4 个元素
+            # (bg_BaseModelOutput, obj_BaseModelOutput, patch_mask, reorder_mapping)
             background_features = self.my_feature_select(image_forward_outs[0]).to(images.dtype)
             background_attention_mask = image_forward_outs[0][-1].to(images.dtype)
             object_features = self.my_feature_select(image_forward_outs[1]).to(images.dtype)
             object_attention_mask = image_forward_outs[1][-1].to(images.dtype)
             full_patch_mask = image_forward_outs[2]  # patch_mask 在第3个位置
+            reorder_mapping = image_forward_outs[3]  # 新增：重排映射在第4个位置
 
         else:
             raise ValueError(f"Unexpected return format from vision_tower: {type(image_forward_outs)} with length {len(image_forward_outs) if hasattr(image_forward_outs, '__len__') else 'unknown'}")
 
-        return background_features, object_features, background_attention_mask, object_attention_mask, full_patch_mask
+        return background_features, object_features, background_attention_mask, object_attention_mask, full_patch_mask, reorder_mapping
 
     @torch.no_grad()
     def forward(self, images, masks=None):

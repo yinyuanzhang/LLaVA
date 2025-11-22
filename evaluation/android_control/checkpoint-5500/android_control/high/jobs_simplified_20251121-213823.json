@@ -1,0 +1,4820 @@
+[
+  {
+    "question_id": "17334_2",
+    "image_path": "17334_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_12",
+    "image_path": "4635_pair7/step_12.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_2",
+    "image_path": "18544_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "591_2",
+    "image_path": "591_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19697_4",
+    "image_path": "19697_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1632_6",
+    "image_path": "1632_pair3/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14774_2",
+    "image_path": "14774_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_7",
+    "image_path": "9823_pair4/step_7.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12187_2",
+    "image_path": "12187_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1819_3",
+    "image_path": "1819_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_10",
+    "image_path": "20055_pair5/step_10.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8158_4",
+    "image_path": "8158_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19805_0",
+    "image_path": "19805_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7733_4",
+    "image_path": "7733_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14654_3",
+    "image_path": "14654_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13619_4",
+    "image_path": "13619_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9195_5",
+    "image_path": "9195_pair3/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6645_1",
+    "image_path": "6645_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3195_0",
+    "image_path": "3195_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5241_3",
+    "image_path": "5241_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9893_6",
+    "image_path": "9893_pair2/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12303_2",
+    "image_path": "12303_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7271_1",
+    "image_path": "7271_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10183_0",
+    "image_path": "10183_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2406_2",
+    "image_path": "2406_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6760_0",
+    "image_path": "6760_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4662_1",
+    "image_path": "4662_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17533_0",
+    "image_path": "17533_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9318_3",
+    "image_path": "9318_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5072_0",
+    "image_path": "5072_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10986_0",
+    "image_path": "10986_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8044_0",
+    "image_path": "8044_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14390_2",
+    "image_path": "14390_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12429_3",
+    "image_path": "12429_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5288_5",
+    "image_path": "5288_pair3/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_4",
+    "image_path": "2771_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17355_2",
+    "image_path": "17355_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13846_1",
+    "image_path": "13846_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12243_2",
+    "image_path": "12243_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13247_0",
+    "image_path": "13247_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9893_1",
+    "image_path": "9893_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_9",
+    "image_path": "19946_pair5/step_9.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15438_2",
+    "image_path": "15438_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6944_2",
+    "image_path": "6944_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19382_1",
+    "image_path": "19382_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5251_2",
+    "image_path": "5251_pair2/step_2.png",
+    "llm_output": "Swipe",
+    "llm_prediction": {
+      "action": "Swipe"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13805_0",
+    "image_path": "13805_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4740_1",
+    "image_path": "4740_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1632_1",
+    "image_path": "1632_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13686_1",
+    "image_path": "13686_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3224_4",
+    "image_path": "3224_pair2/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6178_1",
+    "image_path": "6178_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17410_1",
+    "image_path": "17410_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17853_0",
+    "image_path": "17853_pair1/step_0.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11551_5",
+    "image_path": "11551_pair2/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_3",
+    "image_path": "1969_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_2",
+    "image_path": "6405_pair3/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_0",
+    "image_path": "4977_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_11",
+    "image_path": "6405_pair5/step_11.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1819_5",
+    "image_path": "1819_pair3/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7509_0",
+    "image_path": "7509_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6589_0",
+    "image_path": "6589_pair1/step_0.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_3",
+    "image_path": "20055_pair3/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5312_2",
+    "image_path": "5312_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7829_4",
+    "image_path": "7829_pair2/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_0",
+    "image_path": "4635_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13668_7",
+    "image_path": "13668_pair3/step_7.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "140_7",
+    "image_path": "140_pair2/step_7.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17533_1",
+    "image_path": "17533_pair2/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19719_7",
+    "image_path": "19719_pair3/step_7.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_5",
+    "image_path": "9823_pair3/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_2",
+    "image_path": "2771_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8885_3",
+    "image_path": "8885_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18828_1",
+    "image_path": "18828_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_14",
+    "image_path": "9823_pair6/step_14.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1306_3",
+    "image_path": "1306_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "591_5",
+    "image_path": "591_pair2/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3023_3",
+    "image_path": "3023_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4226_6",
+    "image_path": "4226_pair2/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19375_2",
+    "image_path": "19375_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13686_3",
+    "image_path": "13686_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11816_6",
+    "image_path": "11816_pair3/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15442_4",
+    "image_path": "15442_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9283_3",
+    "image_path": "9283_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7538_3",
+    "image_path": "7538_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5241_0",
+    "image_path": "5241_pair1/step_0.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_7",
+    "image_path": "4977_pair5/step_7.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11551_2",
+    "image_path": "11551_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13668_3",
+    "image_path": "13668_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7829_0",
+    "image_path": "7829_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_0",
+    "image_path": "6405_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16830_2",
+    "image_path": "16830_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7644_1",
+    "image_path": "7644_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14251_6",
+    "image_path": "14251_pair2/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5072_2",
+    "image_path": "5072_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19602_0",
+    "image_path": "19602_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1736_2",
+    "image_path": "1736_pair1/step_2.png",
+    "llm_output": "Wait",
+    "llm_prediction": {
+      "action": "Wait"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_2",
+    "image_path": "6562_pair3/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18938_3",
+    "image_path": "18938_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_1",
+    "image_path": "19946_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13350_3",
+    "image_path": "13350_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_1",
+    "image_path": "6405_pair2/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13089_1",
+    "image_path": "13089_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14321_0",
+    "image_path": "14321_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14157_5",
+    "image_path": "14157_pair1/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12187_0",
+    "image_path": "12187_pair1/step_0.png",
+    "llm_output": "Swipe",
+    "llm_prediction": {
+      "action": "Swipe"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10206_0",
+    "image_path": "10206_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6681_2",
+    "image_path": "6681_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14212_2",
+    "image_path": "14212_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5595_0",
+    "image_path": "5595_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_8",
+    "image_path": "12434_pair4/step_8.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_6",
+    "image_path": "5676_pair3/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7455_1",
+    "image_path": "7455_pair1/step_1.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_16",
+    "image_path": "6405_pair6/step_16.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15658_0",
+    "image_path": "15658_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_11",
+    "image_path": "2771_pair7/step_11.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_2",
+    "image_path": "4977_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4413_2",
+    "image_path": "4413_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13203_3",
+    "image_path": "13203_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_10",
+    "image_path": "6562_pair6/step_10.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9195_4",
+    "image_path": "9195_pair2/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10464_4",
+    "image_path": "10464_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3760_2",
+    "image_path": "3760_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9806_1",
+    "image_path": "9806_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_4",
+    "image_path": "12434_pair2/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1293_2",
+    "image_path": "1293_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15975_0",
+    "image_path": "15975_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12739_0",
+    "image_path": "12739_pair1/step_0.png",
+    "llm_output": "Open Google Slides app",
+    "llm_prediction": {
+      "action": "Open Google Slides app"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1306_0",
+    "image_path": "1306_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14390_4",
+    "image_path": "14390_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_7",
+    "image_path": "19946_pair4/step_7.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14774_5",
+    "image_path": "14774_pair2/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10183_2",
+    "image_path": "10183_pair2/step_2.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_6",
+    "image_path": "4635_pair4/step_6.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11816_1",
+    "image_path": "11816_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7538_1",
+    "image_path": "7538_pair1/step_1.png",
+    "llm_output": "Open",
+    "llm_prediction": {
+      "action": "Open"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4674_2",
+    "image_path": "4674_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "719_2",
+    "image_path": "719_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4336_0",
+    "image_path": "4336_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16712_5",
+    "image_path": "16712_pair2/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15020_2",
+    "image_path": "15020_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10558_3",
+    "image_path": "10558_pair3/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_4",
+    "image_path": "5676_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13247_3",
+    "image_path": "13247_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5355_6",
+    "image_path": "5355_pair2/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1280_3",
+    "image_path": "1280_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5837_2",
+    "image_path": "5837_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7889_0",
+    "image_path": "7889_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6683_2",
+    "image_path": "6683_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12473_0",
+    "image_path": "12473_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19585_2",
+    "image_path": "19585_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6944_0",
+    "image_path": "6944_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19269_2",
+    "image_path": "19269_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_8",
+    "image_path": "6562_pair5/step_8.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "936_1",
+    "image_path": "936_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_3",
+    "image_path": "4635_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6402_1",
+    "image_path": "6402_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14928_5",
+    "image_path": "14928_pair3/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12498_0",
+    "image_path": "12498_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7379_1",
+    "image_path": "7379_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8804_4",
+    "image_path": "8804_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10711_6",
+    "image_path": "10711_pair2/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1482_1",
+    "image_path": "1482_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_6",
+    "image_path": "3026_pair4/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "228_6",
+    "image_path": "228_pair2/step_6.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15032_4",
+    "image_path": "15032_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10986_2",
+    "image_path": "10986_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5595_2",
+    "image_path": "5595_pair2/step_2.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_1",
+    "image_path": "12434_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6714_4",
+    "image_path": "6714_pair2/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15658_1",
+    "image_path": "15658_pair2/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1632_3",
+    "image_path": "1632_pair2/step_3.png",
+    "llm_output": "Swipe",
+    "llm_prediction": {
+      "action": "Swipe"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19552_1",
+    "image_path": "19552_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6472_0",
+    "image_path": "6472_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8804_0",
+    "image_path": "8804_pair1/step_0.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5455_0",
+    "image_path": "5455_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19375_4",
+    "image_path": "19375_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3493_1",
+    "image_path": "3493_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5025_1",
+    "image_path": "5025_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13355_1",
+    "image_path": "13355_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19636_3",
+    "image_path": "19636_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9783_3",
+    "image_path": "9783_pair2/step_3.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1170_1",
+    "image_path": "1170_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_1",
+    "image_path": "18544_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1489_6",
+    "image_path": "1489_pair3/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19812_2",
+    "image_path": "19812_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3898_3",
+    "image_path": "3898_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4745_1",
+    "image_path": "4745_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14554_2",
+    "image_path": "14554_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11417_3",
+    "image_path": "11417_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_1",
+    "image_path": "1969_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10925_0",
+    "image_path": "10925_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6760_2",
+    "image_path": "6760_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8044_1",
+    "image_path": "8044_pair2/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "916_0",
+    "image_path": "916_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "140_2",
+    "image_path": "140_pair1/step_2.png",
+    "llm_output": "Open",
+    "llm_prediction": {
+      "action": "Open"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_8",
+    "image_path": "3026_pair5/step_8.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15244_1",
+    "image_path": "15244_pair1/step_1.png",
+    "llm_output": "Delete the RCA Meet event in the calendar",
+    "llm_prediction": {
+      "action": "Delete the RCA Meet event in the calendar"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1074_3",
+    "image_path": "1074_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7838_1",
+    "image_path": "7838_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1074_6",
+    "image_path": "1074_pair2/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_7",
+    "image_path": "1969_pair4/step_7.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1969_4",
+    "image_path": "1969_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_3",
+    "image_path": "19946_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18066_3",
+    "image_path": "18066_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13367_4",
+    "image_path": "13367_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1359_1",
+    "image_path": "1359_pair2/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18181_3",
+    "image_path": "18181_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "122_4",
+    "image_path": "122_pair1/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6589_4",
+    "image_path": "6589_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7733_1",
+    "image_path": "7733_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19897_2",
+    "image_path": "19897_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8770_3",
+    "image_path": "8770_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6385_1",
+    "image_path": "6385_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8770_0",
+    "image_path": "8770_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_0",
+    "image_path": "2771_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11816_4",
+    "image_path": "11816_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6046_2",
+    "image_path": "6046_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18828_3",
+    "image_path": "18828_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_2",
+    "image_path": "3026_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18374_3",
+    "image_path": "18374_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8044_5",
+    "image_path": "8044_pair3/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1820_4",
+    "image_path": "1820_pair2/step_4.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19719_2",
+    "image_path": "19719_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1819_1",
+    "image_path": "1819_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_3",
+    "image_path": "4977_pair3/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10223_1",
+    "image_path": "10223_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13887_3",
+    "image_path": "13887_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11571_3",
+    "image_path": "11571_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17853_5",
+    "image_path": "17853_pair3/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15993_1",
+    "image_path": "15993_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5200_2",
+    "image_path": "5200_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7585_0",
+    "image_path": "7585_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7608_4",
+    "image_path": "7608_pair1/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7538_6",
+    "image_path": "7538_pair3/step_6.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12176_0",
+    "image_path": "12176_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1736_5",
+    "image_path": "1736_pair2/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16860_2",
+    "image_path": "16860_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5852_4",
+    "image_path": "5852_pair1/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19812_4",
+    "image_path": "19812_pair2/step_4.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12076_4",
+    "image_path": "12076_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10738_0",
+    "image_path": "10738_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6385_3",
+    "image_path": "6385_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2200_3",
+    "image_path": "2200_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11501_3",
+    "image_path": "11501_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8165_4",
+    "image_path": "8165_pair1/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_0",
+    "image_path": "5676_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19269_4",
+    "image_path": "19269_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16324_3",
+    "image_path": "16324_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_8",
+    "image_path": "2771_pair5/step_8.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3023_1",
+    "image_path": "3023_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17098_4",
+    "image_path": "17098_pair2/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17355_0",
+    "image_path": "17355_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "719_6",
+    "image_path": "719_pair3/step_6.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19946_4",
+    "image_path": "19946_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6714_2",
+    "image_path": "6714_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17853_2",
+    "image_path": "17853_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_3",
+    "image_path": "18544_pair3/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9783_0",
+    "image_path": "9783_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14212_0",
+    "image_path": "14212_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4640_0",
+    "image_path": "4640_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1280_0",
+    "image_path": "1280_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15020_0",
+    "image_path": "15020_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15442_1",
+    "image_path": "15442_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_7",
+    "image_path": "4635_pair5/step_7.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14172_1",
+    "image_path": "14172_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12739_2",
+    "image_path": "12739_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15832_0",
+    "image_path": "15832_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1489_2",
+    "image_path": "1489_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6046_0",
+    "image_path": "6046_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1489_4",
+    "image_path": "1489_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16669_0",
+    "image_path": "16669_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15149_2",
+    "image_path": "15149_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "470_0",
+    "image_path": "470_pair1/step_0.png",
+    "llm_output": "Delete the Recording 2 file from the smart",
+    "llm_prediction": {
+      "action": "Delete the Recording 2 file from the smart"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18298_2",
+    "image_path": "18298_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13529_0",
+    "image_path": "13529_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13668_1",
+    "image_path": "13668_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12649_2",
+    "image_path": "12649_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7608_7",
+    "image_path": "7608_pair2/step_7.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5288_3",
+    "image_path": "5288_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12498_3",
+    "image_path": "12498_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5676_10",
+    "image_path": "5676_pair4/step_10.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "945_0",
+    "image_path": "945_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_2",
+    "image_path": "20055_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11705_4",
+    "image_path": "11705_pair1/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8165_6",
+    "image_path": "8165_pair2/step_6.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3195_3",
+    "image_path": "3195_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17098_0",
+    "image_path": "17098_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17522_3",
+    "image_path": "17522_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10612_3",
+    "image_path": "10612_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3760_3",
+    "image_path": "3760_pair3/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15316_0",
+    "image_path": "15316_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "231_2",
+    "image_path": "231_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3591_0",
+    "image_path": "3591_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "167_2",
+    "image_path": "167_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19585_0",
+    "image_path": "19585_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_6",
+    "image_path": "2771_pair4/step_6.png",
+    "llm_output": "Wait",
+    "llm_prediction": {
+      "action": "Wait"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7509_4",
+    "image_path": "7509_pair3/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14764_4",
+    "image_path": "14764_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2158_0",
+    "image_path": "2158_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14554_0",
+    "image_path": "14554_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5251_0",
+    "image_path": "5251_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11840_2",
+    "image_path": "11840_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1170_3",
+    "image_path": "1170_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19956_2",
+    "image_path": "19956_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16669_3",
+    "image_path": "16669_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10527_0",
+    "image_path": "10527_pair1/step_0.png",
+    "llm_output": "Open",
+    "llm_prediction": {
+      "action": "Open"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "719_1",
+    "image_path": "719_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "916_3",
+    "image_path": "916_pair2/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19956_4",
+    "image_path": "19956_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7382_0",
+    "image_path": "7382_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4674_1",
+    "image_path": "4674_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3591_2",
+    "image_path": "3591_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16712_1",
+    "image_path": "16712_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13436_0",
+    "image_path": "13436_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11571_1",
+    "image_path": "11571_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9208_0",
+    "image_path": "9208_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5288_1",
+    "image_path": "5288_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "231_4",
+    "image_path": "231_pair3/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9072_2",
+    "image_path": "9072_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17258_0",
+    "image_path": "17258_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10558_0",
+    "image_path": "10558_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "long_press",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15020_3",
+    "image_path": "15020_pair3/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3592_1",
+    "image_path": "3592_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6681_0",
+    "image_path": "6681_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_9",
+    "image_path": "4635_pair6/step_9.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15149_4",
+    "image_path": "15149_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18544_5",
+    "image_path": "18544_pair4/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2771_9",
+    "image_path": "2771_pair6/step_9.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10590_5",
+    "image_path": "10590_pair1/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8804_2",
+    "image_path": "8804_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11501_0",
+    "image_path": "11501_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10558_2",
+    "image_path": "10558_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13805_2",
+    "image_path": "13805_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14265_3",
+    "image_path": "14265_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_2",
+    "image_path": "9823_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10738_2",
+    "image_path": "10738_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12978_0",
+    "image_path": "12978_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15968_2",
+    "image_path": "15968_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1293_4",
+    "image_path": "1293_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18066_4",
+    "image_path": "18066_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_1",
+    "image_path": "3026_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "167_0",
+    "image_path": "167_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5707_2",
+    "image_path": "5707_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_0",
+    "image_path": "6562_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_4",
+    "image_path": "9823_pair2/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5215_2",
+    "image_path": "5215_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12303_0",
+    "image_path": "12303_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18298_4",
+    "image_path": "18298_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1359_0",
+    "image_path": "1359_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19339_3",
+    "image_path": "19339_pair1/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14928_1",
+    "image_path": "14928_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13203_0",
+    "image_path": "13203_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9806_5",
+    "image_path": "9806_pair2/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2406_0",
+    "image_path": "2406_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19719_4",
+    "image_path": "19719_pair2/step_4.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12245_4",
+    "image_path": "12245_pair1/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5574_0",
+    "image_path": "5574_pair1/step_0.png",
+    "llm_output": "Swipe",
+    "llm_prediction": {
+      "action": "Swipe"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_1",
+    "image_path": "6562_pair2/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16022_0",
+    "image_path": "16022_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "long_press",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10925_1",
+    "image_path": "10925_pair2/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7585_2",
+    "image_path": "7585_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16169_2",
+    "image_path": "16169_pair2/step_2.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13886_2",
+    "image_path": "13886_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "16169_0",
+    "image_path": "16169_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13228_2",
+    "image_path": "13228_pair1/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12434_5",
+    "image_path": "12434_pair3/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_9",
+    "image_path": "4977_pair6/step_9.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6760_4",
+    "image_path": "6760_pair3/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17317_0",
+    "image_path": "17317_pair1/step_0.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8158_2",
+    "image_path": "8158_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3592_4",
+    "image_path": "3592_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18938_1",
+    "image_path": "18938_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7382_4",
+    "image_path": "7382_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11972_0",
+    "image_path": "11972_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17621_5",
+    "image_path": "17621_pair1/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11417_0",
+    "image_path": "11417_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14157_6",
+    "image_path": "14157_pair2/step_6.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13805_4",
+    "image_path": "13805_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14940_1",
+    "image_path": "14940_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15968_5",
+    "image_path": "15968_pair3/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3023_4",
+    "image_path": "3023_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1193_0",
+    "image_path": "1193_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4635_4",
+    "image_path": "4635_pair3/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19453_2",
+    "image_path": "19453_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18181_1",
+    "image_path": "18181_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "228_1",
+    "image_path": "228_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12176_3",
+    "image_path": "12176_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2200_5",
+    "image_path": "2200_pair2/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3760_0",
+    "image_path": "3760_pair1/step_0.png",
+    "llm_output": "Open",
+    "llm_prediction": {
+      "action": "Open"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10711_2",
+    "image_path": "10711_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5932_0",
+    "image_path": "5932_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14764_2",
+    "image_path": "14764_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14321_4",
+    "image_path": "14321_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7509_2",
+    "image_path": "7509_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15032_0",
+    "image_path": "15032_pair1/step_0.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15316_2",
+    "image_path": "15316_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1193_3",
+    "image_path": "1193_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5707_4",
+    "image_path": "5707_pair2/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5355_3",
+    "image_path": "5355_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "231_0",
+    "image_path": "231_pair1/step_0.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9283_0",
+    "image_path": "9283_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "938_0",
+    "image_path": "938_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "open",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3224_2",
+    "image_path": "3224_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4670_1",
+    "image_path": "4670_pair1/step_1.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "1820_1",
+    "image_path": "1820_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12473_3",
+    "image_path": "12473_pair2/step_3.png",
+    "llm_output": "click",
+    "llm_prediction": {
+      "action": "click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "15968_0",
+    "image_path": "15968_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4226_4",
+    "image_path": "4226_pair1/step_4.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4977_5",
+    "image_path": "4977_pair4/step_5.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "wait",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "12076_0",
+    "image_path": "12076_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "5002_1",
+    "image_path": "5002_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4178_0",
+    "image_path": "4178_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "3026_4",
+    "image_path": "3026_pair3/step_4.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "697_1",
+    "image_path": "697_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "type",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "8939_2",
+    "image_path": "8939_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "4745_2",
+    "image_path": "4745_pair2/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19697_0",
+    "image_path": "19697_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "system_button",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9208_2",
+    "image_path": "9208_pair2/step_2.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13367_2",
+    "image_path": "13367_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "18066_2",
+    "image_path": "18066_pair1/step_2.png",
+    "llm_output": "Swipe",
+    "llm_prediction": {
+      "action": "Swipe"
+    },
+    "ground_truth_action": "click",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14928_3",
+    "image_path": "14928_pair2/step_3.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14157_10",
+    "image_path": "14157_pair3/step_10.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "17098_6",
+    "image_path": "17098_pair3/step_6.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9823_8",
+    "image_path": "9823_pair5/step_8.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9195_2",
+    "image_path": "9195_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6405_7",
+    "image_path": "6405_pair4/step_7.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "7748_1",
+    "image_path": "7748_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "2174_0",
+    "image_path": "2174_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_1",
+    "image_path": "20055_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "19453_1",
+    "image_path": "19453_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "11550_0",
+    "image_path": "11550_pair1/step_0.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "13619_2",
+    "image_path": "13619_pair1/step_2.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "6562_5",
+    "image_path": "6562_pair4/step_5.png",
+    "llm_output": "Type",
+    "llm_prediction": {
+      "action": "Type"
+    },
+    "ground_truth_action": "type",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "14251_3",
+    "image_path": "14251_pair1/step_3.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "9318_1",
+    "image_path": "9318_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "10464_1",
+    "image_path": "10464_pair1/step_1.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "click",
+    "type_match": true,
+    "use_simplified_prompt": true
+  },
+  {
+    "question_id": "20055_6",
+    "image_path": "20055_pair4/step_6.png",
+    "llm_output": "Click",
+    "llm_prediction": {
+      "action": "Click"
+    },
+    "ground_truth_action": "swipe",
+    "type_match": false,
+    "use_simplified_prompt": true
+  }
+]

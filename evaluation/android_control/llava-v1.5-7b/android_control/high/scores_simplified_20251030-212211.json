@@ -1,0 +1,36 @@
+{
+  "total_jobs": 438,
+  "type_match_acc": 25.34246575342466,
+  "error_num": 0,
+  "evaluation_mode": "simplified",
+  "action_type_stats": {
+    "type": {
+      "total": 121,
+      "correct": 42
+    },
+    "click": {
+      "total": 260,
+      "correct": 57
+    },
+    "wait": {
+      "total": 14,
+      "correct": 3
+    },
+    "open": {
+      "total": 10,
+      "correct": 9
+    },
+    "swipe": {
+      "total": 14,
+      "correct": 0
+    },
+    "system_button": {
+      "total": 17,
+      "correct": 0
+    },
+    "long_press": {
+      "total": 2,
+      "correct": 0
+    }
+  }
+}
