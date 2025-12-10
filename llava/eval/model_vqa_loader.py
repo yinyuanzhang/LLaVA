@@ -289,5 +289,12 @@ if __name__ == "__main__":
     parser.add_argument("--similarity-threshold", type=float, default=0.1, help="Similarity threshold for cache matching (lower = stricter)")
     parser.add_argument("--yolo-model-path", type=str, default="./checkpoints/yolov/yolov8n-seg.pt", help="Path to YOLO segmentation model")
     parser.add_argument("--is-flexible-route", action="store_true", default=False, help="Enable flexible routing: use native encoding when cache misses")
+
+    # CLIP encoder 相关参数
+    parser.add_argument("--window-size", type=int, default=56,
+                       help="Window size for mask processing in CLIP encoder (default: 56)")
+    parser.add_argument("--use-reset-position-ids", action="store_true", default=False,
+                       help="Enable reset position IDs for ablation experiments in CLIP encoder")
+
     args = parser.parse_args()
     eval_model(args)

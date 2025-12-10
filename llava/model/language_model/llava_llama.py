@@ -143,6 +143,12 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         if hasattr(model_args[0], "is_flexible_route"):
             config.is_flexible_route = model_args[0].is_flexible_route
 
+        # 【新增】CLIP encoder 参数传递（window_size 和 use_reset_position_ids）
+        if hasattr(model_args[0], "window_size"):
+            config.window_size = model_args[0].window_size
+        if hasattr(model_args[0], "use_reset_position_ids"):
+            config.use_reset_position_ids = model_args[0].use_reset_position_ids
+
         super(LlamaForCausalLM, self).__init__(config)
 
         # 【核心修复】根据 method_type 和 cache_mode 选择模型架构
@@ -569,11 +575,11 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         image_sizes = kwargs.pop("image_sizes", None)
 
         # 位置优化的调试代码
-        # # 针对自定义 position_ids 的关键修改
-        # is_decode_phase = past_key_values is not None
-        # is_segmentation_mode = getattr(self, 'method_type', None) == 'segmentation-cache'
-        # if is_decode_phase and is_segmentation_mode:
-        #     kwargs.pop("position_ids", None)
+        # 针对自定义 position_ids 的关键修改
+        is_decode_phase = past_key_values is not None
+        is_segmentation_mode = getattr(self, 'method_type', None) == 'segmentation-cache'
+        if is_decode_phase and is_segmentation_mode:
+            kwargs.pop("position_ids", None)
 
         inputs = super().prepare_inputs_for_generation(
             input_ids, past_key_values=past_key_values, inputs_embeds=inputs_embeds, **kwargs

@@ -129,25 +129,24 @@ def generate_jobs_from_filtered_data(image_root: str, eval_file: str, eval_type:
             #         "**Do not** return JSON, XML, or any other text."
             # )
 
+
             tool_system_prompt = (
                     "\\n\\n# Next Action Selection\\n\\n"
-                    "Based on the user query and task progress, you must select the single best action to perform next.\\n\\n"
+                    "The image is a screenshot of mobile phone. Based on the screenshot, user query and task progress, you must select the single best action to perform next.\\n\\n"
                     "## Available Actions:\\n"
                     # 这里我们从您原来的prompt中提取了动作列表，作为上下文
                     "* `click`: Click the point on the screen.\\n"
+                    "* `type`: Input text into the activated input box.\\n"
                     "* `long_press`: Press the point on the screen.\\n"
                     "* `swipe`: Swipe from one point to another.\\n"
-                    "* `type`: Input text into the activated input box.\\n"
                     "* `system_button`: Press the system button.\\n"
                     "* `open`: Open an app on the device.\\n"
                     "* `wait`: Wait for the change to happen.\\n"
                     
                     "## Output Format\\n"
-                    "Return **only** the name of the action you selected from the list (e.g., `click`, `swipe`).\\n"
+                    "Return **only** the name of the action you selected from the list based on the screenshot, user query and task progress(e.g., `wait`, `type`).\\n"
                     "**Do not** return JSON, XML, or any other text."
             )
-
-
 
 
             system_message = system_prompt + tool_system_prompt
@@ -692,7 +691,13 @@ if __name__ == "__main__":
                        help="Similarity threshold for cache matching (lower = stricter)")
 
     parser.add_argument("--is-flexible-route", action="store_true", default=False, help="Enable flexible routing: use native encoding when cache misses")
-    
+
+    # CLIP encoder 相关参数
+    parser.add_argument("--window-size", type=int, default=56,
+                       help="Window size for mask processing in CLIP encoder (default: 56)")
+    parser.add_argument("--use-reset-position-ids", action="store_true", default=False,
+                       help="Enable reset position IDs for ablation experiments in CLIP encoder")
+
     args = parser.parse_args()
     print(args)
     run_evaluation(args)

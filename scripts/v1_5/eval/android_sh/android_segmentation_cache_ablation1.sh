@@ -16,7 +16,7 @@ TEMPERATURE=0.0
 SEED=42
 
 # Similarity thresholds to test
-THRESHOLDS=(0.2)
+THRESHOLDS=(0.1)
 
 # 为每个阶段创建带有时间戳的唯一输出文件
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
@@ -25,7 +25,7 @@ ANSWERS_FILE_WRITE="$SAVE_DIR/answers-android-control-segmentation-cache-${EXTRA
 # 确保输出目录存在
 mkdir -p "$SAVE_DIR"
 
-export CUDA_VISIBLE_DEVICES="6"
+export CUDA_VISIBLE_DEVICES="7"
 export LD_LIBRARY_PATH=""
 
 # --- Step 1: Write-only 阶段: 构建缓存 ---
@@ -48,7 +48,7 @@ python llava/eval/llava_android_control.py \
     --conv-mode "vicuna_v1" \
     --use-lightweight-query-key \
     --query-key-extractor-type "$EXTRACTOR_TYPE" \
-    --similarity-threshold 0.1
+    --similarity-threshold 0.1 
 
 if [ $? -ne 0 ]; then
     echo "Error: Write-only mode failed. Cannot proceed with read-load mode."

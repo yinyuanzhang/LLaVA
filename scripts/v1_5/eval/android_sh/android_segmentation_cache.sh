@@ -16,7 +16,7 @@ TEMPERATURE=0.0
 SEED=42
 
 # Similarity thresholds to test
-THRESHOLDS=(0.2 0.0 0.1 0.3)
+THRESHOLDS=(0.2)
 
 # 为每个阶段创建带有时间戳的唯一输出文件
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
@@ -25,7 +25,7 @@ ANSWERS_FILE_WRITE="$SAVE_DIR/answers-android-control-segmentation-cache-${EXTRA
 # 确保输出目录存在
 mkdir -p "$SAVE_DIR"
 
-export CUDA_VISIBLE_DEVICES="6"
+export CUDA_VISIBLE_DEVICES="7"
 export LD_LIBRARY_PATH=""
 
 # --- Step 1: Write-only 阶段: 构建缓存 ---

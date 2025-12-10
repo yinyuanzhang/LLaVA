@@ -16,7 +16,7 @@ TEMPERATURE=0.0
 SEED=42
 
 # Similarity thresholds to test
-THRESHOLDS=(0.2)
+THRESHOLDS=(0.1)
 
 # 为每个阶段创建带有时间戳的唯一输出文件
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
@@ -49,7 +49,8 @@ python llava/eval/llava_android_control.py \
     --conv-mode "vicuna_v1" \
     --use-lightweight-query-key \
     --query-key-extractor-type "$EXTRACTOR_TYPE" \
-    --similarity-threshold 0.1
+    --similarity-threshold 0.1 \
+    --use-reset-position-ids    
 
 if [ $? -ne 0 ]; then
     echo "Error: Write-only mode failed. Cannot proceed with read-load mode."
@@ -84,7 +85,8 @@ for THRESHOLD in "${THRESHOLDS[@]}"; do
         --use-lightweight-query-key \
         --query-key-extractor-type "$EXTRACTOR_TYPE" \
         --similarity-threshold "$THRESHOLD" \
-        --is-flexible-route
+        --is-flexible-route \
+        --use-reset-position-ids
 
     if [ $? -ne 0 ]; then
         echo "Warning: Read-load mode failed for threshold ${THRESHOLD}. Skipping."

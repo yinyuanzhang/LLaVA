@@ -31,8 +31,7 @@ ANSWERS_FILE_WRITE="$AUTO_DL_TMP/playground/data/eval/pope/answers/llava-v1.5-7b
 mkdir -p $(dirname "$ANSWERS_FILE_WRITE")
 
 python -m llava.eval.model_vqa_loader \
-    --model-path "$MODEL_PATH" \
-    --model-base "$MODEL_BASE" \
+    --model-path "$MODEL_BASE" \
     --question-file "$QUESTION_FILE" \
     --image-folder "$FUZZY_IMAGE_FOLDER" \
     --answers-file "$ANSWERS_FILE_WRITE" \
@@ -43,7 +42,8 @@ python -m llava.eval.model_vqa_loader \
     --dataset pope \
     --query-key-extractor-type "$EXTRACTOR_TYPE" \
     --similarity-threshold 0.1 \
-    --use-lightweight-query-key
+    --use-lightweight-query-key \
+    --window-size 14
 
 if [ ! -f "$ANSWERS_FILE_WRITE" ] || [ ! -s "$ANSWERS_FILE_WRITE" ]; then
     echo "Error: Write-only mode failed. Cannot proceed with read-load mode."
@@ -62,8 +62,7 @@ for THRESHOLD in "${THRESHOLDS[@]}"; do
     ANSWERS_FILE_READ="$AUTO_DL_TMP/playground/data/eval/pope/answers/llava-v1.5-7b-segmentation-cache-${EXTRACTOR_TYPE}-read-threshold-${THRESHOLD}-${TIMESTAMP}.jsonl"
 
     python -m llava.eval.model_vqa_loader \
-        --model-path "$MODEL_PATH" \
-        --model-base "$MODEL_BASE" \
+        --model-path "$MODEL_BASE" \
         --question-file "$QUESTION_FILE" \
         --image-folder "$IMAGE_FOLDER" \
         --answers-file "$ANSWERS_FILE_READ" \
@@ -75,7 +74,8 @@ for THRESHOLD in "${THRESHOLDS[@]}"; do
         --query-key-extractor-type "$EXTRACTOR_TYPE" \
         --use-lightweight-query-key \
         --similarity-threshold "$THRESHOLD" \
-        --is-flexible-route        
+        --is-flexible-route \
+        --window-size 14         
 
     if [ ! -f "$ANSWERS_FILE_READ" ] || [ ! -s "$ANSWERS_FILE_READ" ]; then
         echo "Warning: Read-load mode failed for threshold ${THRESHOLD}. Skipping evaluation."

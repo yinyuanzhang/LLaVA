@@ -3,7 +3,7 @@
 # --- Configuration ---
 AUTO_DL_TMP="$HOME/autodl-tmp"
 export LD_LIBRARY_PATH=""
-export CUDA_VISIBLE_DEVICES="6"
+export CUDA_VISIBLE_DEVICES="7"
 
 # Model Configuration
 MODEL_PATH="~/.cache/huggingface/hub/llava-v1.5-7b-task-lora-window-16/checkpoint-5500"
@@ -31,7 +31,8 @@ ANSWERS_FILE_WRITE="$AUTO_DL_TMP/playground/data/eval/pope/answers/llava-v1.5-7b
 mkdir -p $(dirname "$ANSWERS_FILE_WRITE")
 
 python -m llava.eval.model_vqa_loader \
-    --model-path "$MODEL_BASE" \
+    --model-path "$MODEL_PATH" \
+    --model-base "$MODEL_BASE" \
     --question-file "$QUESTION_FILE" \
     --image-folder "$FUZZY_IMAGE_FOLDER" \
     --answers-file "$ANSWERS_FILE_WRITE" \
@@ -42,7 +43,8 @@ python -m llava.eval.model_vqa_loader \
     --dataset pope \
     --query-key-extractor-type "$EXTRACTOR_TYPE" \
     --similarity-threshold 0.1 \
-    --use-lightweight-query-key
+    --use-lightweight-query-key \
+    --use-reset-position-ids
 
 if [ ! -f "$ANSWERS_FILE_WRITE" ] || [ ! -s "$ANSWERS_FILE_WRITE" ]; then
     echo "Error: Write-only mode failed. Cannot proceed with read-load mode."
@@ -61,7 +63,8 @@ for THRESHOLD in "${THRESHOLDS[@]}"; do
     ANSWERS_FILE_READ="$AUTO_DL_TMP/playground/data/eval/pope/answers/llava-v1.5-7b-segmentation-cache-${EXTRACTOR_TYPE}-read-threshold-${THRESHOLD}-${TIMESTAMP}.jsonl"
 
     python -m llava.eval.model_vqa_loader \
-        --model-path "$MODEL_BASE" \
+        --model-path "$MODEL_PATH" \
+        --model-base "$MODEL_BASE" \
         --question-file "$QUESTION_FILE" \
         --image-folder "$IMAGE_FOLDER" \
         --answers-file "$ANSWERS_FILE_READ" \
@@ -73,7 +76,8 @@ for THRESHOLD in "${THRESHOLDS[@]}"; do
         --query-key-extractor-type "$EXTRACTOR_TYPE" \
         --use-lightweight-query-key \
         --similarity-threshold "$THRESHOLD" \
-        --is-flexible-route        
+        --is-flexible-route \
+        --use-reset-position-ids
 
     if [ ! -f "$ANSWERS_FILE_READ" ] || [ ! -s "$ANSWERS_FILE_READ" ]; then
         echo "Warning: Read-load mode failed for threshold ${THRESHOLD}. Skipping evaluation."

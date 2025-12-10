@@ -16,21 +16,20 @@ import os
 
 class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
     def __init__(self, config: CLIPVisionConfig, args):
-        super().__init__(config)  
+        super().__init__(config)        
 
-        print(f"Your are using image-catch-pattern, Using CLIPVisionTransformerWithBackgroundObject.")
-        # 替换现有的 embeddings [目标检测、 mask标记]
-        # self.embeddings = MyCLIPVisionEmbeddings(config, args)
+        # 1. 获取消融实验配置
+        self.use_reset_position_ids = getattr(args, "use_reset_position_ids", False)
+        # 2. 获取 window_size 配置
+        self.window_size = getattr(args, "window_size", 56)
+
+        mode_msg = "Ablation: Reset Position IDs (0,1,2...)" if self.use_reset_position_ids else "Default: Original Position IDs"
+        print(f"Using CLIPVisionTransformerWithBackgroundObject.")
+        print(f"Current Mode: {mode_msg} (CLS token enabled internally for both modes)")
+        print(f"Window Size: {self.window_size}")
+        print(f"Reset Position IDs: {self.use_reset_position_ids}")
+        
         self.config = config
-
-        # self.embeddings = CLIPVisionEmbeddings(config)
-
-        # # 添加两个独立的 Transformer 编码器
-        # self.background_object_encoder = CLIPEncoder(config)
-
-        # self.encoder = None
-
-        # self.post_layernorm = None
 
     def forward(
         self,
@@ -40,29 +39,16 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         output_hidden_states: Optional[bool] = None,
         return_dict: Optional[bool] = None,
     ) -> Union[Tuple, BaseModelOutputWithPooling]:
-        
-        
-        ################################## MODIFICATION START ##################################
-        # 目的: 增加一个“回退”到原生行为的逻辑。
-        #       当这个方法在原生路径下被调用时（即 masks is None），
-        #       它应该表现得和原始的 CLIPVisionTransformer 完全一样。
+
+        # 回退逻辑：如果没有 mask，表现如原生 CLIP
         if masks is None:
-            # 如果没有提供 mask，则调用父类（即原生 CLIPVisionTransformer）的 forward 方法
             return super().forward(
                 pixel_values=pixel_values,
                 output_attentions=output_attentions,
                 output_hidden_states=output_hidden_states,
                 return_dict=return_dict,
             )
-        ################################### MODIFICATION END ###################################
-        
-        
-        """
-        Args:
-            pixel_values (torch.Tensor): 输入图像张量，形状为 (batch_size, num_channels, height, width)。
-        Returns:
-            BaseModelOutputWithPooling: 包含最后一层隐藏状态和池化输出的结果。
-        """
+
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
@@ -72,60 +58,63 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
         if pixel_values is None:
             raise ValueError("You have to specify pixel_values")
 
-        # 1. embedding 2. 根据index进行重组 -> list 3. 根据list，进行最大padding，同时记录mask 
-
-
-
-        # masks = masks[:, 0, :, :].float()
-        # mask_4d = masks.unsqueeze(1)
-        # pool = torch.nn.MaxPool2d(kernel_size=self.config.patch_size, stride=self.config.patch_size)
-        # patch_mask = pool(mask_4d)
-        # patch_mask = (patch_mask.squeeze(1) > 0).int()
-
-
-        # set window_size  336/14 = 24;   336/168 = 2;  336/112 = 3; 336/84 = 4; 
-        window_size = 56  # 相当于 4*4；         
-        # window_size = 28   相当于2*2
-
-        # 获取嵌入表示
+        # ============================ PHASE 1: Embedding & Pre-processing ============================
+        # 获取基础 Embedding (Patch + Position + CLS)
         hidden_states = self.embeddings(pixel_values)
-        hidden_states = self.pre_layrnorm(hidden_states)
 
-        masks = masks[:, 0, :, :].float()
-        mask_4d = masks.unsqueeze(1)
+        if self.use_reset_position_ids:
+            # 【消融模式】：我们需要纯净的 Patch 特征
+            # 1. 减去原始位置编码
+            seq_len = hidden_states.shape[1]
+            pos_ids = torch.arange(seq_len, device=hidden_states.device).unsqueeze(0)
+            orig_pos_embeds = self.embeddings.position_embedding(pos_ids)
+            hidden_states = hidden_states - orig_pos_embeds
+            
+            # 注意：消融模式下，Pre-LayerNorm 延迟到 Padding 之后做
+        else:
+            # 【默认模式】：保持原有逻辑，立即做 LayerNorm
+            # 此时 hidden_states 里包含了：[CLS(含Pos=0), Patch(含Pos=X)...]
+            hidden_states = self.pre_layrnorm(hidden_states)
+
+        # ============================ PHASE 2: Mask Processing ============================
+        window_size = self.window_size  # 使用可配置的window_size
+        masks_float = masks[:, 0, :, :].float()
+        mask_4d = masks_float.unsqueeze(1)
         pool = torch.nn.MaxPool2d(kernel_size=window_size, stride=window_size)
         window_mask = pool(mask_4d)
         window_mask = (window_mask.squeeze(1) > 0).int()
         
-        num_patches_per_window = window_size // self.config.patch_size  # 每个窗口包含的小 patch 数量
+        num_patches_per_window = window_size // self.config.patch_size
         patch_mask = window_mask.repeat_interleave(num_patches_per_window, dim=1).repeat_interleave(num_patches_per_window, dim=2)
                 
-        
-        
-        # 这里可以被迁移到 process处 进行图片的mask效果验证【或许可以增加 mask的边界】
-
-        # 分离背景和目标的索引
         batch_size, seq_len, embed_dim = hidden_states.shape
-
-        # 展平 patch_mask 并检查 mask 值是否为 0 或 1
         patch_mask = patch_mask.view(batch_size, -1)
         assert torch.all((patch_mask == 0) | (patch_mask == 1)), "Mask values must be either 0 or 1"
 
-        # 找到背景和目标索引
-        background_indices = [torch.where(patch_mask[i] == 0)[0] + 1 for i in range(batch_size)]
-        target_indices = [torch.where(patch_mask[i] == 1)[0] + 1 for i in range(batch_size)]
+        # ============================ PHASE 3: Indexing (UNIFIED) ============================
+        # 核心修改：无论什么模式，我们都显式加入 CLS Token (Index 0)
+        # 这样保证了 Transformer 内部计算的语义完整性
+        
+        cls_index = torch.tensor([0], device=pixel_values.device, dtype=torch.long)
 
-        # 新增：计算完整的重排映射
+        background_indices = []
+        target_indices = []
         full_reorder_mapping = []
+
         for i in range(batch_size):
-            # 创建重排后的patch索引序列（background + foreground）
-            reordered_indices = torch.cat([
-                background_indices[i] - 1,  # 背景patch原始索引 (减1因为之前+1了)
-                target_indices[i] - 1       # 前景patch原始索引
-            ])
+            # 找到 Patch 索引
+            bg_patches = torch.where(patch_mask[i] == 0)[0] + 1
+            fg_patches = torch.where(patch_mask[i] == 1)[0] + 1
+            
+            # 【统一逻辑】拼接 CLS: [0, bg1, bg2...]
+            background_indices.append(torch.cat([cls_index, bg_patches]))
+            target_indices.append(torch.cat([cls_index, fg_patches]))
+
+            # Mapping 保持仅 Patch 的逻辑 (用于可视化/debug，不含CLS)
+            reordered_indices = torch.cat([bg_patches - 1, fg_patches - 1])
             full_reorder_mapping.append(reordered_indices)
 
-        # 提取背景和目标嵌入
+        # 提取嵌入
         background_embeddings = [
             hidden_states[i, background_indices[i]] for i in range(batch_size)
         ]
@@ -133,14 +122,38 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
             hidden_states[i, target_indices[i]] for i in range(batch_size)
         ]
 
+        # ============================ PHASE 4: Ablation Logic (Reset Pos) ============================
+        if self.use_reset_position_ids:
+            pos_layer = self.embeddings.position_embedding
+            
+            for i in range(batch_size):
+                # --- 处理背景 ---
+                # background_embeddings[i] 现在是 [CLS, Patch1, ...]
+                # new_bg_pos 是 [0, 1, ...]
+                # 结果：CLS 获得 Pos=0 (正确), Patch1 获得 Pos=1 (正确)
+                n_bg = background_embeddings[i].shape[0]
+                new_bg_pos = torch.arange(n_bg, device=pixel_values.device)
+                background_embeddings[i] = background_embeddings[i] + pos_layer(new_bg_pos)
+                
+                # --- 处理前景 ---
+                n_obj = object_embeddings[i].shape[0]
+                new_obj_pos = torch.arange(n_obj, device=pixel_values.device)
+                object_embeddings[i] = object_embeddings[i] + pos_layer(new_obj_pos)
+
+        # Padding
         background_embeddings_padded = pad_sequence(background_embeddings, batch_first=True)
         object_embeddings_padded = pad_sequence(object_embeddings, batch_first=True)
 
-        # 获取最大长度
+        # ============================ PHASE 5: Delayed LayerNorm (Ablation only) ============================
+        if self.use_reset_position_ids:
+            # 在加上新位置编码后，执行 LN
+            background_embeddings_padded = self.pre_layrnorm(background_embeddings_padded)
+            object_embeddings_padded = self.pre_layrnorm(object_embeddings_padded)
+
+        # ============================ PHASE 6: Encoder Forward ============================
         max_background_len = background_embeddings_padded.size(1)
         max_object_len = object_embeddings_padded.size(1)
 
-        # 生成背景和目标的掩码
         background_lengths = torch.tensor([len(x) for x in background_embeddings], device=pixel_values.device)
         object_lengths = torch.tensor([len(x) for x in object_embeddings], device=pixel_values.device)
 
@@ -152,15 +165,16 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
             torch.arange(max_object_len, device=pixel_values.device).unsqueeze(0) < object_lengths.unsqueeze(1)
         ).to(torch.bool)
 
-        num_heads = self.encoder.layers[0].self_attn.num_heads
+        # 构建 Attention Mask
         background_attention_mask_2d = background_attention_mask.unsqueeze(2) & background_attention_mask.unsqueeze(1)
         object_attention_mask_2d = object_attention_mask.unsqueeze(2) & object_attention_mask.unsqueeze(1)
-        
         background_attention_mask_4d = background_attention_mask_2d.unsqueeze(1)
         object_attention_mask_4d = object_attention_mask_2d.unsqueeze(1)  
 
-
-        # 分别通过背景和目标的编码器
+        # 此时输入 Encoder 的数据：
+        # - 默认模式：[CLS(原Pos), Patch(原Pos)...]
+        # - 消融模式：[CLS(新Pos=0), Patch(新Pos=1,2...)...]
+        # 二者结构完全一致，非常完美！
         background_outputs = self.encoder(
             inputs_embeds=background_embeddings_padded,
             attention_mask=background_attention_mask_4d,
@@ -176,45 +190,62 @@ class CLIPVisionTransformerWithBackgroundObject(CLIPVisionTransformer):
             return_dict=return_dict,
         )
 
-        # 如果返回元组形式的结果
+        # ============================ PHASE 7: Output Slicing (Trimming CLS) ============================
+        # 核心承诺：无论什么模式，在返回给下游之前，无条件切除 CLS Token (Index 0)
+        # 确保输出数量严格等于 Patch 数量 (576)
+        
+        # 1. 切除 last_hidden_state [:, 1:, :]
+        background_outputs.last_hidden_state = background_outputs.last_hidden_state[:, 1:, :]
+        object_outputs.last_hidden_state = object_outputs.last_hidden_state[:, 1:, :]
+
+        # 2. 切除 attention_mask [:, 1:] (用于下游 token 计数验证)
+        background_attention_mask = background_attention_mask[:, 1:]
+        object_attention_mask = object_attention_mask[:, 1:]
+
+        # 3. 切除 hidden_states tuple (如果存在)
+        if background_outputs.hidden_states is not None:
+            background_outputs.hidden_states = tuple(h[:, 1:, :] for h in background_outputs.hidden_states)
+            object_outputs.hidden_states = tuple(h[:, 1:, :] for h in object_outputs.hidden_states)
+
+        # 4. pooler_output 不需要切，它本身就是 CLS 的投影结果 (保留它不影响下游 patch 逻辑)
+
+        # ============================ PHASE 8: Return ============================
         if return_dict:
             return [
                 (
-                    background_outputs.hidden_states[-2],  # 背景的 last_hidden_state
-                    background_outputs[1:],  # 背景的其他输出（如 hidden_states 和 attentions）
-                    background_attention_mask,  # 背景的掩码
-                    patch_mask,  # 完整的 [576] patch mask，用于 query_key_extractor
-                    full_reorder_mapping[0]  # 新增：重排映射 [background_indices..., foreground_indices...]
+                    background_outputs.hidden_states[-2],
+                    background_outputs[1:],
+                    background_attention_mask, # 已切除 CLS，长度正确
+                    patch_mask,
+                    full_reorder_mapping[0]
                 ),
                 (
-                    object_outputs.hidden_states[-2],  # 目标的 last_hidden_state
-                    object_outputs[1:],  # 目标的其他输出（如 hidden_states 和 attentions）
-                    object_attention_mask,  # 目标的掩码
-                    patch_mask,  # 完整的 [576] patch mask，用于 query_key_extractor
-                    full_reorder_mapping[0]  # 新增：重排映射 [background_indices..., foreground_indices...]
+                    object_outputs.hidden_states[-2],
+                    object_outputs[1:],
+                    object_attention_mask, # 已切除 CLS，长度正确
+                    patch_mask,
+                    full_reorder_mapping[0]
                 )
             ]
 
-        # 返回两个 BaseModelOutputWithPooling 对象，并附加完整的 patch_mask 和重排映射
         return (
             BaseModelOutputWithPooling(
                 last_hidden_state=background_outputs[0],
                 pooler_output=background_outputs.pooler_output,
                 hidden_states=background_outputs.hidden_states,
                 attentions=background_outputs.attentions,
-                attention_mask=background_attention_mask  # 背景的掩码
+                attention_mask=background_attention_mask
             ),
             BaseModelOutputWithPooling(
                 last_hidden_state=object_outputs[0],
                 pooler_output=object_outputs.pooler_output,
                 hidden_states=object_outputs.hidden_states,
                 attentions=object_outputs.attentions,
-                attention_mask=object_attention_mask  # 目标的掩码
+                attention_mask=object_attention_mask
             ),
-            patch_mask,  # 完整的 [576] patch mask，用于 query_key_extractor
-            full_reorder_mapping[0]  # 新增：重排映射 [background_indices..., foreground_indices...]
+            patch_mask,
+            full_reorder_mapping[0]
         )
-        
 
 class YOLOInference:
     def __init__(self, model_path="yolov8l.pt"):

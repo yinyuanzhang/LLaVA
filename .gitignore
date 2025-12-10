@@ -39,3 +39,5 @@ ckpts*
 serve_images/
 
 faiss/*
+
+*.json

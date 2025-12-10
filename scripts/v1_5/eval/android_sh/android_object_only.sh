@@ -21,7 +21,7 @@ ANSWERS_FILE="$SAVE_DIR/answers-android-control-object-only-${EVAL_TYPE}-${TIMES
 # 确保输出目录存在
 mkdir -p "$SAVE_DIR"
 
-export CUDA_VISIBLE_DEVICES="3"
+export CUDA_VISIBLE_DEVICES="5"
 export LD_LIBRARY_PATH=""
 
 # --model-path $MODEL_PATH \

@@ -21,7 +21,7 @@ ANSWERS_FILE="$SAVE_DIR/answers-android-control-native-${EVAL_TYPE}-${TIMESTAMP}
 # 确保输出目录存在
 mkdir -p "$SAVE_DIR"
 
-export CUDA_VISIBLE_DEVICES="4"
+export CUDA_VISIBLE_DEVICES="6"
 export LD_LIBRARY_PATH=""
 
 # --model-path $MODEL_PATH \

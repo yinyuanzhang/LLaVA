@@ -150,12 +150,16 @@ class LlavaMetaModel:
         base_cache_path = "/data/zyy/LLaVA/faiss"
         dynamic_cache_path = os.path.join(base_cache_path, self.method_type, model_name, dataset_name)
 
+        # 【新增】为window_size创建独立缓存路径，防止消融实验中的缓存污染
+        window_size = getattr(config, 'window_size', 56)
+
         # FineGym特殊处理：为不同阈值创建独立缓存路径
         if dataset_name == "finegym":
-            threshold_str = f"threshold_{self.similarity_threshold:.1f}".replace(".", "_")
-            dynamic_cache_path = os.path.join(dynamic_cache_path, extractor_type, threshold_str)
+            # 使用3位小数精度避免阈值冲突 (0.2->0_200, 0.25->0_250, 0.275->0_275)
+            threshold_str = f"threshold_{self.similarity_threshold:.3f}".replace(".", "_")
+            dynamic_cache_path = os.path.join(dynamic_cache_path, extractor_type, f"window_{window_size}", threshold_str)
         else:
-            dynamic_cache_path = os.path.join(dynamic_cache_path, extractor_type)
+            dynamic_cache_path = os.path.join(dynamic_cache_path, extractor_type, f"window_{window_size}")
 
         return {
             'dataset_name': dataset_name,
@@ -1166,6 +1170,12 @@ class LlavaMetaForCausalLM(ABC):
                 self.get_model().stats['with_cache_count'] += 1
         # ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
+        # 【新增】为消融v2保存token数量信息
+        if (getattr(self.config, 'use_reset_position_ids', False) and
+            self.method_type == "segmentation-cache"):  
+            self.get_model()._bg_token_count = background_valid_final
+            self.get_model()._fg_token_count = current_obj_valid_count
+        
         return concatenated_features
 
 
@@ -1490,7 +1500,60 @@ class LlavaMetaForCausalLM(ABC):
                 if cur_len > 0:
                     new_labels_padded[i, :cur_len] = cur_new_labels
                     attention_mask[i, :cur_len] = True
-                    position_ids[i, :cur_len] = torch.arange(0, cur_len, dtype=position_ids.dtype, device=position_ids.device)
+                    # position_ids[i, :cur_len] = torch.arange(0, cur_len, dtype=position_ids.dtype, device=position_ids.device)
+
+
+                # ========== 【修改】先创建默认的连续position_ids ==========
+                position_ids[i, :cur_len] = torch.arange(0, cur_len, dtype=position_ids.dtype, device=position_ids.device)
+
+                # ========== 【新增】消融v2：只修改图像部分(BG和FG)的位置编码 ==========
+                if (getattr(self.config, 'use_reset_position_ids', False) and
+                    self.method_type == "segmentation-cache" and
+                    hasattr(self.get_model(), '_image_token_positions') and
+                    hasattr(self.get_model(), '_bg_token_count') and
+                    hasattr(self.get_model(), '_fg_token_count')):
+
+                    # 获取必要信息
+                    image_start_pos = self.get_model()._image_token_positions[0]
+                    bg_count = self.get_model()._bg_token_count
+                    fg_count = self.get_model()._fg_token_count
+
+                    # 计算图像部分的范围
+                    bg_start = image_start_pos
+                    bg_end = image_start_pos + bg_count
+                    fg_start = bg_end
+                    fg_end = fg_start + fg_count
+
+                    # 【关键修改】BG和FG都从0开始重新编码，System和Query保持不变
+                    # 背景部分：[0, 1, 2, ..., bg_count-1]
+                    position_ids[i, bg_start:bg_end] = torch.arange(
+                        0,
+                        bg_count,
+                        dtype=position_ids.dtype,
+                        device=position_ids.device
+                    )
+
+                    # 前景部分：也从0开始（重叠！）
+                    position_ids[i, fg_start:fg_end] = torch.arange(
+                        0,
+                        fg_count,
+                        dtype=position_ids.dtype,
+                        device=position_ids.device
+                    )
+
+                    # System和Query部分保持默认的连续编码（已在上面Line 1505设置，这里不需要再修改）
+
+                    print(f"[消融v2] 独立位置编码 (BG/FG从0开始, System/Query保持不变):")
+                    print(f"  System: [0-{image_start_pos-1}] = {image_start_pos} tokens (不变)")
+                    print(f"  BG: [{position_ids[i, bg_start].item()}-{position_ids[i, bg_end-1].item()}] = {bg_count} tokens (从0开始)")
+                    print(f"  FG: [{position_ids[i, fg_start].item()}-{position_ids[i, fg_end-1].item()}] = {fg_count} tokens (从0开始)")
+                    query_start = fg_end
+                    query_count = cur_len - query_start
+                    if query_count > 0:
+                        print(f"  Query: [{position_ids[i, query_start].item()}-{position_ids[i, -1].item()}] = {query_count} tokens (不变)")
+
+                    # 关键
+                    _position_ids = position_ids
 
         new_input_embeds = torch.stack(new_input_embeds_padded, dim=0)
 
@@ -1522,6 +1585,12 @@ class LlavaMetaForCausalLM(ABC):
         # native模式保持原逻辑
         if _position_ids is None:
             position_ids = None
+
+        # 【新增】清理临时变量（无条件清理，避免残留）
+        if hasattr(self.get_model(), '_bg_token_count'):
+            delattr(self.get_model(), '_bg_token_count')
+        if hasattr(self.get_model(), '_fg_token_count'):
+            delattr(self.get_model(), '_fg_token_count')
 
         return None, position_ids, attention_mask, past_key_values, new_input_embeds, new_labels
 
